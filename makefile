@@ -22,3 +22,4 @@ run:
 clean:
 	@rm $(OBJ)/*.o
 	@rm $(BIN)/$(NAME_PROGRAM)
+	@rm *.csv
