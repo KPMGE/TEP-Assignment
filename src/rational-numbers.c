@@ -6,6 +6,7 @@
 #define FALSE 0
 #define TRUE 1
 #define EPSILON 0.00001 
+
 struct rational {
   int numerator;
   int denominator;
@@ -21,6 +22,11 @@ Rational_t* createRationalNumber(int num, int den) {
 
   allocatedRational->numerator = num;
   allocatedRational->denominator = den;
+
+  if (isZeroDenominator(allocatedRational)) {
+    printf("Your number doesn't exist! k/0!");
+    exit(1);
+  } 
 
   return allocatedRational;
 }
@@ -80,8 +86,8 @@ int isZeroOverZero(Rational_t *num) {
 }
 
 Rational_t* sumRationalNumbers(Rational_t *num1, Rational_t *num2) {
-  int sumNumerator = getNumerator(num1) + getNumerator(num2);
-  int sumDenominator = getDenominator(num1) + getDenominator(num2);
+  int sumNumerator = (getNumerator(num1) * getDenominator(num2)) + (getDenominator(num1) * getNumerator(num2));
+  int sumDenominator = getDenominator(num1) * getDenominator(num2);
 
   Rational_t *sum = createRationalNumber(sumNumerator, sumDenominator);
 
@@ -97,8 +103,8 @@ void accumulateRationalNumbers(Rational_t *num1, Rational_t *num2) {
 }
 
 Rational_t* subtractRationalNumbers(Rational_t *num1, Rational_t *num2) {
-  int subNumerator = getNumerator(num1) - getNumerator(num2);
-  int subDenominator = getDenominator(num1) - getDenominator(num2);
+  int subNumerator = (getNumerator(num1) * getDenominator(num2)) - (getDenominator(num1) * getNumerator(num2));
+  int subDenominator = getDenominator(num1) * getDenominator(num2);
 
   Rational_t *sub = createRationalNumber(subNumerator, subDenominator);
 
@@ -123,6 +129,11 @@ void multiplyRationalInside(Rational_t *num1, Rational_t *num2) {
 }
 
 Rational_t* divideRationalNumbers(Rational_t *num1, Rational_t *num2) {
+  if (isZeroNumerator(num2)) {
+    printf("Impossible do this operation!");
+    exit(1);
+  }
+
   int divNumerator = getNumerator(num1) * getDenominator(num2);
   int divDenominator = getDenominator(num1) * getNumerator(num1);
 
@@ -141,7 +152,7 @@ Rational_t* powRationalNumber(Rational_t *num, float power) {
 }
 
 double squareRootRationalNumber(Rational_t *num) {
-  return sqrt(convertRationalToDouble(num));
+  // we need to implement it
 }
 
 double convertRationalToDouble(Rational_t *num) {
@@ -166,7 +177,6 @@ void writeRationalNumberInCsv(Rational_t *num, FILE *file) {
 Rational_t* readRationalNumberFromCsv(FILE *file) {
 
 }
-
 
 void displayRational(Rational_t *num) {
   printf("%d/%d\n", getNumerator(num), getDenominator(num));
