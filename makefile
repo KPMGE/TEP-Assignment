@@ -8,7 +8,10 @@ NAME_PROGRAM = program.exe
 
 all: libed create
 
-libed: $(OBJ)/rational-numbers.o $(OBJ)/main.o
+libed: \
+	$(OBJ)/rational-numbers.o\
+	$(OBJ)/complex.o\
+	$(OBJ)/main.o
 
 create: $(BIN)/$(NAME_PROGRAM) 	
 
