@@ -1,3 +1,6 @@
+#ifndef RATIONAL_NUMBERS_H_INCLUDED
+#define RATIONAL_NUMBERS_H_INCLUDED
+
 typedef struct rational Rational_t;
 
 Rational_t* createRationalNumber(int num, int den);
@@ -29,3 +32,5 @@ void writeRationalNumberInCsv(Rational_t *num, FILE *file);
 //Rational_t* readRationalNumberFromCsv(FILE *file);
 
 void displayRational(Rational_t *num);
+
+#endif

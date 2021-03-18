@@ -160,6 +160,7 @@ double convertRationalToDouble(Rational_t *num) {
 }
 
 Rational_t* convertDoubleToRational(double num) {
+  // wee need to implement it
 }
 
 int canBeConvertedToInt(Rational_t *num) {
@@ -169,13 +170,12 @@ int canBeConvertedToInt(Rational_t *num) {
   return ((number - intPart) < EPSILON) ? TRUE : FALSE;
 }
 
-
 void writeRationalNumberInCsv(Rational_t *num, FILE *file) {
   fprintf(file, "%d/%d,", getNumerator(num), getDenominator(num));
 }
 
 Rational_t* readRationalNumberFromCsv(FILE *file) {
-
+  // we need to implement it
 }
 
 void displayRational(Rational_t *num) {
