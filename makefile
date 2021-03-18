@@ -17,7 +17,10 @@ create:
 	@$(CC) -o $(BIN)/$(NAME_PROGRAM) $(OBJ)/*.o $(FLAGS)
 
 run: 
+	@clear
 	@./$(BIN)/$(NAME_PROGRAM)
+	@echo "\n\n\n"
+	@cowsay "You're the best programmer of the intire world bro!"
 
 clean:
 	@rm $(OBJ)/*.o
