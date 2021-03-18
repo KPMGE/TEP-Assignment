@@ -4,17 +4,21 @@ SRC          = ./src
 BIN          = ./bin
 CC           = gcc 
 FLAGS        = -lm
-NAME_PROGRAM = test.exe
+NAME_PROGRAM = program.exe
 
 all: libed create
 
-libed: rational-numbers.o main.o
+libed: $(OBJ)/rational-numbers.o $(OBJ)/main.o
 
-%.o: $(SRC)/%.c 
-	@$(CC) -c $< -I $(INCLUDE) -o $(OBJ)/$@ 
+create: $(BIN)/$(NAME_PROGRAM) 	
 
-create: 	
-	@$(CC) -o $(BIN)/$(NAME_PROGRAM) $(OBJ)/*.o $(FLAGS)
+# rule for libed
+$(OBJ)/%.o: $(SRC)/%.c  
+	@$(CC) -c $< -I $(INCLUDE) -o $@ 
+
+# rule for create
+$(BIN)/%: 
+	@$(CC) $< $(OBJ)/*.o -I $(INCLUDE) -o $@ $(FLAGS)
 
 run: 
 	@clear
