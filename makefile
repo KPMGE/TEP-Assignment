@@ -11,14 +11,14 @@ all: libed create
 libed: rational-numbers.o main.o
 
 %.o: $(SRC)/%.c 
-	$(CC) -c $< -I $(INCLUDE) -o $(OBJ)/$@ 
+	@$(CC) -c $< -I $(INCLUDE) -o $(OBJ)/$@ 
 
 create: 	
-	$(CC) -o $(BIN)/$(NAME_PROGRAM) $(OBJ)/*.o $(FLAGS)
+	@$(CC) -o $(BIN)/$(NAME_PROGRAM) $(OBJ)/*.o $(FLAGS)
 
 run: 
-	./$(BIN)/$(NAME_PROGRAM)
+	@./$(BIN)/$(NAME_PROGRAM)
 
 clean:
-	rm $(OBJ)/*.o
-	rm $(BIN)/$(NAME_PROGRAM)
+	@rm $(OBJ)/*.o
+	@rm $(BIN)/$(NAME_PROGRAM)
