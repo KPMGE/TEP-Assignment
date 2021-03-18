@@ -21,9 +21,11 @@ Rational_t* multiplyRationalNumbers(Rational_t *num1, Rational_t *num2);
 void multiplyRationalInside(Rational_t *num1, Rational_t *num2);
 Rational_t* divideRationalNumbers(Rational_t *num1, Rational_t *num2);
 Rational_t* powRationalNumber(Rational_t *num, float power);
-Rational_t* squareRootRationalNumber(Rational_t *num1, float power);
+double squareRootRationalNumber(Rational_t *num);
 double convertRationalToDouble(Rational_t *num);
 Rational_t* conbertDoubleToRational(double num);
 int canBeConvertedToInt(Rational_t *num);
 //void writeRationalNumberInCsv(Rational_t *num, FILE *file);
 //Rational_t* readRationalNumberFromCsv(FILE *file);
+
+void displayRational(Rational_t *num);
