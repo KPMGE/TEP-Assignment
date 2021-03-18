@@ -148,7 +148,7 @@ double convertRationalToDouble(Rational_t *num) {
   return getNumerator(num) / (double)getDenominator(num);
 }
 
-Rational_t* conbertDoubleToRational(double num) {
+Rational_t* convertDoubleToRational(double num) {
 }
 
 int canBeConvertedToInt(Rational_t *num) {
@@ -160,7 +160,7 @@ int canBeConvertedToInt(Rational_t *num) {
 
 
 void writeRationalNumberInCsv(Rational_t *num, FILE *file) {
-
+  fprintf(file, "%d/%d,", getNumerator(num), getDenominator(num));
 }
 
 Rational_t* readRationalNumberFromCsv(FILE *file) {
