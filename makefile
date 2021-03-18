@@ -3,7 +3,7 @@ INCLUDE      = ./include
 SRC          = ./src
 BIN          = ./bin
 CC           = gcc 
-FLAGS        = -lm
+FLAGS        = -lm -Wall -O3 -std=c99
 NAME_PROGRAM = program.exe
 
 all: libed create
