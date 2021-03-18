@@ -5,8 +5,7 @@
 
 #define FALSE 0
 #define TRUE 1
-#define EPSILON 0.002 
-
+#define EPSILON 0.00001 
 struct rational {
   int numerator;
   int denominator;
@@ -25,7 +24,6 @@ Rational_t* createRationalNumber(int num, int den) {
 
   return allocatedRational;
 }
-
 
 int getNumerator(Rational_t *num) {
   return num->numerator;
@@ -52,20 +50,29 @@ void copyRationalNumbers(Rational_t *num1, Rational_t *num2) {
   setDenominator(num1, getDenominator(num2));
 }
 
-int compareRationalNumbers(Rational_t*num1, Rational_t *num2) {
-  return ((getNumerator(num1) == getNumerator(num2)) && (getDenominator(num1) == getDenominator(num2))) ? TRUE : FALSE;
+int compareRationalNumbers(Rational_t *num1, Rational_t *num2) {
+  double doubleNum1 = convertRationalToDouble(num1);
+  double doubleNum2 = convertRationalToDouble(num2);
+
+  if (doubleNum1 == doubleNum2) {
+    return 0;
+  } else if (doubleNum1 < doubleNum2) {
+    return -1;
+  } else {
+    return 1;
+  }
 }
 
 int isEquivalent(Rational_t *num1, Rational_t *num2) {
   return (abs(convertRationalToDouble(num1) - convertRationalToDouble(num2)) < EPSILON) ? TRUE : FALSE;
 }
 
-int isZeroDenominator(Rational_t *num) {
-  return (getDenominator(num) == 0) ? TRUE : FALSE;
-}
-
 int isZeroNumerator(Rational_t *num) {
   return (getNumerator(num) == 0) ? TRUE : FALSE;
+}
+
+int isZeroDenominator(Rational_t *num) {
+  return (getDenominator(num) == 0) ? TRUE : FALSE;
 }
 
 int isZeroOverZero(Rational_t *num) {
@@ -133,7 +140,8 @@ Rational_t* powRationalNumber(Rational_t *num, float power) {
   return powNum;
 }
 
-Rational_t* squareRootRationalNumber(Rational_t *num1, float power) {
+double squareRootRationalNumber(Rational_t *num) {
+  return sqrt(convertRationalToDouble(num));
 }
 
 double convertRationalToDouble(Rational_t *num) {
@@ -141,12 +149,15 @@ double convertRationalToDouble(Rational_t *num) {
 }
 
 Rational_t* conbertDoubleToRational(double num) {
-
 }
 
 int canBeConvertedToInt(Rational_t *num) {
-  return (convertRationalToDouble(num) < EPSILON) ? TRUE : FALSE;
+  double number = convertRationalToDouble(num);
+  int intPart = number;
+
+  return ((number - intPart) < EPSILON) ? TRUE : FALSE;
 }
+
 
 void writeRationalNumberInCsv(Rational_t *num, FILE *file) {
 
@@ -154,4 +165,9 @@ void writeRationalNumberInCsv(Rational_t *num, FILE *file) {
 
 Rational_t* readRationalNumberFromCsv(FILE *file) {
 
+}
+
+
+void displayRational(Rational_t *num) {
+  printf("%d/%d\n", getNumerator(num), getDenominator(num));
 }
