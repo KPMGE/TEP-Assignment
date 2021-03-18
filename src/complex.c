@@ -6,8 +6,8 @@
 #define TYPE long int
 
 struct complex {
-  TYPE real;
-  TYPE imag;
+  TYPE *real;
+  TYPE *imag;
 };
 
 Complex_t* createComplexNumber(TYPE real, TYPE imag) {
@@ -18,18 +18,18 @@ Complex_t* createComplexNumber(TYPE real, TYPE imag) {
     exit(1);
   }
 
-  allocatedComplex->real = real;
-  allocatedComplex->imag = imag;
+  *(allocatedComplex)->real = real;
+  *(allocatedComplex)->imag = imag;
 
   return allocatedComplex;
 }
 
 TYPE getRealPart(Complex_t *num) {
-  return num->real;
+  return *(num)->real;
 }
 
 TYPE getImaginaryPart(Complex_t *num) {
-  return num->imag;
+  return *(num)->imag;
 }
 
 void freeComplexNumber(Complex_t* num) {
