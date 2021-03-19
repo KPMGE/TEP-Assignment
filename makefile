@@ -38,7 +38,10 @@ directories:
 libed: \
 	${OBJ}/rational-numbers.o\
 	${OBJ}/complex.o\
-	${OBJ}/main.o
+	${OBJ}/main.o\
+	${OBJ}/complex-int.o\
+	${OBJ}/complex-double.o\
+
 
 
 # rule for libed
