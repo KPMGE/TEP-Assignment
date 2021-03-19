@@ -1,17 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "../include/complex.h"
+#ifdef TYPED
+#ifdef TYPE
+#ifdef FORMAT
 
-#define TYPE long int
-
-struct complex {
+struct TYPED(complex) {
   TYPE *real;
   TYPE *imag;
 };
 
-Complex_t* createComplexNumber(TYPE real, TYPE imag) {
-  Complex_t *allocatedComplex = (Complex_t *) malloc(sizeof(Complex_t));
+TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE real, TYPE imag) {
+  TYPED(Complex_t) *allocatedComplex = (TYPED(Complex_t*)) malloc(sizeof(TYPED(Complex_t)));
 
   if (allocatedComplex == NULL) {
     printf("Insuficient Space!");
@@ -29,74 +26,82 @@ Complex_t* createComplexNumber(TYPE real, TYPE imag) {
 
 
 // get/set values into a complex number
-TYPE getRealPart(Complex_t *num) {
+TYPE TYPED(getRealPart)(TYPED(Complex_t*) num) {
   return *(num)->real;
 }
 
-TYPE getImaginaryPart(Complex_t *num) {
+TYPE TYPED(getImaginaryPart)(TYPED(Complex_t*) num) {
   return *(num)->imag;
 }
 
-double getModuleComplexNumber(Complex_t* num) {
-  return sqrt(pow(getRealPart(num), 2) + pow(getImaginaryPart(num), 2));
+double TYPED(getModuleComplexNumber)(TYPED(Complex_t*) num) {
+  return sqrt(pow(TYPED(getRealPart)(num), 2) + pow(TYPED(getImaginaryPart)(num), 2));
 }
 
-double getAngleComplexNumber(Complex_t* num) {
-  double module = getModuleComplexNumber(num);
+double TYPED(getAngleComplexNumber)(TYPED(Complex_t*) num) {
+  double module = TYPED(getModuleComplexNumber)(num);
 
-  return acos(getRealPart(num) / module);
+  return acos(TYPED(getRealPart)(num) / module);
 }
 
-void setValueToRealPart(Complex_t* num, double value) {
+void TYPED(setValueToRealPart)(TYPED(Complex_t*) num, double value) {
   *(num)->real = value;
 }
 
-void setValueToImaginaryPart(Complex_t* num, double value) {
+void TYPED(setValueToImaginaryPart)(TYPED(Complex_t*) num, double value) {
   *(num)->imag = value;
 }
 
-void setModuleComplex(Complex_t* num) {
+void TYPED(setModuleComplex)(TYPED(Complex_t*) num) {
   // we need to adjust angle!
   // we need to implement it
 } 
 
-void setAngleComplex(Complex_t* num) {
+void TYPED(setAngleComplex)(TYPED(Complex_t*) num) {
   // we need to adjust module!
   // we need to implement it
 }
 
-void assignComplexNumberTo(Complex_t* num) {
+void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num) {
   // we need to implement it
 }
 
-void copyComplexNumberTo(Complex_t* num) {
+void TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num) {
   // we need to implement it
 }
 
 
 // comparison
-int isModuleZero(Complex_t* num) {
+int TYPED(isModuleZero)(TYPED(Complex_t*) num) {
   // we need to implement it
 }
 
-int isOnlyRealNumber(Complex_t* num) {
+int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num) {
   // we need to implement it
 }
-int isOnlyImaginaryNumber(Complex_t* num) {
-  // we need to implement it
-}
-
-int compareComplex(Complex_t* num1, Complex_t* num2) {
+int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
   // we need to implement it
 }
 
-void freeComplexNumber(Complex_t* num) {
+int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // we need to implement it
+}
+
+void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
   free(num->real);
   free(num->imag);
   free(num);
 }
 
-void displayComplexNumber(Complex_t* num) {
-  printf("real: %ld\n", getRealPart(num));
-  printf("imag: %ld\n", getImaginaryPart(num));
+void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
+  printf("real: ");
+  printf(FORMAT, TYPED(getRealPart)(num));
+  printf("\n");
+  printf("imaginary: ");
+  printf(FORMAT, TYPED(getImaginaryPart)(num));
+  printf("\n");
 }
+
+#endif
+#endif
+#endif
