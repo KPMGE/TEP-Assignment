@@ -2,6 +2,8 @@
 #ifdef TYPE
 #ifdef FORMAT
 
+#define EPSILON 0.0001
+
 struct TYPED(complex) {
   TYPE *real;
   TYPE *imag;
@@ -84,7 +86,13 @@ int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
 }
 
 int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-  // we need to implement it
+  if (abs(TYPED(getModuleComplexNumber)(num1) - TYPED(getModuleComplexNumber)(num2)) < EPSILON) {
+    return 0;
+  } else if (TYPED(getModuleComplexNumber)(num1) > TYPED(getModuleComplexNumber)(num2)) {
+    return 1;
+  } else {
+    return -1;
+  }
 }
 
 void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
@@ -94,10 +102,8 @@ void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
 }
 
 void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
-  printf("real: ");
   printf(FORMAT, TYPED(getRealPart)(num));
-  printf("\n");
-  printf("imaginary: ");
+  printf("/ ");
   printf(FORMAT, TYPED(getImaginaryPart)(num));
   printf("\n");
 }

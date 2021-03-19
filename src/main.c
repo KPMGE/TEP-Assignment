@@ -8,10 +8,24 @@
 int main(void) {
   // implementation with long int
   printf("Implementation with int type:\n\n");
-  INT_Complex_t* num = INT_createComplexNumber(1, 4);
-
+  INT_Complex_t* num = INT_createComplexNumber(8, 4);
+  INT_Complex_t* numTest = INT_createComplexNumber(1, 4);
+  
+  printf("num1:\n");
   INT_displayComplexNumber(num);
+  printf("num2:\n");
+  INT_displayComplexNumber(numTest);
+  
+  // testing compare function
+  if (INT_compareComplex(num, numTest) == 0) {
+    printf("the numbers are the same!");
+  } else if (INT_compareComplex(num, numTest) == 1) {
+    printf("the number 1 is greater than number 2");
+  } else {
+    printf("the number 2 is greater than number 1");
+  }
 
+  // setting new values
   INT_setValueToRealPart(num, sqrt(3));
   INT_setValueToImaginaryPart(num, 1);
 
@@ -21,6 +35,8 @@ int main(void) {
   printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
   printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
 
+
+  // release allocated number
   INT_freeComplexNumber(num);
 
 
