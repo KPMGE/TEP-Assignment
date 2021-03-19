@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../include/rational-numbers.h"
-#include "../include/complex-double.h"
 #include "../include/complex-int.h"
+#include "../include/complex-double.h"
 
 int main(void) {
   // implementation with long int
