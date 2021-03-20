@@ -2,6 +2,7 @@ OBJ          = ./obj
 INCLUDE      = ./include
 SRC          = ./src
 BIN          = ./bin
+DATA         = ./data
 OUTPUT       = ./output
 
 CC           = gcc 
@@ -32,9 +33,9 @@ create: ${BIN}/${NAME_PROGRAM}
 
 
 directories:
-	@ mkdir ${OBJ}
-	@ mkdir ${BIN}
-	@ mkdir $(OUTPUT)
+	@ mkdir -p ${OBJ}
+	@ mkdir -p ${BIN}
+	@ mkdir -p ${OUTPUT}
 
 
 libed: \
@@ -61,7 +62,8 @@ ${BIN}/%:
 
 
 clean:
-	@ echo " \033[1;31m  Removing binary \033[41;1;37m${BIN}/${NAME_PROGRAM}\033[0m\033[1;31m and compilation objects \033[41;1;37m$(wildcard ${OBJ}/*.o)\033[0m\033[1;31m and backup files.  \033[0m "
+	@ echo " \033[1;31m  Removing binary \033[41;1;37m${BIN}/${NAME_PROGRAM}\033[0m\033[1;31m and compilation objects \033[41;1;37m$(wildcard ${OBJ}/*.o)\033[0m\033[1;31m and output files \033[41;1;37m$(wildcard ${OUTPUT}/*)\033[0m\033[1;31m and backup files.  \033[0m "
 	@ echo ''
-	@ rm -rf ${OBJ}/*.o ${BIN}/${NAME_PROGRAM} ${OUTPUT} *~
-	@ rmdir ${OBJ} ${BIN}
+	@ rm -rf ${OBJ}/*.o ${BIN}/${NAME_PROGRAM} *~
+	@ rm -rf ${OUTPUT}/*.csv
+	@ rmdir ${OBJ} ${BIN} ${OUTPUT}
