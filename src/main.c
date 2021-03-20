@@ -55,7 +55,17 @@ int main(void) {
   printf("\nmodule: %.3lf\n", DOUBLE_getModuleComplexNumber(num2));
   printf("angle: %.3lf\n", DOUBLE_getAngleComplexNumber(num2));
 
+  // release allocated number
   DOUBLE_freeComplexNumber(num2);
+
+  FILE *fp;
+	fp = fopen("./output/rationals.csv", "a+");
+
+	Rational_t *rationalNum = createRationalNumber(1, 3);
+	writeRationalNumberInCsv(rationalNum, fp);
+
+	freeRationalNumber(rationalNum);
+	fclose(fp);
 
   return 0;
 }
