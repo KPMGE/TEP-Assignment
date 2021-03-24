@@ -65,6 +65,6 @@
 
 ##### Operações
 - [  ] calcular o conjugado de um número complexo
-- [  ] somar, subtrair, dividir e multiplicar dois números complexos gerando um terceiro número
+- [x] somar, subtrair, dividir e multiplicar dois números complexos gerando um terceiro número
 - [  ] “acumular” somando (a += b) e multiplicando (a *= b) dois números complexos
-- [  ] fazer um método que executa uma das seis operações acima a operação pode ser “+”, “-”, “*”, “/”,”+=”, “*=”
+- [x] fazer um método que executa uma das seis operações acima a operação pode ser “+”, “-”, “*”, “/”,”+=”, “*=”
