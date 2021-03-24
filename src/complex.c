@@ -4,9 +4,6 @@
 
 #define EPSILON 0.0001
 
-// define function pointers for complex operations
-typedef TYPED(Complex_t*) (*fptrComplexOperation)(TYPED(Complex_t*), TYPED(Complex_t*));
-
 // main struct
 struct TYPED(complex) {
 	TYPE *real;
@@ -130,6 +127,14 @@ void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
   printf("\n");
 }
 
+TYPED(Complex_t*) TYPED(calculateConjugateComplex)(TYPED(Complex_t*) num) {
+  TYPE realPart = TYPED(getRealPart)(num);
+  TYPE imaginaryPart = -(TYPED(getImaginaryPart)(num)); // * -1
+  TYPED(Complex_t*) conjugate = TYPED(createComplexNumber)(realPart, imaginaryPart);
+
+  return conjugate;
+}
+
 TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
   // calculate real part sum
   TYPE sumReal = TYPED(getRealPart)(num1) + TYPED(getRealPart)(num2);
@@ -178,22 +183,45 @@ TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Comp
   return div;
 }
 
+TYPED(Complex_t*) TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate sum
+  TYPED(Complex_t*) sumNum = TYPED(sumComplexNumbers)(num1, num2);
+
+  // set values to number 1
+  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(sumNum));
+  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(sumNum));
+
+  // free allocated num
+  TYPED(freeComplexNumber)(sumNum);
+}
+
+TYPED(Complex_t*) TYPED(accumulateComplexMulti)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate sum
+  TYPED(Complex_t*) multiNum = TYPED(multiplyComplexNumbers)(num1, num2);
+
+  // set values to number 1
+  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(multiNum));
+  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(multiNum));
+
+  // free allocated num
+  TYPED(freeComplexNumber)(multiNum);
+}
+
 // function to evaluate operation
-TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char op) {
-  // create an array of pointers to funcition
-  fptrComplexOperation operations[6];
-
-  // initialize array
-  operations['+'] = TYPED(sumComplexNumbers);
-  operations['-'] = TYPED(subtractComplexNumbers);
-  operations['*'] = TYPED(multiplyComplexNumbers);
-  operations['/'] = TYPED(divideComplexNumbers);
-
-  // function that will be executed
-  fptrComplexOperation complexOperation = operations[op];
-
-  // apply that function
-  return complexOperation(num1, num2);
+TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char *op) {
+  if (!strcmp(op, "+")) {
+    return TYPED(sumComplexNumbers)(num1, num2);
+  } else if (!strcmp(op, "-")) {
+    return TYPED(subtractComplexNumbers)(num1, num2);
+  } else if (!strcmp(op, "*")) {
+    return TYPED(multiplyComplexNumbers)(num1, num2);
+  } else if(!strcmp(op, "/")) {
+    return TYPED(divideComplexNumbers)(num1, num2);
+  } else if (!strcmp(op, "+=")) {
+    TYPED(accumulateComplexSum)(num1, num2);
+  } else if (!strcmp(op, "*=")) {
+    TYPED(accumulateComplexMulti)(num1, num2);
+  }
 }
 
 #endif
