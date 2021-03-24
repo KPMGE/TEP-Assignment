@@ -60,11 +60,11 @@
 - [x] retornar a fase de um número complexo (ângulo)
 - [x] atribuir novo valor à parte real de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à parte imaginária de um número complexo representado por suas coordenadas
-- [  ] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
-- [  ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módu
+- [ ] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
+- [ ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módu
 
 ##### Operações
-- [  ] calcular o conjugado de um número complexo
+- [x] calcular o conjugado de um número complexo
 - [x] somar, subtrair, dividir e multiplicar dois números complexos gerando um terceiro número
-- [  ] “acumular” somando (a += b) e multiplicando (a *= b) dois números complexos
+- [x] “acumular” somando (a += b) e multiplicando (a *= b) dois números complexos
 - [x] fazer um método que executa uma das seis operações acima a operação pode ser “+”, “-”, “*”, “/”,”+=”, “*=”
