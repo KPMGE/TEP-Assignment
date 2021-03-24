@@ -6,8 +6,8 @@ typedef struct TYPED(complex) TYPED(Complex_t);
 TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE real, TYPE imag);
 void TYPED(freeComplexNumber)(TYPED(Complex_t*) num);
 void TYPED(displayComplexNumber)(TYPED(Complex_t*) num);
-void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num);
-void TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num);
+void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+TYPED(Complex_t*) TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num);
 
 // we need to create functions to perform conversions
 
