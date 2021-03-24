@@ -4,11 +4,16 @@
 
 #define EPSILON 0.0001
 
+// define function pointers for complex operations
+typedef TYPED(Complex_t*) (*fptrComplexOperation)(TYPED(Complex_t*), TYPED(Complex_t*));
+
+// main struct
 struct TYPED(complex) {
 	TYPE *real;
 	TYPE *imag;
 };
 
+// function that allocates a complex number
 TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE real, TYPE imag) {
 	TYPED(Complex_t) *allocatedComplex = (TYPED(Complex_t*)) malloc(sizeof(TYPED(Complex_t)));
 
@@ -113,10 +118,82 @@ void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
 }
 
 void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
+  TYPE imaginary = TYPED(getImaginaryPart)(num); 
   printf(FORMAT, TYPED(getRealPart)(num));
-  printf("/ ");
-  printf(FORMAT, TYPED(getImaginaryPart)(num));
+
+  if (imaginary >= 0) {
+    printf("+ ");
+  }
+
+  printf(FORMAT, imaginary);
+  printf("i");
   printf("\n");
+}
+
+TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate real part sum
+  TYPE sumReal = TYPED(getRealPart)(num1) + TYPED(getRealPart)(num2);
+  // calculate imaginary part sum
+  TYPE sumImaginary = TYPED(getImaginaryPart)(num1) + TYPED(getImaginaryPart)(num2);
+  // create allocated sum num
+  TYPED(Complex_t*) sum = TYPED(createComplexNumber)(sumReal, sumImaginary);
+  // return it
+  return sum;
+}
+
+TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate real part sum
+  TYPE subReal = TYPED(getRealPart)(num1) - TYPED(getRealPart)(num2);
+  // calculate imaginary part sum
+  TYPE subImaginary = TYPED(getImaginaryPart)(num1) - TYPED(getImaginaryPart)(num2);
+  // create allocated subtract num
+  TYPED(Complex_t*) sub = TYPED(createComplexNumber)(subReal, subImaginary);
+  // return it
+  return sub;
+}
+
+TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate real part sum
+  TYPE multiReal = TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) - TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2);
+  // calculate imaginary part sum
+  TYPE multiImaginary = TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getRealPart)(num2);
+  
+  // create allocated multi num
+  TYPED(Complex_t*) multi = TYPED(createComplexNumber)(multiReal, multiImaginary);
+  // return it
+  return multi;
+}
+
+TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  // calculate denominator
+  TYPE denominator = pow(TYPED(getRealPart)(num2), 2) + pow(TYPED(getImaginaryPart)(num2), 2);
+  // calculate real part
+  TYPE divRealPart = (TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+  // calculate imaginary part
+  TYPE divImaginaryPart = (TYPED(getRealPart)(num2) * TYPED(getImaginaryPart)(num1) - TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+
+  // create allocated div num
+  TYPED(Complex_t*) div = TYPED(createComplexNumber)(divRealPart, divImaginaryPart);
+  // return it
+  return div;
+}
+
+// function to evaluate operation
+TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char op) {
+  // create an array of pointers to funcition
+  fptrComplexOperation operations[6];
+
+  // initialize array
+  operations['+'] = TYPED(sumComplexNumbers);
+  operations['-'] = TYPED(subtractComplexNumbers);
+  operations['*'] = TYPED(multiplyComplexNumbers);
+  operations['/'] = TYPED(divideComplexNumbers);
+
+  // function that will be executed
+  fptrComplexOperation complexOperation = operations[op];
+
+  // apply that function
+  return complexOperation(num1, num2);
 }
 
 #endif

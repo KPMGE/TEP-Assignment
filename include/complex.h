@@ -27,4 +27,13 @@ int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num);
 int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num);
 int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
 
+// operations
+TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+
+// function to evalue each operation
+TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char op);
+
 #endif
