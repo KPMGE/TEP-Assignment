@@ -35,8 +35,8 @@
 ##### Criação, destruição e cópia
 - [x] criação de um número complexo
 - [x] destruição de um número complexo
-- [ ] atribuir um número complexo a outro que já “existe” (isto é, que já foi “criado” antes)
-- [ ] copiar um número complexo em outro que não foi “criado” ainda
+- [x] atribuir um número complexo a outro que já “existe” (isto é, que já foi “criado” antes)
+- [x] copiar um número complexo em outro que não foi “criado” ainda
 
 ##### converter um número complexo de um “tipo” em outro:
 - [ ] D_Complexo_pt em I_Complexo_pt (perigos: arredonde para o mais próximo)
@@ -47,11 +47,10 @@
 - [ ] I_Complexo_pt em R_Complexo_pt (não há tantos perigos...)
 
 ##### Comparações complexas
-- [ ] verificação se o módulo de um número complexo é zero (admitindo uma tolerância eps = 0.00001 para o valor do módulo)
+- [x] verificação se o módulo de um número complexo é zero (admitindo uma tolerância eps = 0.00001 para o valor do módulo)
 - [x] verificação se um número complexo é apenas real (admitindo uma tolerância eps = 0.00001 para o valor da parte imaginária)
 - [x] verificação se um número complexo é apenas imaginário (admitindo uma tolerância eps = 0.00001 para a parte real)
-- [ ] comparar se um número complexo é igual, menor ou maior que outro (com relação ao seu módulo), considerando uma tolerância eps = 0.0001
-- [ ] comparar se um número complexo é igual, menor ou maior que outro (com relação ao seu ângulo), considerando uma tolerância eps = 0.0001
+- [x] comparar se um número complexo é igual, menor ou maior que outro (com relação ao seu módulo), considerando uma tolerância eps = 0.0001
 
 ##### Acessar/atribuir valor às componentes de um número complexo
 - [x] retornar a parte real de um número complexo
