@@ -10,9 +10,9 @@ int main(void) {
   printf("Implementation with int type:\n\n");
 
   // create numbers
-  INT_Complex_t* num = INT_createComplexNumber(1, 2);
+  INT_Complex_t* num = INT_createComplexNumber(3, 5);
   INT_Complex_t* numTest = INT_createComplexNumber(2, 3);
-  INT_Complex_t *sum, *sub, *multi, *div;
+  INT_Complex_t *sum, *sub, *multi, *div, *conj;
 
  
   // display numbers
@@ -20,30 +20,47 @@ int main(void) {
   INT_displayComplexNumber(num);
   printf("num2: ");
   INT_displayComplexNumber(numTest);
+  printf("\n");
 
 
   // doing operations
   // sum
   printf("sum: ");
-  sum = INT_evaluateComplexOperation(num, numTest, '+');
+  sum = INT_evaluateComplexOperation(num, numTest, "+");
   INT_displayComplexNumber(sum);
 
   // subraction
   printf("sub: ");
-  sub = INT_evaluateComplexOperation(num, numTest, '-');
+  sub = INT_evaluateComplexOperation(num, numTest, "-");
   INT_displayComplexNumber(sub);
 
   // multiplication
   printf("multi: ");
-  multi = INT_evaluateComplexOperation(num, numTest, '*');
+  multi = INT_evaluateComplexOperation(num, numTest, "*");
   INT_displayComplexNumber(multi);
 
   // division
   printf("div: ");
-  div = INT_evaluateComplexOperation(num, numTest, '/');
+  div = INT_evaluateComplexOperation(num, numTest, "/");
   INT_displayComplexNumber(div);
+
+  // display conjulgate
+  printf("conjulgate of num1: ");
+  conj = INT_calculateConjugateComplex(num);
+  INT_displayComplexNumber(conj);
+
+  // accumulate sum
+  printf("num 1 after accumulate sum function: ");
+  INT_accumulateComplexSum(num, numTest);
+  INT_evaluateComplexOperation(num, numTest, "+=");
+  INT_displayComplexNumber(num);
+
+  // accumulate multi
+  printf("num 1 after accumulate multi function: ");
+  INT_evaluateComplexOperation(num, numTest, "*=");
+  INT_displayComplexNumber(num);
   printf("\n\n");
- 
+
 
   // testing compare function
   if (INT_compareComplex(num, numTest) == 0) {
@@ -73,6 +90,7 @@ int main(void) {
   INT_freeComplexNumber(sub);
   INT_freeComplexNumber(multi);
   INT_freeComplexNumber(div);
+  INT_freeComplexNumber(conj);
 
   return 0;
 }
