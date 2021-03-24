@@ -8,14 +8,43 @@
 int main(void) {
   // implementation with long int
   printf("Implementation with int type:\n\n");
-  INT_Complex_t* num = INT_createComplexNumber(8, 4);
-  INT_Complex_t* numTest = INT_createComplexNumber(1, 4);
-  
-  printf("num1:\n");
+
+  // create numbers
+  INT_Complex_t* num = INT_createComplexNumber(1, 2);
+  INT_Complex_t* numTest = INT_createComplexNumber(2, 3);
+  INT_Complex_t *sum, *sub, *multi, *div;
+
+ 
+  // display numbers
+  printf("num1: ");
   INT_displayComplexNumber(num);
-  printf("num2:\n");
+  printf("num2: ");
   INT_displayComplexNumber(numTest);
-  
+
+
+  // doing operations
+  // sum
+  printf("sum: ");
+  sum = INT_evaluateComplexOperation(num, numTest, '+');
+  INT_displayComplexNumber(sum);
+
+  // subraction
+  printf("sub: ");
+  sub = INT_evaluateComplexOperation(num, numTest, '-');
+  INT_displayComplexNumber(sub);
+
+  // multiplication
+  printf("multi: ");
+  multi = INT_evaluateComplexOperation(num, numTest, '*');
+  INT_displayComplexNumber(multi);
+
+  // division
+  printf("div: ");
+  div = INT_evaluateComplexOperation(num, numTest, '/');
+  INT_displayComplexNumber(div);
+  printf("\n\n");
+ 
+
   // testing compare function
   if (INT_compareComplex(num, numTest) == 0) {
     printf("the numbers are the same!");
@@ -29,43 +58,21 @@ int main(void) {
   INT_setValueToRealPart(num, sqrt(3));
   INT_setValueToImaginaryPart(num, 1);
 
+  // display updated number
   printf("\nUpdated number:\n");
   INT_displayComplexNumber(num);
 
+  // display module and angle
   printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
   printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
 
-
   // release allocated number
   INT_freeComplexNumber(num);
-
-
-  // implementation with double
-  printf("\n\nImplementation with double type:\n\n");
-  DOUBLE_Complex_t* num2 = DOUBLE_createComplexNumber(1, 4);
-
-  DOUBLE_displayComplexNumber(num2);
-
-  DOUBLE_setValueToRealPart(num2, sqrt(3));
-  DOUBLE_setValueToImaginaryPart(num2, 1);
-
-  printf("\nUpdated number:\n");
-  DOUBLE_displayComplexNumber(num2);
-
-  printf("\nmodule: %.3lf\n", DOUBLE_getModuleComplexNumber(num2));
-  printf("angle: %.3lf\n", DOUBLE_getAngleComplexNumber(num2));
-
-  // release allocated number
-  DOUBLE_freeComplexNumber(num2);
-
-  FILE *fp;
-	fp = fopen("./output/rationals.csv", "a+");
-
-	Rational_t *rationalNum = createRationalNumber(1, 3);
-	writeRationalNumberInCsv(rationalNum, fp);
-
-	freeRationalNumber(rationalNum);
-	fclose(fp);
+  INT_freeComplexNumber(numTest);
+  INT_freeComplexNumber(sum);
+  INT_freeComplexNumber(sub);
+  INT_freeComplexNumber(multi);
+  INT_freeComplexNumber(div);
 
   return 0;
 }
