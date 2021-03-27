@@ -178,6 +178,6 @@ Rational_t* readRationalNumberFromCsv(FILE *file) {
   // we need to implement it
 }
 
-void displayRational(Rational_t *num) {
-  printf("%d/%d\n", getNumerator(num), getDenominator(num));
+void displayRationalNumber(Rational_t *num) {
+  printf("%d/%d", getNumerator(num), getDenominator(num));
 }

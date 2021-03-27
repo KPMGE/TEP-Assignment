@@ -31,6 +31,6 @@ int canBeConvertedToInt(Rational_t *num);
 void writeRationalNumberInCsv(Rational_t *num, FILE *file);
 //Rational_t* readRationalNumberFromCsv(FILE *file);
 
-void displayRational(Rational_t *num);
+void displayRationalNumber(Rational_t *num);
 
 #endif
