@@ -208,7 +208,7 @@
   }
 
   // accumulate num2 into num1 with a sum operation
-  TYPED(Complex_t*) TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  void TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
     // calculate sum
     TYPED(Complex_t*) sumNum = TYPED(sumComplexNumbers)(num1, num2);
 
@@ -221,7 +221,7 @@
   }
 
   // accumulate num2 into num1 with a multiplication operation
-  TYPED(Complex_t*) TYPED(accumulateComplexMulti)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+  void TYPED(accumulateComplexMulti)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
     // calculate sum
     TYPED(Complex_t*) multiNum = TYPED(multiplyComplexNumbers)(num1, num2);
 
