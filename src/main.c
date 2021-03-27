@@ -4,17 +4,37 @@
 #include "../include/rational-numbers.h"
 #include "../include/complex-int.h"
 #include "../include/complex-double.h"
+#include "../include/complex-rational.h"
+
 
 int main(void) {
-  // implementation with long int
-  printf("Implementation with int type:\n\n");
+  // implementation with rational type
+  printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
+  // create two rational numbers
+  Rational_t* real = createRationalNumber(5, 2);
+  Rational_t* imag = createRationalNumber(4, 2);
+  
+  // create complex of rational
+  RATIONAL_Complex_t* teste = RATIONAL_createComplexNumber(real, imag);
+  // displaying it
+  RATIONAL_displayComplexNumber(teste);
+
+  // free allocated memory
+  RATIONAL_freeComplexNumber(teste);
+  freeRationalNumber(real);
+  freeRationalNumber(imag);
+       
+  
+  /*
+  // implementation with int type
+  printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
 
   // create numbers
   INT_Complex_t* num = INT_createComplexNumber(0, 2);
   INT_Complex_t* numTest = INT_createComplexNumber(2, 3);
   INT_Complex_t *sum, *sub, *multi, *div, *conj, *copy;
 
- 
+
   // display numbers
   printf("-------------------- ORIGINAL NUMBERS ---------------\n\n");
   printf("num1: ");
@@ -120,6 +140,7 @@ int main(void) {
   INT_freeComplexNumber(div);
   INT_freeComplexNumber(conj);
   INT_freeComplexNumber(copy);
+  */
 
   return 0;
 }
