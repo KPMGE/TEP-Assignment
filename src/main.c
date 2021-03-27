@@ -25,7 +25,6 @@ int main(void) {
   freeRationalNumber(imag);
        
   
-  /*
   // implementation with int type
   printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
 
@@ -140,7 +139,6 @@ int main(void) {
   INT_freeComplexNumber(div);
   INT_freeComplexNumber(conj);
   INT_freeComplexNumber(copy);
-  */
 
   return 0;
 }
