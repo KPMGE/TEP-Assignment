@@ -8,7 +8,7 @@
 #include "../include/vectors-int.h"
 
 int main(void) {
-
+  /*
   // implementation with rational type
   printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
   // create two rational numbers
@@ -103,10 +103,6 @@ int main(void) {
     printf("\nnum1 > num2\n");
   }
 
-
-
-
-
   // free allocated memory
   RATIONAL_freeComplexNumber(teste);
   RATIONAL_freeComplexNumber(copy);
@@ -119,14 +115,16 @@ int main(void) {
   freeRationalNumber(imag);
   freeRationalNumber(testeRat1);
   freeRationalNumber(testeRat2);
+  */
        
+
+
   
-  /*
   // implementation with int type
   printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
 
   // create numbers
-  INT_Complex_t* num = INT_createComplexNumber(0, 2);
+  INT_Complex_t* num = INT_createComplexNumber(1, 2);
   INT_Complex_t* numTest = INT_createComplexNumber(2, 3);
   INT_Complex_t *sum, *sub, *multi, *div, *conj, *copy;
 
@@ -224,6 +222,15 @@ int main(void) {
 
   printf("\n\n-------------------- MODULE and ANGLE ---------------\n\n");
   // display module and angle
+  printf("Old number: ");
+  INT_displayComplexNumber(num);
+  printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
+  printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
+
+  printf("\nset new module...\n\n");
+  INT_setModuleComplexNumber(num, 20);
+  printf("New number: ");
+  INT_displayComplexNumber(num);
   printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
   printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
 
@@ -236,7 +243,6 @@ int main(void) {
   INT_freeComplexNumber(div);
   INT_freeComplexNumber(conj);
   INT_freeComplexNumber(copy);
-  */
 
   return 0;
 }
