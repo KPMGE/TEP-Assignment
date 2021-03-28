@@ -44,7 +44,8 @@ libed: \
 	${OBJ}/main.o\
 	${OBJ}/complex-int.o\
 	${OBJ}/complex-double.o\
-	${OBJ}/complex-rational.o
+	${OBJ}/complex-rational.o\
+	${OBJ}/vectors-int.o\
 
 
 
