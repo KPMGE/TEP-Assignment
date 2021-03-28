@@ -70,9 +70,19 @@
   }
 
   // set new value to module of a complex number without modify its angle
-  void TYPED(setModuleComplex)(TYPED(Complex_t*) num) {
-    // we need to adjust angle!
-    // we need to implement it
+  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, TYPE k) {
+    // z2 = a2 + b2i
+    // k = newModule
+
+    double oldModule = TYPED(getModuleComplexNumber)(num); // module of complex1
+    double kSquared = pow(k, 2); // new module squared
+  
+    TYPE a2 = (TYPED(getRealPart(num) * k)) / oldModule; // real part of new number
+    TYPE b2 = sqrt(kSquared - ((pow(TYPED(getRealPart)(num), 2) * kSquared) /  pow(oldModule, 2))); // imaginary part of new number
+
+    // set new values to old number
+    TYPED(setValueToRealPart)(num, a2);
+    TYPED(setValueToImaginaryPart)(num, b2);
   } 
 
   // set new value to angle of a complex number without modify its module

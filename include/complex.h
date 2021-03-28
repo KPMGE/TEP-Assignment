@@ -33,7 +33,7 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   // set a new value to imaginary part of a complex number
   void TYPED(setValueToImaginaryPart)(TYPED(Complex_t*) num, double value);
   // set a new value to module of a complex number without modify your angle
-  void TYPED(setModuleComplex)(TYPED(Complex_t*) num); // we need to adjust angle!
+  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, TYPE k);
   // set a new value to angle of a complex number without modify your module
   void TYPED(setAngleComplex)(TYPED(Complex_t*) num); // we need to adjust module!
 
