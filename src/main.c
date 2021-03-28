@@ -9,14 +9,6 @@
 
 int main(void) {
 
-  printf("\n\n####### IMPLEMENTATION WITH VECTORS #######\n\n");
-  INT_Vector_t* teste = INT_createVector();
-
-  printf("\nYour vector is:\n");
-  INT_displayVector(teste);
-  INT_freeVector(teste);
-
-  /*
   // implementation with rational type
   printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
   // create two rational numbers
@@ -27,7 +19,7 @@ int main(void) {
   
   // create complex of rational
   RATIONAL_Complex_t* teste = RATIONAL_createComplexNumber(real, imag);
-  RATIONAL_Complex_t* num2, *sum, *sub, *copy;
+  RATIONAL_Complex_t* num2, *sum, *sub, *copy, *multi, *div;
   num2 = RATIONAL_createComplexNumber(testeRat1, testeRat2);
 
 
@@ -73,6 +65,15 @@ int main(void) {
   RATIONAL_displayComplexNumber(sub);
   printf("\n");
 
+  printf("\nmulti: ");
+  multi = RATIONAL_multiplyComplexNumbers(teste, num2);
+  RATIONAL_displayComplexNumber(multi);
+  printf("\n");
+
+  printf("\nmulti: ");
+  div = RATIONAL_divideComplexNumbers(teste, num2);
+  RATIONAL_displayComplexNumber(div);
+  printf("\n");
 
 
 
@@ -112,11 +113,12 @@ int main(void) {
   RATIONAL_freeComplexNumber(num2);
   RATIONAL_freeComplexNumber(sum);
   RATIONAL_freeComplexNumber(sub);
+  RATIONAL_freeComplexNumber(multi);
+  RATIONAL_freeComplexNumber(div);
   freeRationalNumber(real);
   freeRationalNumber(imag);
   freeRationalNumber(testeRat1);
   freeRationalNumber(testeRat2);
-  */
        
   
   /*

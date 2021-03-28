@@ -424,7 +424,11 @@
     TYPE* sumImaginary = sumRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
     // create allocated sum num
     TYPED(Complex_t*) sum = TYPED(createComplexNumber)(sumReal, sumImaginary);
-    // return it
+
+    // free memory
+    freeRationalNumber(sumReal);
+    freeRationalNumber(sumImaginary);
+
     return sum;
   }
 
@@ -436,38 +440,80 @@
     TYPE* subImaginary = subtractRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
     // create allocated subtract num
     TYPED(Complex_t*) sub = TYPED(createComplexNumber)(subReal, subImaginary);
-    // return it
+
+    // free allocated memory
+    freeRationalNumber(subReal);
+    freeRationalNumber(subImaginary);
+
     return sub;
   }
 
-  /*
   // multiplication operation
   TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+    TYPE* multiplicationReal1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
+    TYPE* multiplicationReal2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
+    TYPE* multiplicationImaginary1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getImaginaryPart)(num2)); 
+    TYPE* multiplicationImaginary2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getRealPart)(num2));
+
     // calculate real part sum
-    TYPE multiReal = TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) - TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2);
+    TYPE* multiReal = subtractRationalNumbers(multiplicationReal1, multiplicationReal2);
     // calculate imaginary part sum
-    TYPE multiImaginary = TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getRealPart)(num2);
+    TYPE* multiImaginary = sumRationalNumbers(multiplicationImaginary1, multiplicationImaginary2) ;
     
     // create allocated multi num
     TYPED(Complex_t*) multi = TYPED(createComplexNumber)(multiReal, multiImaginary);
-    // return it
+
+    // free allocated memory
+    freeRationalNumber(multiplicationReal1);
+    freeRationalNumber(multiplicationReal2);
+    freeRationalNumber(multiplicationImaginary1);
+    freeRationalNumber(multiplicationImaginary2);
+    freeRationalNumber(multiReal);
+    freeRationalNumber(multiImaginary);
+
     return multi;
   }
 
   // division operation
   TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
     // calculate denominator
-    TYPE denominator = pow(TYPED(getRealPart)(num2), 2) + pow(TYPED(getImaginaryPart)(num2), 2);
+    TYPE* pow1 = powRationalNumber(TYPED(getRealPart)(num2), 2);
+    TYPE* pow2 = powRationalNumber(TYPED(getImaginaryPart)(num2), 2);
+    TYPE* denominator = sumRationalNumbers(pow1, pow2);
+
+    TYPE* multi1, *multi2, *sum, *sub;
+
     // calculate real part
-    TYPE divRealPart = (TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+    multi1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
+    multi2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
+    sum = sumRationalNumbers(multi1, multi2);
+    TYPE* divRealPart = divideRationalNumbers(sum, denominator);
+
+
     // calculate imaginary part
-    TYPE divImaginaryPart = (TYPED(getRealPart)(num2) * TYPED(getImaginaryPart)(num1) - TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+    multi1 = multiplyRationalNumbers(TYPED(getRealPart)(num2), TYPED(getImaginaryPart)(num1));
+    multi2 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getImaginaryPart)(num2));
+    sub = subtractRationalNumbers(multi1, multi2);
+    TYPE* divImaginaryPart = divideRationalNumbers(sub, denominator);
 
     // create allocated div num
     TYPED(Complex_t*) div = TYPED(createComplexNumber)(divRealPart, divImaginaryPart);
-    // return it
+
+    // free allocated memory
+    freeRationalNumber(pow1);
+    freeRationalNumber(pow2);
+    freeRationalNumber(denominator);
+    freeRationalNumber(multi1);
+    freeRationalNumber(multi2);
+    freeRationalNumber(sum);
+    freeRationalNumber(divRealPart);
+    freeRationalNumber(sub);
+    freeRationalNumber(divImaginaryPart);
+
     return div;
   }
+
+  /*
 
   // accumulate num2 into num1 with a sum operation
   void TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
