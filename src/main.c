@@ -5,26 +5,121 @@
 #include "../include/complex-int.h"
 #include "../include/complex-double.h"
 #include "../include/complex-rational.h"
-
+#include "../include/vectors-int.h"
 
 int main(void) {
+
+  printf("\n\n####### IMPLEMENTATION WITH VECTORS #######\n\n");
+  INT_Vector_t* teste = INT_createVector();
+
+  printf("\nYour vector is:\n");
+  INT_displayVector(teste);
+  INT_freeVector(teste);
+
+  /*
   // implementation with rational type
   printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
   // create two rational numbers
   Rational_t* real = createRationalNumber(5, 2);
   Rational_t* imag = createRationalNumber(4, 2);
+  Rational_t* testeRat1 = createRationalNumber(1, 2);
+  Rational_t* testeRat2 = createRationalNumber(1, 3);
   
   // create complex of rational
   RATIONAL_Complex_t* teste = RATIONAL_createComplexNumber(real, imag);
-  // displaying it
+  RATIONAL_Complex_t* num2, *sum, *sub, *copy;
+  num2 = RATIONAL_createComplexNumber(testeRat1, testeRat2);
+
+
+  printf("original num1: ");
   RATIONAL_displayComplexNumber(teste);
+  printf("\nOriginal num2: ");
+  RATIONAL_displayComplexNumber(num2);
+
+
+  if(RATIONAL_isModuleZero(teste)) {
+    printf("\nmodule is 0\n");
+  } else {
+    printf("\nmodule is not 0\n");
+  }
+
+
+  if (RATIONAL_isOnlyRealNumber(teste)) {
+    printf("is only real number!\n");
+  } else {
+    printf("is not only real number!\n");
+  }
+
+  if (RATIONAL_isOnlyRealNumber(teste)) {
+    printf("is only imaginary number!\n");
+  } else {
+    printf("is not only imaginary number!\n");
+  }
+
+
+  printf("\nmodule: %.3f\n", RATIONAL_getModuleComplexNumber(teste));
+  printf("\nangle: %.3f\n", RATIONAL_getAngleComplexNumber(teste));
+
+
+
+
+  printf("\nsum: ");
+  sum = RATIONAL_sumComplexNumbers(teste, num2);
+  RATIONAL_displayComplexNumber(sum);
+  printf("\n");
+
+  printf("\nsub: ");
+  sub = RATIONAL_subtractComplexNumbers(teste, num2);
+  RATIONAL_displayComplexNumber(sub);
+  printf("\n");
+
+
+
+
+  printf("\nchanged real part: ");
+  RATIONAL_setValueToRealPart(teste, testeRat1);
+  RATIONAL_displayComplexNumber(teste);
+
+  printf("\nchange imaginary part: ");
+  RATIONAL_setValueToImaginaryPart(teste, testeRat2);
+  RATIONAL_displayComplexNumber(teste);
+
+
+  printf("\ncopy num to another num: ");
+  copy = RATIONAL_copyComplexNumberTo(teste);
+  RATIONAL_displayComplexNumber(copy);
+
+  printf("\nassign num inside another num: ");
+  RATIONAL_assignComplexNumberTo(num2, teste);
+  RATIONAL_displayComplexNumber(num2);
+
+
+  if (RATIONAL_compareComplex(teste, num2) < 0) {
+    printf("\nnum1 < num2\n");
+  } else if (RATIONAL_compareComplex(teste, num2) == 0) {
+    printf("\nnum1 == num2\n");
+  } else {
+    printf("\nnum1 > num2\n");
+  }
+
+
+
+
 
   // free allocated memory
   RATIONAL_freeComplexNumber(teste);
+  RATIONAL_freeComplexNumber(copy);
+  RATIONAL_freeComplexNumber(num2);
+  RATIONAL_freeComplexNumber(sum);
+  RATIONAL_freeComplexNumber(sub);
   freeRationalNumber(real);
   freeRationalNumber(imag);
+  freeRationalNumber(testeRat1);
+  freeRationalNumber(testeRat2);
+  */
        
   
+  /*
   // implementation with int type
   printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
 
@@ -139,6 +234,7 @@ int main(void) {
   INT_freeComplexNumber(div);
   INT_freeComplexNumber(conj);
   INT_freeComplexNumber(copy);
+  */
 
   return 0;
 }
