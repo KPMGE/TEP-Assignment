@@ -33,9 +33,9 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   // set a new value to imaginary part of a complex number
   void TYPED(setValueToImaginaryPart)(TYPED(Complex_t*) num, double value);
   // set a new value to module of a complex number without modify your angle
-  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, TYPE k);
+  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double k);
   // set a new value to angle of a complex number without modify your module
-  void TYPED(setAngleComplex)(TYPED(Complex_t*) num); // we need to adjust module!
+  void TYPED(setAngleComplexNumber)(TYPED(Complex_t*) num, double angle);
 
   // comparison
   // check if the module of a complex number is zero
