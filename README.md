@@ -25,7 +25,7 @@
 - [x] verifica se um número racional pode ser convertido em um número inteiro (eps = 0.00001)
 - [x] escreve um número racional em um arquivo de texto no formato CSV 
 - [ ] lê um arquivo racional de um arquivo de texto no formato CSV
-- [ ] Utilize o Algoritmo recursivo de Euclides para encontrar o maior divisor comum dos números
+- [x] Utilize o Algoritmo recursivo de Euclides para encontrar o maior divisor comum dos números
 
 
 
