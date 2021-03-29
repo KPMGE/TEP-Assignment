@@ -7,6 +7,8 @@
 #include "../include/complex-rational.h"
 #include "../include/vectors-int.h"
 
+#define PI 3.141592
+
 int main(void) {
   /*
   // implementation with rational type
@@ -221,7 +223,7 @@ int main(void) {
 
 
   printf("\n\n-------------------- MODULE and ANGLE ---------------\n\n");
-  // display module and angle
+
   printf("Old number: ");
   INT_displayComplexNumber(num);
   printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
@@ -233,6 +235,21 @@ int main(void) {
   INT_displayComplexNumber(num);
   printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
   printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
+
+
+  // set new angle
+  printf("\nOld number: ");
+  INT_displayComplexNumber(num);
+  printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
+  printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
+
+  printf("\nset new angle...\n\n");
+  INT_setAngleComplexNumber(num, 0.3);
+  printf("New number: ");
+  INT_displayComplexNumber(num);
+  printf("\nmodule: %.3lf\n", INT_getModuleComplexNumber(num));
+  printf("angle: %.3lf\n", INT_getAngleComplexNumber(num));
+
 
   // release allocated number
   INT_freeComplexNumber(num);
