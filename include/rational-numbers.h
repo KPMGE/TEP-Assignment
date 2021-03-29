@@ -28,6 +28,12 @@ int isZeroDenominator(Rational_t *num);
 int isZeroNumerator(Rational_t *num);
 // verify if rational number is 0/0
 int isZeroOverZero(Rational_t *num);
+// get greatest common divisor recursively
+int greatestCommonDivisorRecursive(int num, int den);
+// get greatest common divisor iteratively
+int greatestCommonDivisorIterative(int num, int den);
+// funcion that simplifies a rational number
+void simplifyRationalNumber(Rational_t* num);
 // sum two rational numbers and return a third rational
 Rational_t* sumRationalNumbers(Rational_t *num1, Rational_t *num2);
 // assign the sum of num1 and num2 inside num1

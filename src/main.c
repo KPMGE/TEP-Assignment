@@ -1,15 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../include/rational-numbers.h"
 #include "../include/complex-int.h"
 #include "../include/complex-double.h"
+#include "../include/rational-numbers.h"
 #include "../include/complex-rational.h"
 #include "../include/vectors-int.h"
 
 #define PI 3.141592
 
 int main(void) {
+
+  // test euclidian algorithm
+  printf("Original number: 12/60\n");
+
+  // create number
+  Rational_t* num = createRationalNumber(12, 60);
+  printf("created number: ");
+  displayRationalNumber(num);
+
+  freeRationalNumber(num);
+
+
   /*
   // implementation with rational type
   printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
@@ -119,8 +131,7 @@ int main(void) {
   freeRationalNumber(testeRat2);
   */
        
-
-
+  /*
   
   // implementation with int type
   printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
@@ -260,6 +271,7 @@ int main(void) {
   INT_freeComplexNumber(div);
   INT_freeComplexNumber(conj);
   INT_freeComplexNumber(copy);
+  */
 
   return 0;
 }

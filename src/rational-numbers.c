@@ -23,13 +23,18 @@ Rational_t* createRationalNumber(int num, int den) {
   allocatedRational->numerator = num;
   allocatedRational->denominator = den;
 
+  // check if denominator is zero
   if (isZeroDenominator(allocatedRational)) {
     printf("Your number doesn't exist! k/0!");
     exit(1);
   } 
 
+  // simplify allocated number
+  simplifyRationalNumber(allocatedRational);
+
   return allocatedRational;
 }
+
 
 int getNumerator(Rational_t *num) {
   return num->numerator;
@@ -83,6 +88,41 @@ int isZeroDenominator(Rational_t *num) {
 
 int isZeroOverZero(Rational_t *num) {
   return (isZeroNumerator(num) && isZeroDenominator(num)) ? TRUE : FALSE;
+}
+
+int greatestCommonDivisorRecursive(int num, int den) {
+  if (den == 0) {
+    return num;
+  } else {
+    return greatestCommonDivisorRecursive(den, num % den);
+  }
+}
+
+int greatestCommonDivisorIterative(int num, int den) {
+  int remainder;
+
+  while (den != 0) {
+    remainder = num % den;
+    num = den;
+    den = remainder;
+  }
+  return num;
+}
+
+void simplifyRationalNumber(Rational_t* num) {
+  // get numerator and denominator from num
+  int numerator = getNumerator(num); 
+  int denominator = getDenominator(num);
+  // get greatest commonn divisor 
+  int mdc = greatestCommonDivisorIterative(numerator, denominator);
+
+  // simplify fraction
+  numerator /= mdc;
+  denominator /= mdc;
+
+  // change num fraction
+  setNumerator(num, numerator);
+  setDenominator(num, denominator);
 }
 
 Rational_t* sumRationalNumbers(Rational_t *num1, Rational_t *num2) {
