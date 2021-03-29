@@ -19,10 +19,10 @@
 - [x] multiplica um racional “b” a um primeiro racional “a” ( a *= b)
 - [x] divide dois racionais, gerando um terceiro
 - [x] obtém o quadrado de um número racional
-- [ ] obtém a raiz de um número racional 1
+- [ ] obtém a raiz de um número racional 
 - [x] converte um número racional em um número real “double”
 - [ ] converte um número double em um número racional 
-- [ ] verifica se um número racional pode ser convertido em um número inteiro (eps = 0.00001)
+- [x] verifica se um número racional pode ser convertido em um número inteiro (eps = 0.00001)
 - [x] escreve um número racional em um arquivo de texto no formato CSV 
 - [ ] lê um arquivo racional de um arquivo de texto no formato CSV
 - [ ] Utilize o Algoritmo recursivo de Euclides para encontrar o maior divisor comum dos números
@@ -59,7 +59,7 @@
 - [x] retornar a fase de um número complexo (ângulo)
 - [x] atribuir novo valor à parte real de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à parte imaginária de um número complexo representado por suas coordenadas
-- [ ] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
+- [x] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
 - [ ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módu
 
 ##### Operações
