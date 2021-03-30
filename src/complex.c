@@ -277,13 +277,29 @@
 
     printf(FORMAT, imaginary);
     printf("i");
-    printf("\n");
   }
 
   // conversions
   TYPED(Complex_t*) TYPED(convertComplexNumber)(double real, double imag) {
     TYPED(Complex_t*) result = TYPED(createComplexNumber)(round(real), round(imag));
     return result;
+  }
+  
+  TYPED(Complex_t*) TYPED(convertComplexRationalTo)(Rational_t* real, Rational_t* imag) {
+    // convert rational numbers into double one
+    double doubleReal = convertRationalToDouble(real);
+    double doubleImag = convertRationalToDouble(imag);
+
+    // if using int type, rouund numbers
+    #ifdef COMPLEX_INT_INCLUDED
+      doubleReal = round(doubleReal);
+      doubleImag = round(doubleImag);
+    #endif
+
+    // create converted number
+    TYPED(Complex_t*) converted = TYPED(createComplexNumber)(doubleReal, doubleImag);
+    // returns it
+    return converted;
   }
 
 // if rational included
@@ -589,6 +605,8 @@
     freeRationalNumber(TYPED(getImaginaryPart)(num));
     free(num);
   }
+
+  
 #endif
 #endif
 #endif

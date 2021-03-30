@@ -8,5 +8,5 @@
 #define TYPE Rational_t
 #define RATIONAL_INCLUDED
 #define TYPED(SOMETHING) RATIONAL_ ## SOMETHING
-#define FORMAT "%ld "
+#define FORMAT "%ld"
 #include "complex.h"

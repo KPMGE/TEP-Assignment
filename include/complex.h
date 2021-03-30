@@ -19,6 +19,8 @@ typedef struct TYPED(complex) TYPED(Complex_t);
 
   // conversions
   TYPED(Complex_t*) TYPED(convertComplexNumber)(double real, double imag);
+  #include "rational-numbers.h"
+  TYPED(Complex_t*) TYPED(convertComplexRationalTo)(Rational_t* real, Rational_t* imag);
 
   // get/set values into a complex number
   // get real part of a complex number
@@ -92,5 +94,9 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
   TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
   TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+
+  // conversions
+  //TYPED(Complex_t*) TYPED(convertComplexRationalTo)(Rational_t* real, Rational_t* imag);
+  //TYPED(Complex_t*) TYPED(convertIntoComplexRational)(double real, double imag);
 #endif
 #endif
