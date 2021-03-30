@@ -3,39 +3,64 @@
 #include <math.h>
 #include "../include/complex-int.h"
 #include "../include/complex-double.h"
-#include "../include/rational-numbers.h"
 #include "../include/complex-rational.h"
+#include "../include/rational-numbers.h"
 #include "../include/vectors-int.h"
 
 #define PI 3.141592
 
 int main(void) {
+  // test conversions 
 
-  // test conversions
+  printf("------- CONVERSIONS WITH DOUBLE AND INT  -------\n\n");
   DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.7, 3.3);
-  printf("original number: ");
+  printf("\noriginal number: ");
   DOUBLE_displayComplexNumber(num);
 
-  printf("\n");
   // convert double into int
   INT_Complex_t* convertedNumber = INT_convertComplexNumber(DOUBLE_getRealPart(num), DOUBLE_getImaginaryPart(num));
-  printf("Convert into int: ");
+  printf("\nConvert into int: ");
   INT_displayComplexNumber(convertedNumber);
 
-  printf("\n");
   // convert int into double
   DOUBLE_Complex_t* convertedNumber2 = DOUBLE_convertComplexNumber(INT_getRealPart(convertedNumber), INT_getImaginaryPart(convertedNumber));
-  printf("Convert into double: ");
+  printf("\nConvert into double: ");
   DOUBLE_displayComplexNumber(convertedNumber2);
 
+
+
+  printf("\n\n------- CONVERSIONS WITH RATIONAL -------\n\n");
+  // create rational numbers to real and imaginaty part
+  Rational_t* real = createRationalNumber(2, 3);
+  Rational_t* imag = createRationalNumber(5, 7);
+
+  // create a rational number
+  RATIONAL_Complex_t* rational = RATIONAL_createComplexNumber(real, imag);
+  printf("Original number: ");
+  RATIONAL_displayComplexNumber(rational);
+
+  // convert rational into int
+  INT_Complex_t* convertedInt = INT_convertComplexRationalTo(real, imag);
+  printf("\nconvert to int: ");
+  INT_displayComplexNumber(convertedInt);
+
+  // convert rational into doble
+  DOUBLE_Complex_t* convertedDouble = DOUBLE_convertComplexRationalTo(real, imag);
+  printf("\nconvert to double: ");
+  DOUBLE_displayComplexNumber(convertedDouble);
+  
 
   // free allocated memory
   DOUBLE_freeComplexNumber(num);
   DOUBLE_freeComplexNumber(convertedNumber2);
   INT_freeComplexNumber(convertedNumber);
+  freeRationalNumber(real);
+  freeRationalNumber(imag);
+  RATIONAL_freeComplexNumber(rational);
+  DOUBLE_freeComplexNumber(convertedDouble);
+  INT_freeComplexNumber(convertedInt);
 
-
-  /*
+ /*
   // implementation with rational type
   printf("\n\n####### IMPLEMENTATION WITH RATIONAL TYPE #######\n\n");
   // create two rational numbers
@@ -145,7 +170,6 @@ int main(void) {
   */
        
   /*
-  
   // implementation with int type
   printf("\n\n####### IMPLEMENTATION WITH INT TYPE #######\n\n");
 
