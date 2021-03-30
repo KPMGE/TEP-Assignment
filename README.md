@@ -39,9 +39,9 @@
 - [x] copiar um número complexo em outro que não foi “criado” ainda
 
 ##### converter um número complexo de um “tipo” em outro:
-- [ ] D_Complexo_pt em I_Complexo_pt (perigos: arredonde para o mais próximo)
-- [ ] I_Complexo_pt em D_Complexo_pt (aqui o “perigo” é menor)
-- [ ] D_Complexo_pt em R_Complexo_pt (também perigoso...)
+- [x] D_Complexo_pt em I_Complexo_pt (perigos: arredonde para o mais próximo)
+- [x] I_Complexo_pt em D_Complexo_pt (aqui o “perigo” é menor)
+- [] D_Complexo_pt em R_Complexo_pt (também perigoso...)
 - [ ] R_Complexo_pt em D_Complexo_pt (também perigoso...)
 - [ ] R_Complexo_pt em I_Complexo_pt (também perigoso...)
 - [ ] I_Complexo_pt em R_Complexo_pt (não há tantos perigos...)
