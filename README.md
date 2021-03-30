@@ -41,9 +41,9 @@
 ##### converter um número complexo de um “tipo” em outro:
 - [x] D_Complexo_pt em I_Complexo_pt (perigos: arredonde para o mais próximo)
 - [x] I_Complexo_pt em D_Complexo_pt (aqui o “perigo” é menor)
-- [] D_Complexo_pt em R_Complexo_pt (também perigoso...)
-- [ ] R_Complexo_pt em D_Complexo_pt (também perigoso...)
-- [ ] R_Complexo_pt em I_Complexo_pt (também perigoso...)
+- [ ] D_Complexo_pt em R_Complexo_pt (também perigoso...)
+- [x] R_Complexo_pt em D_Complexo_pt (também perigoso...)
+- [x] R_Complexo_pt em I_Complexo_pt (também perigoso...)
 - [ ] I_Complexo_pt em R_Complexo_pt (não há tantos perigos...)
 
 ##### Comparações complexas
