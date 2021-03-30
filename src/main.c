@@ -11,15 +11,28 @@
 
 int main(void) {
 
-  // test euclidian algorithm
-  printf("Original number: 12/60\n");
+  // test conversions
+  DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.7, 3.3);
+  printf("original number: ");
+  DOUBLE_displayComplexNumber(num);
 
-  // create number
-  Rational_t* num = createRationalNumber(12, 60);
-  printf("created number: ");
-  displayRationalNumber(num);
+  printf("\n");
+  // convert double into int
+  INT_Complex_t* convertedNumber = INT_convertComplexNumber(DOUBLE_getRealPart(num), DOUBLE_getImaginaryPart(num));
+  printf("Convert into int: ");
+  INT_displayComplexNumber(convertedNumber);
 
-  freeRationalNumber(num);
+  printf("\n");
+  // convert int into double
+  DOUBLE_Complex_t* convertedNumber2 = DOUBLE_convertComplexNumber(INT_getRealPart(convertedNumber), INT_getImaginaryPart(convertedNumber));
+  printf("Convert into double: ");
+  DOUBLE_displayComplexNumber(convertedNumber2);
+
+
+  // free allocated memory
+  DOUBLE_freeComplexNumber(num);
+  DOUBLE_freeComplexNumber(convertedNumber2);
+  INT_freeComplexNumber(convertedNumber);
 
 
   /*

@@ -17,7 +17,8 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   // return a copy of a given complex number
   TYPED(Complex_t*) TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num);
 
-  // we need to create functions to perform conversions here
+  // conversions
+  TYPED(Complex_t*) TYPED(convertComplexNumber)(double real, double imag);
 
   // get/set values into a complex number
   // get real part of a complex number

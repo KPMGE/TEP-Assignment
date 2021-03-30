@@ -266,7 +266,6 @@
     }
   }
 
-
   // display complex number
   void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
     TYPE imaginary = TYPED(getImaginaryPart)(num); 
@@ -281,6 +280,11 @@
     printf("\n");
   }
 
+  // conversions
+  TYPED(Complex_t*) TYPED(convertComplexNumber)(double real, double imag) {
+    TYPED(Complex_t*) result = TYPED(createComplexNumber)(round(real), round(imag));
+    return result;
+  }
 
 // if rational included
 #else
