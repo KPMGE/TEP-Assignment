@@ -96,7 +96,6 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
 
   // conversions
-  //TYPED(Complex_t*) TYPED(convertComplexRationalTo)(Rational_t* real, Rational_t* imag);
-  //TYPED(Complex_t*) TYPED(convertIntoComplexRational)(double real, double imag);
+  TYPED(Complex_t*) TYPED(convertIntoComplexRational)(double real, double imag);
 #endif
 #endif

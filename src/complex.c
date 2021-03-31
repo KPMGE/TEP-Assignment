@@ -593,6 +593,23 @@
   }
   */
 
+
+  // convert two double numbers into a complex rational number
+  TYPED(Complex_t*) TYPED(convertIntoComplexRational)(double real, double imag) {
+    // convert real and imag double numbers into complex numbers
+    Rational_t* rationalReal = convertDoubleToRational(real);
+    Rational_t* rationalImag = convertDoubleToRational(imag);
+
+    // create converted number
+    TYPED(Complex_t*) converted = TYPED(createComplexNumber)(rationalReal, rationalImag);
+
+    // free allocated memory
+    freeRationalNumber(rationalReal);
+    freeRationalNumber(rationalImag);
+    return converted;
+  }
+
+  // display a rational complex number
   void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
     displayRationalNumber(TYPED(getRealPart)(num));
     printf(" + ");
@@ -600,6 +617,7 @@
     printf("i");
   }
 
+  // free a rational number
   void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
     freeRationalNumber(TYPED(getRealPart)(num));
     freeRationalNumber(TYPED(getImaginaryPart)(num));

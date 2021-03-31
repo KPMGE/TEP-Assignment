@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdint.h>
 #include "../include/rational-numbers.h"
 
 #define FALSE 0
@@ -200,7 +201,40 @@ double convertRationalToDouble(Rational_t *num) {
 }
 
 Rational_t* convertDoubleToRational(double num) {
-  // wee need to implement it
+	/* continued fraction and check denominator each step */
+	int64_t a, h[3] = { 0, 1, 0 }, k[3] = { 1, 0, 0 };
+	int64_t x, d, n = 1, md = 10000;
+	int neg = 0;
+
+  if (num < 0) { neg = 1; num = -num; }
+ 
+	while (num != floor(num)) { n <<= 1; num *= 2; }
+	d = num;
+
+	for (int i = 0; i < 64; i++) {
+		a = n ? d / n : 0;
+		if (i && !a) break;
+ 
+		x = d; d = n; n = x % n;
+ 
+		x = a;
+		if (k[1] * a + k[0] >= md) {
+			x = (md - k[0]) / k[1];
+			if (x * 2 >= a || k[1] >= md)
+				i = 65;
+			else
+				break;
+		}
+ 
+		h[2] = x * h[1] + h[0]; h[0] = h[1]; h[1] = h[2];
+		k[2] = x * k[1] + k[0]; k[0] = k[1]; k[1] = k[2];
+	}
+
+	int64_t denominator = k[1];
+	int64_t numerator = neg ? -h[1] : h[1];
+
+  Rational_t* converted = createRationalNumber(numerator, denominator);
+  return converted;
 }
 
 int canBeConvertedToInt(Rational_t *num) {
