@@ -21,7 +21,7 @@
 - [x] obtém o quadrado de um número racional
 - [ ] obtém a raiz de um número racional 
 - [x] converte um número racional em um número real “double”
-- [ ] converte um número double em um número racional 
+- [x] converte um número double em um número racional 
 - [x] verifica se um número racional pode ser convertido em um número inteiro (eps = 0.00001)
 - [x] escreve um número racional em um arquivo de texto no formato CSV 
 - [ ] lê um arquivo racional de um arquivo de texto no formato CSV
@@ -41,10 +41,10 @@
 ##### converter um número complexo de um “tipo” em outro:
 - [x] D_Complexo_pt em I_Complexo_pt (perigos: arredonde para o mais próximo)
 - [x] I_Complexo_pt em D_Complexo_pt (aqui o “perigo” é menor)
-- [ ] D_Complexo_pt em R_Complexo_pt (também perigoso...)
+- [x] D_Complexo_pt em R_Complexo_pt (também perigoso...)
 - [x] R_Complexo_pt em D_Complexo_pt (também perigoso...)
 - [x] R_Complexo_pt em I_Complexo_pt (também perigoso...)
-- [ ] I_Complexo_pt em R_Complexo_pt (não há tantos perigos...)
+- [x] I_Complexo_pt em R_Complexo_pt (não há tantos perigos...)
 
 ##### Comparações complexas
 - [x] verificação se o módulo de um número complexo é zero (admitindo uma tolerância eps = 0.00001 para o valor do módulo)
