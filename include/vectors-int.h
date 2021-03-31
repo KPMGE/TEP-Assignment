@@ -1,9 +1,9 @@
-#undef VECTOR_INCLUDED
-#undef TYPE
-#undef TYPED
+#undef VECTOR_TAD_H
+#undef DATA_TYPE
+#undef TYPE_NAME
+#undef IO_FORMAT
 
-#define TYPE long int
-#define TYPED(SOMETHING) INT_ ## SOMETHING
-#include "complex.h"
+#define DATA_TYPE long int
+#define TYPE_NAME(SOMETHING) INT_ ## SOMETHING
+#define IO_FORMAT "%ld"
 #include "vectors.h"
-

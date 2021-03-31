@@ -41,12 +41,14 @@ directories:
 libed: \
 	${OBJ}/rational-numbers.o\
 	${OBJ}/complex.o\
+	${OBJ}/vectors.o\
 	${OBJ}/main.o\
 	${OBJ}/complex-int.o\
 	${OBJ}/complex-double.o\
 	${OBJ}/complex-rational.o\
 	${OBJ}/vectors-int.o\
-
+	${OBJ}/vectors-double.o\
+	${OBJ}/vectors-complex.o
 
 
 # rule for libed

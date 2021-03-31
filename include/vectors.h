@@ -1,10 +1,22 @@
-#ifndef VECTOR_INCLUDED
-#define VECTOR_INCLUDED
+#ifndef VECTOR_TAD_H
 
-typedef struct TYPED(vector) TYPED(Vector_t);
+	#define VECTOR_TAD_H
 
-TYPED(Vector_t*) TYPED(createVector)();
-void TYPED(freeVector)(TYPED(Vector_t*) vec);
-void TYPED(displayVector)(TYPED(Vector_t*) vec);
+	// type definition and pre-compilation program
+	typedef struct TYPE_NAME(vect_s) TYPE_NAME(vect_t);
+
+	// functions prototypes
+	void TYPE_NAME(adjustVector)(TYPE_NAME(vect_t *) vector);
+	TYPE_NAME(vect_t *) TYPE_NAME(createVector)(int n, int i);
+	void TYPE_NAME(freeVector)(TYPE_NAME(vect_t *) vector);
+	void TYPE_NAME(copyToExistingVector)(TYPE_NAME(vect_t *) v1, TYPE_NAME(vect_t *) v2);
+	TYPE_NAME(vect_t *) TYPE_NAME(copyToNewVector)(TYPE_NAME(vect_t *) v1);
+	int TYPE_NAME(getAmountElements)(TYPE_NAME(vect_t *) vector);
+	int TYPE_NAME(getMaxCapacity)(TYPE_NAME(vect_t *) vector);
+	int TYPE_NAME(getIndex)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getFirstElement)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getNextElement)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getPrevElement)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getLastElement)(TYPE_NAME(vect_t *) vector);
 
 #endif
