@@ -10,8 +10,66 @@
 #define PI 3.141592
 
 int main(void) {
-  // test conversions 
+  // create tests
 
+  // create a complex int number
+  INT_Complex_t* intTest = INT_createComplexNumber(5, 3);
+  printf("int number: ");
+  INT_displayComplexNumber(intTest);
+
+  // get real and imag parts
+  int intReal = INT_getRealPart(intTest);
+  int intImag = INT_getImaginaryPart(intTest);
+
+  // convert into rational
+  RATIONAL_Complex_t* conv = RATIONAL_convertIntoComplexRational(intReal, intImag);
+  printf("\nConverted number: ");
+  RATIONAL_displayComplexNumber(conv);
+
+
+  DOUBLE_Complex_t* Dtest = DOUBLE_createComplexNumber(0.25, 3.333333);
+  printf("\n\ndouble number: ");
+  DOUBLE_displayComplexNumber(Dtest);
+
+  double Dreal = DOUBLE_getRealPart(Dtest);
+  double Dimag = DOUBLE_getImaginaryPart(Dtest);
+
+  RATIONAL_Complex_t* conv2 = RATIONAL_convertIntoComplexRational(Dreal, Dimag);
+  printf("\nConverted number: ");
+  RATIONAL_displayComplexNumber(conv2);
+
+
+  // free allocated number
+  INT_freeComplexNumber(intTest);
+  DOUBLE_freeComplexNumber(Dtest);
+  RATIONAL_freeComplexNumber(conv);
+  RATIONAL_freeComplexNumber(conv2);
+
+
+  /*
+  double num = 0.25;
+  double num2 = 3.33333;
+
+  // convert into rational
+  Rational_t* conv = convertDoubleToRational(num);
+  Rational_t* conv2 = convertDoubleToRational(num2);
+
+
+  printf("double 1: %f\n", num);
+  printf("Rational 1: ");
+  displayRationalNumber(conv);
+
+  printf("\n\ndouble 2: %f\n", num2);
+  printf("Rational 2: ");
+  displayRationalNumber(conv2);
+
+  freeRationalNumber(conv);
+  freeRationalNumber(conv2);
+  */
+
+  
+  /*
+  // test conversions 
   printf("------- CONVERSIONS WITH DOUBLE AND INT  -------\n\n");
   DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.7, 3.3);
   printf("\noriginal number: ");
@@ -59,6 +117,7 @@ int main(void) {
   RATIONAL_freeComplexNumber(rational);
   DOUBLE_freeComplexNumber(convertedDouble);
   INT_freeComplexNumber(convertedInt);
+  */
 
  /*
   // implementation with rational type
