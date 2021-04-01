@@ -49,7 +49,7 @@ Rational_t* divideRationalNumbers(Rational_t *num1, Rational_t *num2);
 // power two rational numbers
 Rational_t* powRationalNumber(Rational_t *num, float power);
 // calculate square root of a rational number
-double squareRootRationalNumber(Rational_t *num);
+Rational_t* squareRootRationalNumber(Rational_t *num);
 // convert a rational number to a double
 double convertRationalToDouble(Rational_t *num);
 // convert a double number to a rational one

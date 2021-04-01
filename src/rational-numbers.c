@@ -132,6 +132,9 @@ Rational_t* sumRationalNumbers(Rational_t *num1, Rational_t *num2) {
 
   Rational_t *sum = createRationalNumber(sumNumerator, sumDenominator);
 
+  // simplify  number
+  simplifyRationalNumber(sum);
+
   return sum;
 }
 
@@ -149,6 +152,9 @@ Rational_t* subtractRationalNumbers(Rational_t *num1, Rational_t *num2) {
 
   Rational_t *sub = createRationalNumber(subNumerator, subDenominator);
 
+  // simplify  number
+  simplifyRationalNumber(sub);
+
   return sub;
 }
 
@@ -157,6 +163,9 @@ Rational_t* multiplyRationalNumbers(Rational_t *num1, Rational_t *num2) {
   int multiDenominator = getDenominator(num1) * getDenominator(num2);
 
   Rational_t *multi = createRationalNumber(multiNumerator, multiDenominator);
+
+  // simplify  number
+  simplifyRationalNumber(multi);
 
   return multi;
 }
@@ -170,30 +179,58 @@ void multiplyRationalInside(Rational_t *num1, Rational_t *num2) {
 }
 
 Rational_t* divideRationalNumbers(Rational_t *num1, Rational_t *num2) {
+  // if numerator of our num2 is 0, we cannot do the following operation
   if (isZeroNumerator(num2)) {
     printf("Impossible do this operation!");
     exit(1);
   }
 
+  // calculate numerator and denominator
   int divNumerator = getNumerator(num1) * getDenominator(num2);
-  int divDenominator = getDenominator(num1) * getNumerator(num1);
+  int divDenominator = getDenominator(num1) * getNumerator(num2);
 
+  // create rational number
   Rational_t *div = createRationalNumber(divNumerator, divDenominator);
+
+  // simplify  number
+  simplifyRationalNumber(div);
 
   return div;
 }
 
 Rational_t* powRationalNumber(Rational_t *num, float power) {
+  // calculate numetor and operator
   int powNumerator = pow(getNumerator(num), power);
   int powDenominator = pow(getDenominator(num), power);
 
+  // create rational number fro outcome
   Rational_t *powNum = createRationalNumber(powNumerator, powDenominator);
 
   return powNum;
 }
 
-double squareRootRationalNumber(Rational_t *num) {
-  // we need to implement it
+Rational_t* squareRootRationalNumber(Rational_t *num) {
+  double xn = 1; // initial approximation
+  double previous = 0; // value of previous approximation
+  double number = convertRationalToDouble(num); // convert rational number into double one
+
+  while (TRUE) {
+    previous = xn; // previous approximation 
+    xn = xn - (pow(xn, 2) - number) / (2 * xn); // calculate nª aproximation
+
+    // if difference between numbers is less than EPSILON
+    if (fabs(previous - xn) < EPSILON) {
+      break;
+    }
+  }
+
+  // convert square root into a rational number again
+  Rational_t* root = convertDoubleToRational(xn);
+
+  // simplify number
+  //simplifyRationalNumber(root);
+
+  return root;
 }
 
 double convertRationalToDouble(Rational_t *num) {
