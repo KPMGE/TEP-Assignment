@@ -19,7 +19,7 @@
 - [x] multiplica um racional “b” a um primeiro racional “a” ( a *= b)
 - [x] divide dois racionais, gerando um terceiro
 - [x] obtém o quadrado de um número racional
-- [ ] obtém a raiz de um número racional 
+- [x] obtém a raiz de um número racional 
 - [x] converte um número racional em um número real “double”
 - [x] converte um número double em um número racional 
 - [x] verifica se um número racional pode ser convertido em um número inteiro (eps = 0.00001)
@@ -60,7 +60,7 @@
 - [x] atribuir novo valor à parte real de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à parte imaginária de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
-- [ ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módu
+- [ ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módulo
 
 ##### Operações
 - [x] calcular o conjugado de um número complexo
