@@ -7,11 +7,26 @@
 #include "../include/rational-numbers.h"
 #include "../include/vectors-int.h"
 
-#define PI 3.141592
-
 int main(void) {
   // create tests
 
+  // create a number
+  Rational_t* number = createRationalNumber(2, 1);
+  // calculate square root
+  Rational_t* root = squareRootRationalNumber(number);
+
+  // show results
+  printf("Original number: ");
+  displayRationalNumber(number);
+  printf("\nSquare root: ");
+  displayRationalNumber(root);
+
+  // free allocated memory
+  freeRationalNumber(number);
+  freeRationalNumber(root);
+
+
+  /*
   // create a complex int number
   INT_Complex_t* intTest = INT_createComplexNumber(5, 3);
   printf("int number: ");
@@ -44,6 +59,7 @@ int main(void) {
   DOUBLE_freeComplexNumber(Dtest);
   RATIONAL_freeComplexNumber(conv);
   RATIONAL_freeComplexNumber(conv2);
+  */
 
 
   /*
