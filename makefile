@@ -45,7 +45,6 @@ libed: \
 	${OBJ}/complex-int.o\
 	${OBJ}/complex-double.o\
 	${OBJ}/complex-rational.o\
-	${OBJ}/vectors-int.o\
 
 
 
