@@ -60,7 +60,7 @@
 - [x] atribuir novo valor à parte real de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à parte imaginária de um número complexo representado por suas coordenadas
 - [x] atribuir novo valor à magnitude de um número complexo (módulo) mantendo seu ângulo
-- [ ] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módulo
+- [x] atribuir novo valor à fase de um número complexo (ângulo) mantendo o seu módulo
 
 ##### Operações
 - [x] calcular o conjugado de um número complexo
