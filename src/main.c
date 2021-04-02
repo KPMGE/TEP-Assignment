@@ -5,11 +5,36 @@
 #include "../include/complex-double.h"
 #include "../include/complex-rational.h"
 #include "../include/rational-numbers.h"
-#include "../include/vectors-int.h"
+
+#define PI 3.141592
 
 int main(void) {
   // create tests
+  
+  DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.3, 5.2);
 
+  printf("Original number: ");
+  DOUBLE_displayComplexNumber(num);
+  printf("\n");
+
+  printf("module: %f\n", DOUBLE_getModuleComplexNumber(num));
+  printf("angle: %f\n", DOUBLE_getAngleComplexNumber(num));
+
+  printf("\n\nSet new module....\n\n");
+
+  DOUBLE_setModuleComplexNumber(num, 20);
+
+  printf("New number: ");
+  DOUBLE_displayComplexNumber(num);
+  printf("\n");
+
+  printf("module: %f\n", DOUBLE_getModuleComplexNumber(num));
+  printf("angle: %f\n", DOUBLE_getAngleComplexNumber(num));
+
+
+  DOUBLE_freeComplexNumber(num);
+
+  /*
   // create a number
   Rational_t* number = createRationalNumber(2, 1);
   // calculate square root
@@ -24,6 +49,7 @@ int main(void) {
   // free allocated memory
   freeRationalNumber(number);
   freeRationalNumber(root);
+  */
 
 
   /*

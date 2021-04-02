@@ -70,16 +70,12 @@
   }
 
   // set new value to module of a complex number without modify its angle
-  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double k) {
-    // z2 = a2 + b2i
-    // k = newModule
+  void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double module) {
+    double angle = TYPED(getAngleComplexNumber)(num); // get angle of num
 
-    double oldModule = TYPED(getModuleComplexNumber)(num); // module of complex1
-    double kSquared = pow(k, 2); // new module squared
-  
-    double a2 = (TYPED(getRealPart(num) * k)) / oldModule; // real part of new number
-    double b2 = sqrt(kSquared - ((pow(TYPED(getRealPart)(num), 2) * kSquared) /  pow(oldModule, 2))); // imaginary part of new number
-
+    double a2 = module * cos(angle); // calculate real part
+    double b2 = module * sin(angle); // calculate imaginary part
+ 
     // set new values to old number
     TYPED(setValueToRealPart)(num, a2);
     TYPED(setValueToImaginaryPart)(num, b2);
@@ -87,12 +83,13 @@
 
   // set new value to angle of a complex number without modify its module
   void TYPED(setAngleComplexNumber)(TYPED(Complex_t*) num, double angle) {
-    double a2 = cos(angle) / TYPED(getModuleComplexNumber)(num); // calculate real part
-    double b2 = a2 * sqrt((1 / pow(cos(angle), 2)) - 1); // calculate imaginary part
+    double module = TYPED(getModuleComplexNumber)(num);
+    double a2 = module * cos(angle); // calculate real part
+    double b2 = module * sin(angle); // calculate imaginary part
 
     // set new values to complex number
     TYPED(setValueToRealPart)(num, a2);
-    TYPED(setValueToImaginaryPart)(num, 0);
+    TYPED(setValueToImaginaryPart)(num, b2);
   }
 
   // assign number2 into number 1
