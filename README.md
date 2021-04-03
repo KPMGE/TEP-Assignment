@@ -27,6 +27,11 @@
 - [ ] lê um arquivo racional de um arquivo de texto no formato CSV
 - [x] Utilize o Algoritmo recursivo de Euclides para encontrar o maior divisor comum dos números
 
+##### Teste mínimo
+- [x] obtenha pelo menos um número racional no intervalo 3.1414 - 3.1416
+- [x] obtenha o seguinte resultado como um número racional: 3 + (8/60) + (29 / 60^2 ) + (44/60^3 )
+- [x] converta os resultados acima em double e em float
+
 
 
 ### TAD para números complexos
