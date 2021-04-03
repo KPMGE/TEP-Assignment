@@ -6,11 +6,53 @@
 #include "../include/complex-rational.h"
 #include "../include/rational-numbers.h"
 
-#define PI 3.141592
-
 int main(void) {
   // create tests
+
+  printf("--------- CALCULATE OPERATIONS ---------\n\n");
+  // calculate 3 + (8/60) + (29 / 60 2 ) + (44/60 3 )
+  Rational_t* num1 = createRationalNumber(3, 1);
+  Rational_t* num2 = createRationalNumber(8, 60);
+  Rational_t* num3 = createRationalNumber(29, pow(60, 2));
+  Rational_t* num4 = createRationalNumber(44, pow(60, 3));
+  Rational_t* result = createRationalNumber(1, 1);
+
+  // calculate sum of nums
+  accumulateRationalNumbers(num1, num2);
+  accumulateRationalNumbers(num1, num3);
+  accumulateRationalNumbers(num1, num4);
+
+  // copy accumulated number into result
+  copyRationalNumbers(result, num1);
+
+  printf("result: ");
+  displayRationalNumber(num1);
+
+  printf("\ndouble result: %.12lf", convertRationalToDouble(result));
+  printf("\nfloat result: %f", (float) convertRationalToDouble(result));
+
+
+  // free allocated memory
+  freeRationalNumber(num1);
+  freeRationalNumber(num2);
+  freeRationalNumber(num3);
+  freeRationalNumber(num4);
+  freeRationalNumber(result);
+
+
+  printf("\n\n------------ FIND A RATIONAL NUMBER BETWEEN -----------\n\n");
+
+  Rational_t* test = findRationalBetween(3.1414, 3.1416);
+  printf("number: ");
+  displayRationalNumber(test);
+
+  printf("\ndouble number: %.12lf\n", convertRationalToDouble(test));
+  printf("float number: %f\n", (float) convertRationalToDouble(test));
+
+  freeRationalNumber(test);
+
   
+  /*
   DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.3, 5.2);
 
   printf("Original number: ");
@@ -33,6 +75,7 @@ int main(void) {
 
 
   DOUBLE_freeComplexNumber(num);
+  */
 
   /*
   // create a number

@@ -63,4 +63,6 @@ Rational_t* readRationalNumberFromCsv(FILE *file);
 // display a rational number
 void displayRationalNumber(Rational_t *num);
 
+Rational_t* findRationalBetween(double num1, double num2);
+
 #endif

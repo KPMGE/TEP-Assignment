@@ -139,11 +139,12 @@ Rational_t* sumRationalNumbers(Rational_t *num1, Rational_t *num2) {
 }
 
 void accumulateRationalNumbers(Rational_t *num1, Rational_t *num2) {
-  int sumNumerator = getNumerator(num1) + getNumerator(num2);
-  int sumDenominator = getDenominator(num1) + getDenominator(num2);
+  Rational_t* sum = sumRationalNumbers(num1, num2);
   
-  setNumerator(num1, sumNumerator);
-  setDenominator(num1, sumDenominator);
+  setNumerator(num1, getNumerator(sum));
+  setDenominator(num1, getDenominator(sum));
+
+  freeRationalNumber(sum);
 }
 
 Rational_t* subtractRationalNumbers(Rational_t *num1, Rational_t *num2) {
@@ -291,4 +292,23 @@ Rational_t* readRationalNumberFromCsv(FILE *file) {
 
 void displayRationalNumber(Rational_t *num) {
   printf("%d/%d", getNumerator(num), getDenominator(num));
+}
+
+Rational_t* findRationalBetween(double num1, double num2) {
+  double aprox = 0;
+
+  for (float i = 0 ;; i += 0.995) {
+    aprox += 1.0/pow(16, i) * ((4.0 / (8*i + 1)) - (2.0/(8*i + 4)) - (1.0/(8*i + 5)) - (1.0/(8*i + 6)));
+
+    if (aprox > num1 && aprox < num2) {
+      break;
+    }
+
+    if (i > 100000) {
+      printf("infinity loop!");
+      exit(1);
+    }
+  }
+
+  return convertDoubleToRational(aprox);
 }
