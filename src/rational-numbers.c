@@ -210,28 +210,43 @@ Rational_t* powRationalNumber(Rational_t *num, float power) {
   return powNum;
 }
 
-Rational_t* squareRootRationalNumber(Rational_t *num) {
+double sqrtNewtonRecursive(double num, double x0) {
+  // calculate xn
+  double xn = x0 - ((pow(x0, 2) - num) / (2 * x0));
+
+  // if absolute value of xn - x0 is less thatn a given EPSILON
+  if (fabs(xn - x0) < EPSILON) {
+    return xn;
+  } else {
+    return sqrtNewtonRecursive(num, xn);
+  } 
+}
+
+double sqrtNewtonIterative(double num) {
   double xn = 1; // initial approximation
   double previous = 0; // value of previous approximation
-  double number = convertRationalToDouble(num); // convert rational number into double one
 
   while (TRUE) {
     previous = xn; // previous approximation 
-    xn = xn - (pow(xn, 2) - number) / (2 * xn); // calculate nª aproximation
+    xn = xn - (pow(xn, 2) - num) / (2 * xn); // calculate nª aproximation
 
     // if difference between numbers is less than EPSILON
     if (fabs(previous - xn) < EPSILON) {
-      break;
+      return xn;
     }
   }
+}
 
+Rational_t* squareRootRationalNumber(Rational_t *num) {
+  // convert rational number into double one
+  double number = convertRationalToDouble(num); 
+  // calculate square root
+  double squareRoot = sqrtNewtonRecursive(number, 1);
   // convert square root into a rational number again
-  Rational_t* root = convertDoubleToRational(xn);
+  Rational_t* rootRational = convertDoubleToRational(squareRoot);
 
-  // simplify number
-  //simplifyRationalNumber(root);
-
-  return root;
+  // return converted number
+  return rootRational;
 }
 
 double convertRationalToDouble(Rational_t *num) {

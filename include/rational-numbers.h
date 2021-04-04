@@ -52,6 +52,10 @@ Rational_t* powRationalNumber(Rational_t *num, float power);
 Rational_t* squareRootRationalNumber(Rational_t *num);
 // convert a rational number to a double
 double convertRationalToDouble(Rational_t *num);
+// compute square root of a number by using newton's method recursively
+double sqrtNewtonRecursive(double num, double x0);
+// compute square root of a number by using newton's method iteratively
+double sqrtNewtonIterative(double num);
 // convert a double number to a rational one
 Rational_t* convertDoubleToRational(double num);
 // verify if a rational number can be converted to integer
