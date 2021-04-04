@@ -9,6 +9,7 @@
 int main(void) {
   // create tests
 
+  /*
   printf("--------- CALCULATE OPERATIONS ---------\n\n");
   // calculate 3 + (8/60) + (29 / 60 2 ) + (44/60 3 )
   Rational_t* num1 = createRationalNumber(3, 1);
@@ -50,6 +51,7 @@ int main(void) {
   printf("float number: %f\n", (float) convertRationalToDouble(test));
 
   freeRationalNumber(test);
+  */
 
   
   /*
@@ -77,7 +79,6 @@ int main(void) {
   DOUBLE_freeComplexNumber(num);
   */
 
-  /*
   // create a number
   Rational_t* number = createRationalNumber(2, 1);
   // calculate square root
@@ -92,7 +93,6 @@ int main(void) {
   // free allocated memory
   freeRationalNumber(number);
   freeRationalNumber(root);
-  */
 
 
   /*
