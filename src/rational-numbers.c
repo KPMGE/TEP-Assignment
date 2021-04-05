@@ -55,6 +55,7 @@ void setDenominator(Rational_t *num, int value) {
 
 void freeRationalNumber(Rational_t *num) {
   free(num);
+  num = NULL;
 }
 
 void copyRationalNumbers(Rational_t *num1, Rational_t *num2) {
