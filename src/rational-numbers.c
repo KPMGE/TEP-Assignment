@@ -76,7 +76,7 @@ int compareRationalNumbers(Rational_t *num1, Rational_t *num2) {
 }
 
 int isEquivalent(Rational_t *num1, Rational_t *num2) {
-  return (abs(convertRationalToDouble(num1) - convertRationalToDouble(num2)) < EPSILON) ? TRUE : FALSE;
+  return (fabs(convertRationalToDouble(num1) - convertRationalToDouble(num2)) < EPSILON) ? TRUE : FALSE;
 }
 
 int isZeroNumerator(Rational_t *num) {

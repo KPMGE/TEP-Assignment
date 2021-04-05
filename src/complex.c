@@ -131,11 +131,26 @@
   // 1 - number1 > number2
   // 0 - number1 == number2
   // -1 - number1 < number2
-  int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-    if (abs(TYPED(getModuleComplexNumber)(num1) - TYPED(getModuleComplexNumber)(num2)) < EPSILON2) {
+  int TYPED(compareComplexModule)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+    if (fabs(TYPED(getModuleComplexNumber)(num1) - TYPED(getModuleComplexNumber)(num2)) < EPSILON2) {
       return 0;
     }
     else if (TYPED(getModuleComplexNumber)(num1) > TYPED(getModuleComplexNumber)(num2)) {
+      return 1;
+    }
+    else {
+      return -1;
+    }
+  }
+
+  // 1 - number1 > number2
+  // 0 - number1 == number2
+  // -1 - number1 < number2
+  int TYPED(compareComplexAngle)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+    if (fabs(TYPED(getAngleComplexNumber)(num1) - TYPED(getAngleComplexNumber)(num2)) < EPSILON2) {
+      return 0;
+    }
+    else if (TYPED(getAngleComplexNumber)(num1) > TYPED(getAngleComplexNumber)(num2)) {
       return 1;
     }
     else {
@@ -424,7 +439,7 @@
     double moduleNum1 = TYPED(getModuleComplexNumber)(num1);
     double moduleNum2 = TYPED(getModuleComplexNumber)(num2);
 
-    if (abs(moduleNum1 - moduleNum2) < EPSILON2) {
+    if (fabs(moduleNum1 - moduleNum2) < EPSILON2) {
       return 0;
     }
     else if (moduleNum1 > moduleNum2) {

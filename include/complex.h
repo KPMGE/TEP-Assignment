@@ -47,8 +47,10 @@ typedef struct TYPED(complex) TYPED(Complex_t);
   int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num);
   // check if a complex number is only a imaginary number
   int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num);
-  // compare two complex numbers
-  int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+  // compare two complex numbers with respect to module
+  int TYPED(compareComplexModule)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
+  // compare two complex numbers with respect to angle
+  int TYPED(compareComplexAngle)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2);
 
   // operations
   // calculate the conjugate of a complex number
