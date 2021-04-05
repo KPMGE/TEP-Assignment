@@ -56,6 +56,7 @@
 - [x] verificação se um número complexo é apenas real (admitindo uma tolerância eps = 0.00001 para o valor da parte imaginária)
 - [x] verificação se um número complexo é apenas imaginário (admitindo uma tolerância eps = 0.00001 para a parte real)
 - [x] comparar se um número complexo é igual, menor ou maior que outro (com relação ao seu módulo), considerando uma tolerância eps = 0.0001
+- [x] comparar se um número complexo é igual, menor ou maior que outro (com relação ao seu ângulo), considerando uma tolerância eps = 0.0001
 
 ##### Acessar/atribuir valor às componentes de um número complexo
 - [x] retornar a parte real de um número complexo
