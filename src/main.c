@@ -8,6 +8,34 @@
 
 int main(void) {
   // create tests
+  printf("\n\n------------ TESTING FUNCTIONS OF COMPARISON -----------\n\n");
+  DOUBLE_Complex_t* num1 = DOUBLE_createComplexNumber(1.0, 5.1999);
+  DOUBLE_Complex_t* num2 = DOUBLE_createComplexNumber(1.0, 5.2);
+
+  // compare module
+  printf("module num1 = %f\n", DOUBLE_getModuleComplexNumber(num1));
+  printf("module num2 = %f\n", DOUBLE_getModuleComplexNumber(num2));
+  if (DOUBLE_compareComplexModule(num1, num2) == 0) {
+    printf("same module!\n");
+  } else if (DOUBLE_compareComplexModule(num1, num2) == 1) {
+    printf("|num1| > |num2|!\n");
+  } else {
+    printf("|num1| < |num2|!\n");
+  }
+
+  // compare angle
+  printf("\nangle num1 = %f\n", DOUBLE_getAngleComplexNumber(num1));
+  printf("angle num2 = %f\n", DOUBLE_getAngleComplexNumber(num2));
+  if (DOUBLE_compareComplexAngle(num1, num2) == 0) {
+    printf("same angle!\n");
+  } else if (DOUBLE_compareComplexModule(num1, num2) == 1) {
+    printf("angle(num1) > angle(num2)");
+  } else {
+    printf("angle(num1) < angle(num2)");
+  }
+
+  DOUBLE_freeComplexNumber(num1);
+  DOUBLE_freeComplexNumber(num2);
 
   /*
   printf("--------- CALCULATE OPERATIONS ---------\n\n");
@@ -79,6 +107,7 @@ int main(void) {
   DOUBLE_freeComplexNumber(num);
   */
 
+  /*
   // create a number
   Rational_t* number = createRationalNumber(2, 1);
   // calculate square root
@@ -93,6 +122,7 @@ int main(void) {
   // free allocated memory
   freeRationalNumber(number);
   freeRationalNumber(root);
+  -*/
 
 
   /*
