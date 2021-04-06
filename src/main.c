@@ -8,6 +8,59 @@
 
 int main(void) {
   // create tests
+
+  // crate real and imaginary part num1
+  Rational_t* real = createRationalNumber(2, 3);
+  Rational_t* imag = createRationalNumber(5, 7);
+
+  // crate real and imaginary part num2
+  Rational_t* real2 = createRationalNumber(3, 8);
+  Rational_t* imag2 = createRationalNumber(1, 9);
+
+  // create some rational numbers
+  RATIONAL_Complex_t* num = RATIONAL_createComplexNumber(real, imag);
+  RATIONAL_Complex_t* num2 = RATIONAL_createComplexNumber(real2, imag2);
+  RATIONAL_Complex_t* sum, *sub, *multi, *div;
+
+  // implementing tests
+  printf("------------ OPERATIONS WITH RATIONALS ----------\n\n");
+  printf("num1: ");
+  RATIONAL_displayComplexNumber(num);
+  printf("\nnum2: ");
+  RATIONAL_displayComplexNumber(num2);
+  printf("\n\n");
+
+  // calculate operations
+  sum = RATIONAL_evaluateComplexOperation(num, num2, "+");
+  sub = RATIONAL_evaluateComplexOperation(num, num2, "-");
+  multi = RATIONAL_evaluateComplexOperation(num, num2, "*");
+  div = RATIONAL_evaluateComplexOperation(num, num2, "/");
+
+  // displaying outcomes
+  printf("\nsum: ");
+  RATIONAL_displayComplexNumber(sum);
+  printf("\nsub: ");
+  RATIONAL_displayComplexNumber(sub);
+  printf("\nmulti: ");
+  RATIONAL_displayComplexNumber(multi);
+  printf("\ndiv: ");
+  RATIONAL_displayComplexNumber(div);
+
+
+  // freeing allocated memory
+  RATIONAL_freeComplexNumber(sum);
+  RATIONAL_freeComplexNumber(sub);
+  RATIONAL_freeComplexNumber(multi);
+  RATIONAL_freeComplexNumber(div);
+  RATIONAL_freeComplexNumber(num);
+  freeRationalNumber(real);
+  freeRationalNumber(imag);
+  RATIONAL_freeComplexNumber(num2);
+  freeRationalNumber(real2);
+  freeRationalNumber(imag2);
+
+
+  /*
   printf("\n\n------------ TESTING FUNCTIONS OF COMPARISON -----------\n\n");
   DOUBLE_Complex_t* num1 = DOUBLE_createComplexNumber(1.0, 5.1999);
   DOUBLE_Complex_t* num2 = DOUBLE_createComplexNumber(1.0, 5.2);
@@ -36,6 +89,7 @@ int main(void) {
 
   DOUBLE_freeComplexNumber(num1);
   DOUBLE_freeComplexNumber(num2);
+  */
 
   /*
   printf("--------- CALCULATE OPERATIONS ---------\n\n");
@@ -122,7 +176,7 @@ int main(void) {
   // free allocated memory
   freeRationalNumber(number);
   freeRationalNumber(root);
-  -*/
+  */
 
 
   /*

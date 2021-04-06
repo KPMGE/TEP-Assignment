@@ -1,7 +1,11 @@
-#include "rational-numbers.h"
-#define TYPE Rational_t
+#undef RATIONAL_INCLUDED
+#undef TYPE
+#undef TYPED
+
 #define RATIONAL_INCLUDED
+#define TYPE Rational_t
 #define TYPED(SOMETHING) RATIONAL_ ## SOMETHING
+#include "rational-numbers.h"
 
 typedef struct TYPED(complex) TYPED(Complex_t);
 
