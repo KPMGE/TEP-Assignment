@@ -15,12 +15,7 @@ void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2
 // return a copy of a given complex number
 TYPED(Complex_t*) TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num);
 
-// conversions
-TYPED(Complex_t*) TYPED(convertComplexNumber)(double real, double imag);
-#include "rational-numbers.h"
-TYPED(Complex_t*) TYPED(convertComplexRationalTo)(Rational_t* real, Rational_t* imag);
 
-// get/set values into a complex number
 // get real part of a complex number
 TYPE TYPED(getRealPart)(TYPED(Complex_t*) num);
 // get imaginary part of a complex number
