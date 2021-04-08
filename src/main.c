@@ -5,10 +5,51 @@
 #include "../include/complex-double.h"
 #include "../include/complex-rational.h"
 #include "../include/rational-numbers.h"
+#include "../include/conversions.h"
 
 int main(void) {
   // create tests
+  DOUBLE_Complex_t* doubleNum = DOUBLE_createComplexNumber(2.3, 3.6);
+  INT_Complex_t* intNum = convertComplexDoubleToInt(doubleNum);
+  RATIONAL_Complex_t* rationalNum = convertComplexDoubleToRational(doubleNum);
 
+  printf("double number:\n");
+  DOUBLE_displayComplexNumber(doubleNum);
+
+  printf("\n\n\nInt number:\n");
+  INT_displayComplexNumber(intNum);
+
+  printf("\n\nRational number\n");
+  RATIONAL_displayComplexNumber(rationalNum);
+
+
+  printf("\n\nSet new values to rational number: \n");
+  Rational_t* real = createRationalNumber(12, 7);
+  Rational_t* imag = createRationalNumber(35, 9);
+  RATIONAL_setValueToRealPart(rationalNum, real);
+  RATIONAL_setValueToImaginaryPart(rationalNum, imag);
+
+  printf("\n\nNew Rational number\n");
+  RATIONAL_displayComplexNumber(rationalNum);
+
+  printf("\n\nNew double:\n");
+  doubleNum = convertComplexRationalToDouble(rationalNum);
+  DOUBLE_displayComplexNumber(doubleNum);
+
+
+  printf("\n\nNew int\n");
+  intNum = convertComplexRationalToInt(rationalNum);
+  INT_displayComplexNumber(intNum);
+
+
+  INT_freeComplexNumber(intNum);
+  DOUBLE_freeComplexNumber(doubleNum);
+  RATIONAL_freeComplexNumber(rationalNum);
+  freeRationalNumber(real);
+  freeRationalNumber(imag);
+
+
+  /*
   // crate real and imaginary part num1
   Rational_t* real = createRationalNumber(2, 3);
   Rational_t* imag = createRationalNumber(5, 7);
@@ -58,6 +99,7 @@ int main(void) {
   RATIONAL_freeComplexNumber(num2);
   freeRationalNumber(real2);
   freeRationalNumber(imag2);
+  */
 
 
   /*
