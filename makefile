@@ -5,8 +5,9 @@ BIN          = ./bin
 DATA         = ./data
 OUTPUT       = ./output
 
-CC           = gcc 
-FLAGS        = -lm -Wall -O3 -std=c99
+CC             = gcc 
+FLAGS          = -lm -Wall -O3 -std=c99
+VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 
 NAME_PROGRAM = program.exe
 
@@ -20,7 +21,7 @@ run: all
 
 valgrind: all
 	@ clear
-	@ valgrind ./${BIN}/${NAME_PROGRAM}
+	@ valgrind ./${BIN}/${NAME_PROGRAM} ${VALGRIND_FLAGS}
 	@ echo "\n\n"
 
 
@@ -41,12 +42,15 @@ directories:
 libed: \
 	${OBJ}/rational-numbers.o\
 	${OBJ}/complex.o\
+	${OBJ}/vectors.o\
 	${OBJ}/main.o\
 	${OBJ}/complex-int.o\
 	${OBJ}/complex-double.o\
 	${OBJ}/complex-rational.o\
 	${OBJ}/conversions.o\
-
+	${OBJ}/vectors-int.o\
+	${OBJ}/vectors-double.o\
+	${OBJ}/vectors-complex.o
 
 
 # rule for libed
@@ -68,4 +72,4 @@ clean:
 	@ echo ''
 	@ rm -rf ${OBJ}/*.o ${BIN}/${NAME_PROGRAM} *~
 	@ rm -rf ${OUTPUT}/*.csv
-	@ rmdir ${OBJ} ${BIN} ${OUTPUT}
+	@ rmdir  ${OBJ} ${BIN} ${OUTPUT}

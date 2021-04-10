@@ -6,6 +6,8 @@
 #include "../include/complex-rational.h"
 #include "../include/rational-numbers.h"
 #include "../include/conversions.h"
+#include "../include/vectors-int.h"
+
 
 int main(void) {
   // create tests
@@ -54,11 +56,11 @@ int main(void) {
 	printf("\n\n");
 	INT_vect_t *my_vect = INT_createVector(32, 15);
 	INT_insertIndexPosValue(my_vect, 5078269, 5);
-	printf("\nElement "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	printf("Element "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
 	INT_insertLastPosValue(my_vect, 555555);
-	printf("\nElement "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
-	printf("\nElement "); printf(IO_FORMAT, INT_deletePosition(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
-	printf("Vector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
+	printf("Element "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	printf("Element "); printf(IO_FORMAT, INT_deletePosition(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	printf("\nVector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_clearAllVector(my_vect);
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_freeVector(my_vect);
