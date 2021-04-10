@@ -50,5 +50,18 @@ int main(void) {
   freeRationalNumber(real);
   freeRationalNumber(imag);
 
+  	/* ------------------------------------ VECTOR FUNCTIONS ------------------------------------ */
+	printf("\n\n");
+	INT_vect_t *my_vect = INT_createVector(32, 15);
+	INT_insertIndexPosValue(my_vect, 5078269, 5);
+	printf("\nElement "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	INT_insertLastPosValue(my_vect, 555555);
+	printf("\nElement "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	printf("\nElement "); printf(IO_FORMAT, INT_deletePosition(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+	printf("Vector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
+	INT_clearAllVector(my_vect);
+	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
+	INT_freeVector(my_vect);
+
   return 0;
 }
