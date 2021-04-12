@@ -4,8 +4,8 @@
 #include <math.h>
 #include "../include/complex-rational.h"
 
-#ifdef TYPED
-#ifdef TYPE
+#ifdef TYPE_NAME
+#ifdef DATA_TYPE
 // define tolerance
 #define EPSILON 0.00001
 #define EPSILON2 0.0001
@@ -15,14 +15,14 @@
 #define FALSE 0
 
 // complex for complex numbers with rationals
-struct TYPED(complex) {
-  TYPE *real;
-  TYPE *imag;
+struct TYPE_NAME(complex) {
+  DATA_TYPE *real;
+  DATA_TYPE *imag;
 };
 
 // create a complex number
-TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE* real, TYPE* imag) {
-  TYPED(Complex_t) *allocatedComplex = (TYPED(Complex_t*)) malloc(sizeof(TYPED(Complex_t)));
+TYPE_NAME(Complex_t*) TYPE_NAME(createComplexNumber)(DATA_TYPE* real, DATA_TYPE* imag) {
+  TYPE_NAME(Complex_t) *allocatedComplex = (TYPE_NAME(Complex_t*)) malloc(sizeof(TYPE_NAME(Complex_t)));
 
   if (allocatedComplex == NULL) {
     printf("Insuficient Space!");
@@ -36,45 +36,45 @@ TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE* real, TYPE* imag) {
 }
 
 // get real part of a complex number
-TYPE* RATIONAL_getRealPart(TYPED(Complex_t*) num) {
+DATA_TYPE* RATIONAL_getRealPart(TYPE_NAME(Complex_t*) num) {
   return num->real;
 }
 
 // get imaginary part of a complex number
-TYPE* RATIONAL_getImaginaryPart(TYPED(Complex_t*) num) {
+DATA_TYPE* RATIONAL_getImaginaryPart(TYPE_NAME(Complex_t*) num) {
   return num->imag;
 }
 
 // get module of a complex number
-double TYPED(getModuleComplexNumber)(TYPED(Complex_t*) num) {
-  double doubleReal = convertRationalToDouble(TYPED(getRealPart)(num));
-  double doubleImag = convertRationalToDouble(TYPED(getImaginaryPart)(num));
+double TYPE_NAME(getModuleComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  double doubleReal = convertRationalToDouble(TYPE_NAME(getRealPart)(num));
+  double doubleImag = convertRationalToDouble(TYPE_NAME(getImaginaryPart)(num));
 
   return sqrt(pow(doubleReal, 2) + pow(doubleImag, 2));
 }
 
 // get angle of a complex number
-double TYPED(getAngleComplexNumber)(TYPED(Complex_t*) num) {
-  double module = TYPED(getModuleComplexNumber)(num);
+double TYPE_NAME(getAngleComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  double module = TYPE_NAME(getModuleComplexNumber)(num);
 
-  return acos(convertRationalToDouble(TYPED(getRealPart)(num)) / module);
+  return acos(convertRationalToDouble(TYPE_NAME(getRealPart)(num)) / module);
 }
 
 // set new value to real part of a complex number
-void TYPED(setValueToRealPart)(TYPED(Complex_t*) num, TYPE* value) {
+void TYPE_NAME(setValueToRealPart)(TYPE_NAME(Complex_t*) num, DATA_TYPE* value) {
   setDenominator(num->real, getDenominator(value));
   setNumerator(num->real, getNumerator(value));
 }
 
 // set new value to imaginary part of a complex number
-void TYPED(setValueToImaginaryPart)(TYPED(Complex_t*) num, TYPE* value) {
+void TYPE_NAME(setValueToImaginaryPart)(TYPE_NAME(Complex_t*) num, DATA_TYPE* value) {
   setDenominator(num->imag, getDenominator(value));
   setNumerator(num->imag, getNumerator(value));
 }
 
 // set new value to module of a complex number without modify its angle
-void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double module) {
-  double angle = TYPED(getAngleComplexNumber)(num); // get angle of num
+void TYPE_NAME(setModuleComplexNumber)(TYPE_NAME(Complex_t*) num, double module) {
+  double angle = TYPE_NAME(getAngleComplexNumber)(num); // get angle of num
 
   double a2 = module * cos(angle); // calculate real part
   double b2 = module * sin(angle); // calculate imaginary part
@@ -84,8 +84,8 @@ void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double module) {
   Rational_t* b2Rational = convertDoubleToRational(b2);
 
   // set new values to old number
-  TYPED(setValueToRealPart)(num, a2Rational);
-  TYPED(setValueToImaginaryPart)(num, b2Rational);
+  TYPE_NAME(setValueToRealPart)(num, a2Rational);
+  TYPE_NAME(setValueToImaginaryPart)(num, b2Rational);
 
   // free allocated memory
   freeRationalNumber(a2Rational);
@@ -93,8 +93,8 @@ void TYPED(setModuleComplexNumber)(TYPED(Complex_t*) num, double module) {
 } 
 
 // set new value to angle of a complex number without modify its module
-void TYPED(setAngleComplexNumber)(TYPED(Complex_t*) num, double angle) {
-  double module = TYPED(getModuleComplexNumber)(num);
+void TYPE_NAME(setAngleComplexNumber)(TYPE_NAME(Complex_t*) num, double angle) {
+  double module = TYPE_NAME(getModuleComplexNumber)(num);
 
   double a2 = module * cos(angle); // calculate real part
   double b2 = module * sin(angle); // calculate imaginary part
@@ -104,8 +104,8 @@ void TYPED(setAngleComplexNumber)(TYPED(Complex_t*) num, double angle) {
   Rational_t* b2Rational = convertDoubleToRational(b2);
 
   // set new values to old number
-  TYPED(setValueToRealPart)(num, a2Rational);
-  TYPED(setValueToImaginaryPart)(num, b2Rational);
+  TYPE_NAME(setValueToRealPart)(num, a2Rational);
+  TYPE_NAME(setValueToImaginaryPart)(num, b2Rational);
 
   // free allocated memory
   freeRationalNumber(a2Rational);
@@ -113,20 +113,20 @@ void TYPED(setAngleComplexNumber)(TYPED(Complex_t*) num, double angle) {
 }
 
 // assign number2 into number 1
-void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(num2));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(num2));
+void TYPE_NAME(assignComplexNumberTo)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(num2));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(num2));
 }
 
 // returns an allocated copied complex number
-TYPED(Complex_t*) TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num) {
-  TYPED(Complex_t*) copy = TYPED(createComplexNumber)(TYPED(getRealPart)(num), TYPED(getImaginaryPart)(num));
+TYPE_NAME(Complex_t*) TYPE_NAME(copyComplexNumberTo)(TYPE_NAME(Complex_t*) num) {
+  TYPE_NAME(Complex_t*) copy = TYPE_NAME(createComplexNumber)(TYPE_NAME(getRealPart)(num), TYPE_NAME(getImaginaryPart)(num));
   return copy;
 }
 
 // is module 0?
-int TYPED(isModuleZero)(TYPED(Complex_t*) num) {
-  double module = TYPED(getModuleComplexNumber)(num); 
+int TYPE_NAME(isModuleZero)(TYPE_NAME(Complex_t*) num) {
+  double module = TYPE_NAME(getModuleComplexNumber)(num); 
 
   if (module <= EPSILON) {
     return TRUE;
@@ -135,8 +135,8 @@ int TYPED(isModuleZero)(TYPED(Complex_t*) num) {
 }
 
 // is only real number?
-int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num) {
-  double real = convertRationalToDouble(TYPED(getImaginaryPart)(num));
+int TYPE_NAME(isOnlyRealNumber)(TYPE_NAME(Complex_t*) num) {
+  double real = convertRationalToDouble(TYPE_NAME(getImaginaryPart)(num));
 
   if (real <= EPSILON) {
     return TRUE;
@@ -145,8 +145,8 @@ int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num) {
 }
 
 // is only imaginary number?
-int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
-  double imag = convertRationalToDouble(TYPED(getRealPart)(num));
+int TYPE_NAME(isOnlyImaginaryNumber)(TYPE_NAME(Complex_t*) num) {
+  double imag = convertRationalToDouble(TYPE_NAME(getRealPart)(num));
 
   if (imag <= EPSILON) {
     return TRUE;
@@ -157,9 +157,9 @@ int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
 // 1 - number1 > number2
 // 0 - number1 == number2
 // -1 - number1 < number2
-int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-  double moduleNum1 = TYPED(getModuleComplexNumber)(num1);
-  double moduleNum2 = TYPED(getModuleComplexNumber)(num2);
+int TYPE_NAME(compareComplex)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  double moduleNum1 = TYPE_NAME(getModuleComplexNumber)(num1);
+  double moduleNum2 = TYPE_NAME(getModuleComplexNumber)(num2);
 
   if (fabs(moduleNum1 - moduleNum2) < EPSILON2) {
     return 0;
@@ -173,25 +173,25 @@ int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
 }
 
 // calculate the conjugate of a complex number
-TYPED(Complex_t*) TYPED(calculateConjugateComplex)(TYPED(Complex_t*) num) {
-  TYPE* realPart = TYPED(getRealPart)(num);
-  TYPE* imaginaryPart = TYPED(getImaginaryPart)(num); // * -1
+TYPE_NAME(Complex_t*) TYPE_NAME(calculateConjugateComplex)(TYPE_NAME(Complex_t*) num) {
+  DATA_TYPE* realPart = TYPE_NAME(getRealPart)(num);
+  DATA_TYPE* imaginaryPart = TYPE_NAME(getImaginaryPart)(num); // * -1
 
   setDenominator(imaginaryPart, -getDenominator(imaginaryPart));
 
-  TYPED(Complex_t*) conjugate = TYPED(createComplexNumber)(realPart, imaginaryPart);
+  TYPE_NAME(Complex_t*) conjugate = TYPE_NAME(createComplexNumber)(realPart, imaginaryPart);
 
   return conjugate;
 }
 
 // sum operation
-TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(sumComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate real part sum
-  TYPE* sumReal =  sumRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
+  DATA_TYPE* sumReal =  sumRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getRealPart)(num2));
   // calculate imaginary part sum
-  TYPE* sumImaginary = sumRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
+  DATA_TYPE* sumImaginary = sumRationalNumbers(TYPE_NAME(getImaginaryPart)(num1), TYPE_NAME(getImaginaryPart)(num2));
   // create allocated sum num
-  TYPED(Complex_t*) sum = TYPED(createComplexNumber)(sumReal, sumImaginary);
+  TYPE_NAME(Complex_t*) sum = TYPE_NAME(createComplexNumber)(sumReal, sumImaginary);
 
   // free memory
   freeRationalNumber(sumReal);
@@ -201,13 +201,13 @@ TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex
 }
 
 // subtraction operation
-TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(subtractComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate real part sum
-  TYPE* subReal = subtractRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
+  DATA_TYPE* subReal = subtractRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getRealPart)(num2));
   // calculate imaginary part sum
-  TYPE* subImaginary = subtractRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
+  DATA_TYPE* subImaginary = subtractRationalNumbers(TYPE_NAME(getImaginaryPart)(num1), TYPE_NAME(getImaginaryPart)(num2));
   // create allocated subtract num
-  TYPED(Complex_t*) sub = TYPED(createComplexNumber)(subReal, subImaginary);
+  TYPE_NAME(Complex_t*) sub = TYPE_NAME(createComplexNumber)(subReal, subImaginary);
 
   // free allocated memory
   freeRationalNumber(subReal);
@@ -217,19 +217,19 @@ TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Co
 }
 
 // multiplication operation
-TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-  TYPE* multiplicationReal1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
-  TYPE* multiplicationReal2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
-  TYPE* multiplicationImaginary1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getImaginaryPart)(num2)); 
-  TYPE* multiplicationImaginary2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getRealPart)(num2));
+TYPE_NAME(Complex_t*) TYPE_NAME(multiplyComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  DATA_TYPE* multiplicationReal1 = multiplyRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getRealPart)(num2));
+  DATA_TYPE* multiplicationReal2 = multiplyRationalNumbers(TYPE_NAME(getImaginaryPart)(num1), TYPE_NAME(getImaginaryPart)(num2));
+  DATA_TYPE* multiplicationImaginary1 = multiplyRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getImaginaryPart)(num2)); 
+  DATA_TYPE* multiplicationImaginary2 = multiplyRationalNumbers(TYPE_NAME(getImaginaryPart)(num1), TYPE_NAME(getRealPart)(num2));
 
   // calculate real part sum
-  TYPE* multiReal = subtractRationalNumbers(multiplicationReal1, multiplicationReal2);
+  DATA_TYPE* multiReal = subtractRationalNumbers(multiplicationReal1, multiplicationReal2);
   // calculate imaginary part sum
-  TYPE* multiImaginary = sumRationalNumbers(multiplicationImaginary1, multiplicationImaginary2) ;
+  DATA_TYPE* multiImaginary = sumRationalNumbers(multiplicationImaginary1, multiplicationImaginary2) ;
   
   // create allocated multi num
-  TYPED(Complex_t*) multi = TYPED(createComplexNumber)(multiReal, multiImaginary);
+  TYPE_NAME(Complex_t*) multi = TYPE_NAME(createComplexNumber)(multiReal, multiImaginary);
 
   // free allocated memory
   freeRationalNumber(multiplicationReal1);
@@ -243,21 +243,21 @@ TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Co
 }
 
 // division operation
-TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(divideComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate denominator
-  TYPE* pow1 = powRationalNumber(TYPED(getRealPart)(num2), 2);
-  TYPE* pow2 = powRationalNumber(TYPED(getImaginaryPart)(num2), 2);
-  TYPE* denominator = sumRationalNumbers(pow1, pow2);
+  DATA_TYPE* pow1 = powRationalNumber(TYPE_NAME(getRealPart)(num2), 2);
+  DATA_TYPE* pow2 = powRationalNumber(TYPE_NAME(getImaginaryPart)(num2), 2);
+  DATA_TYPE* denominator = sumRationalNumbers(pow1, pow2);
 
   // free allocated memory
   freeRationalNumber(pow1);
   freeRationalNumber(pow2);
 
   // calculate real part
-  TYPE* multiReal1 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getRealPart)(num2));
-  TYPE* multiReal2 = multiplyRationalNumbers(TYPED(getImaginaryPart)(num1), TYPED(getImaginaryPart)(num2));
-  TYPE* sum = sumRationalNumbers(multiReal1, multiReal2);
-  TYPE* divRealPart = divideRationalNumbers(sum, denominator);
+  DATA_TYPE* multiReal1 = multiplyRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getRealPart)(num2));
+  DATA_TYPE* multiReal2 = multiplyRationalNumbers(TYPE_NAME(getImaginaryPart)(num1), TYPE_NAME(getImaginaryPart)(num2));
+  DATA_TYPE* sum = sumRationalNumbers(multiReal1, multiReal2);
+  DATA_TYPE* divRealPart = divideRationalNumbers(sum, denominator);
 
   // free allocated memory
   freeRationalNumber(multiReal1);
@@ -265,10 +265,10 @@ TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Comp
   freeRationalNumber(sum);
 
   // calculate imaginary part
-  TYPE* multiImag1 = multiplyRationalNumbers(TYPED(getRealPart)(num2), TYPED(getImaginaryPart)(num1));
-  TYPE* multiImag2 = multiplyRationalNumbers(TYPED(getRealPart)(num1), TYPED(getImaginaryPart)(num2));
-  TYPE* sub = subtractRationalNumbers(multiImag1, multiImag2);
-  TYPE* divImaginaryPart = divideRationalNumbers(sub, denominator);
+  DATA_TYPE* multiImag1 = multiplyRationalNumbers(TYPE_NAME(getRealPart)(num2), TYPE_NAME(getImaginaryPart)(num1));
+  DATA_TYPE* multiImag2 = multiplyRationalNumbers(TYPE_NAME(getRealPart)(num1), TYPE_NAME(getImaginaryPart)(num2));
+  DATA_TYPE* sub = subtractRationalNumbers(multiImag1, multiImag2);
+  DATA_TYPE* divImaginaryPart = divideRationalNumbers(sub, denominator);
 
   // free allocated memory
   freeRationalNumber(multiImag1);
@@ -276,7 +276,7 @@ TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Comp
   freeRationalNumber(sub);
 
   // create allocated div num
-  TYPED(Complex_t*) div = TYPED(createComplexNumber)(divRealPart, divImaginaryPart);
+  TYPE_NAME(Complex_t*) div = TYPE_NAME(createComplexNumber)(divRealPart, divImaginaryPart);
 
   // free allocated memory
   freeRationalNumber(denominator);
@@ -287,60 +287,60 @@ TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Comp
 }
 
 // accumulate num2 into num1 with a sum operation
-void TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+void TYPE_NAME(accumulateComplexSum)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate sum
-  TYPED(Complex_t*) sumNum = TYPED(sumComplexNumbers)(num1, num2);
+  TYPE_NAME(Complex_t*) sumNum = TYPE_NAME(sumComplexNumbers)(num1, num2);
 
   // set values to number 1
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(sumNum));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(sumNum));
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(sumNum));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(sumNum));
 
   // free allocated num
-  TYPED(freeComplexNumber)(sumNum);
+  TYPE_NAME(freeComplexNumber)(sumNum);
 }
 
 // accumulate num2 into num1 with a multiplication operation
-void TYPED(accumulateComplexMulti)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+void TYPE_NAME(accumulateComplexMulti)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate sum
-  TYPED(Complex_t*) multiNum = TYPED(multiplyComplexNumbers)(num1, num2);
+  TYPE_NAME(Complex_t*) multiNum = TYPE_NAME(multiplyComplexNumbers)(num1, num2);
 
   // set values to number 1
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(multiNum));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(multiNum));
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(multiNum));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(multiNum));
 
   // free allocated num
-  TYPED(freeComplexNumber)(multiNum);
+  TYPE_NAME(freeComplexNumber)(multiNum);
 }
 
 // function to evaluate operation
-TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char *op) {
+TYPE_NAME(Complex_t*) TYPE_NAME(evaluateComplexOperation)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2, char *op) {
   if (!strcmp(op, "+")) {
-    return TYPED(sumComplexNumbers)(num1, num2);
+    return TYPE_NAME(sumComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "-")) {
-    return TYPED(subtractComplexNumbers)(num1, num2);
+    return TYPE_NAME(subtractComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "*")) {
-    return TYPED(multiplyComplexNumbers)(num1, num2);
+    return TYPE_NAME(multiplyComplexNumbers)(num1, num2);
   } else if(!strcmp(op, "/")) {
-    return TYPED(divideComplexNumbers)(num1, num2);
+    return TYPE_NAME(divideComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "+=")) {
-    TYPED(accumulateComplexSum)(num1, num2);
+    TYPE_NAME(accumulateComplexSum)(num1, num2);
   } else if (!strcmp(op, "*=")) {
-    TYPED(accumulateComplexMulti)(num1, num2);
+    TYPE_NAME(accumulateComplexMulti)(num1, num2);
   }
 }
 
 // display a rational complex number
-void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
-  displayRationalNumber(TYPED(getRealPart)(num));
+void TYPE_NAME(displayComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  displayRationalNumber(TYPE_NAME(getRealPart)(num));
   printf(" + ");
-  displayRationalNumber(TYPED(getImaginaryPart)(num));
+  displayRationalNumber(TYPE_NAME(getImaginaryPart)(num));
   printf("i");
 }
 
 // free a rational number
-void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
-  freeRationalNumber(TYPED(getRealPart)(num));
-  freeRationalNumber(TYPED(getImaginaryPart)(num));
+void TYPE_NAME(freeComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  freeRationalNumber(TYPE_NAME(getRealPart)(num));
+  freeRationalNumber(TYPE_NAME(getImaginaryPart)(num));
   free(num);
 }
 

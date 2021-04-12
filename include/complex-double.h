@@ -1,9 +1,9 @@
 #undef COMPLEX_H_INCLUDED
-#undef TYPE
-#undef TYPED
-#undef FORMAT
+#undef DATA_TYPE
+#undef TYPE_NAME
+#undef IO_FORMAT
 
-#define TYPE double
-#define TYPED(SOMETHING) DOUBLE_##SOMETHING
-#define FORMAT "%lf "
+#define DATA_TYPE double
+#define TYPE_NAME(SOMETHING) DOUBLE_##SOMETHING
+#define IO_FORMAT "%lf "
 #include "complex.h"
