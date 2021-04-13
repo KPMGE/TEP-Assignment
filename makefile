@@ -7,7 +7,7 @@ OUTPUT       = ./output
 
 CC             = gcc 
 FLAGS          = -lm -Wall -O3 -std=c99
-VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
+VALGRIND_FLAGS = -s --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 
 NAME_PROGRAM = program.exe
 
