@@ -4,6 +4,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define EPSILON 0.0001
 
 struct TYPE_NAME(vect_s)
 {
@@ -34,6 +35,11 @@ TYPE_NAME(vect_t *) TYPE_NAME(createVector)(int n, int i)
 	vector->maxCapacity = 100;
 	vector->index = i;
 	vector->array = (DATA_TYPE *) malloc(vector->maxCapacity * sizeof(DATA_TYPE));
+
+	for (int j = 0; j < vector->maxCapacity; j++)
+	{
+		*(vector->array + j) = 0;
+	}
 
 	TYPE_NAME(adjustVector)(vector);
 
@@ -134,7 +140,7 @@ DATA_TYPE TYPE_NAME(getLastElement)(TYPE_NAME(vect_t *) vector)
 	return *(vector->array + vector->index);
 }
 
-DATA_TYPE TYPE_NAME(getValueByIndex)(TYPE_NAME(vect_t *) vector, int i)
+DATA_TYPE TYPE_NAME(getElementByIndex)(TYPE_NAME(vect_t *) vector, int i)
 {
 	if (i > vector->amountElements)
 	{
@@ -150,10 +156,11 @@ DATA_TYPE TYPE_NAME(getValueByIndex)(TYPE_NAME(vect_t *) vector, int i)
 
 void TYPE_NAME(insertIndexPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v, int i)
 {
-	DATA_TYPE trash = TYPE_NAME(getValueByIndex)(vector, i);
-	trash = 0;
-
-	*(vector->array + vector->index) = v;
+	if (i >= 0 && i <= vector->amountElements)
+	{
+		vector->index = i;
+		*(vector->array + vector->index) = v;
+	}
 
 	TYPE_NAME(adjustVector)(vector);
 }
@@ -190,6 +197,101 @@ void TYPE_NAME(clearAllVector)(TYPE_NAME(vect_t *) vector)
 	vector->amountElements = 2;
 
 	TYPE_NAME(adjustVector)(vector);
+}
+
+DATA_TYPE TYPE_NAME(getHigherAbs)(TYPE_NAME(vect_t *) vector)
+{
+	DATA_TYPE higherValue = 0;
+
+	for (int i = 0; i < vector->amountElements; i++)
+	{
+		if (abs(*(vector->array + i)) > higherValue)
+		{
+			higherValue = *(vector->array + i);
+			vector->index = i;
+		}
+	}
+
+	return higherValue;
+}
+
+DATA_TYPE TYPE_NAME(getLowerAbs)(TYPE_NAME(vect_t *) vector)
+{
+	DATA_TYPE lowerValue = 0;
+
+	for (int i = 0; i < vector->amountElements; i++)
+	{
+		if (abs(*(vector->array + i)) < lowerValue)
+		{
+			lowerValue = *(vector->array + i);
+			vector->index = i;
+		}
+	}
+
+	return lowerValue;
+}
+
+int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value)
+{
+	int count = 0;
+	DATA_TYPE vecValue = 0;
+
+	for (int i = 0; i < vector->amountElements; i++)
+	{
+		vecValue = *(vector->array + i);
+
+		if (TYPE_NAME(diffValues)(vecValue, value) <= EPSILON)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value)
+{
+	int count = 0;
+	DATA_TYPE vecValue = 0;
+	TYPE_NAME(vect_t) *indexVector = TYPE_NAME(createVector)(1, 0);
+
+	for (int i = 0; i < vector->amountElements; i++)
+	{
+		vecValue = *(vector->array + i);
+
+		if (TYPE_NAME(diffValues)(vecValue, value) <= EPSILON)
+		{
+			*(indexVector->array + count) = (DATA_TYPE) i;
+			count++;
+			indexVector->amountElements = count;
+			TYPE_NAME(adjustVector)(indexVector);
+		}
+	}
+	indexVector->amountElements = count;
+	TYPE_NAME(adjustVector)(indexVector);
+
+	return indexVector;
+}
+
+//
+
+float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2)
+{
+	if (v1 >= v2)
+		return (v1 - v2);
+	else
+		return (v2 - v1);
+}
+
+void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector)
+{
+	printf("\n\n");
+	for (int i = 0; i < vector->amountElements; i++)
+	{
+		printf(IO_FORMAT, *(vector->array + i));
+		printf(", ");
+	}
+	printf("\n\n");
 }
 
 #endif

@@ -7,7 +7,7 @@ OUTPUT       = ./output
 
 CC             = gcc 
 FLAGS          = -lm -Wall -O3 -std=c99
-VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
+VALGRIND_FLAGS = -s --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 
 NAME_PROGRAM = program.exe
 
@@ -25,7 +25,7 @@ valgrind: all
 	@ echo "\n\n"
 
 
-all: directories libed create 
+all: directories libed create
 	@ echo " \033[1;32m  Done!  \033[0m "
 	@ echo ''
 
@@ -54,14 +54,14 @@ libed: \
 
 
 # rule for libed
-${OBJ}/%.o: ${SRC}/%.c  
+${OBJ}/%.o: ${SRC}/%.c
 	@ ${CC} -c $< -I ${INCLUDE} -o $@
 	@ echo " \033[0;35m  Generating compilation object \033[45;1;37m$@\033[0m\033[0;35m  \033[0m "
 	@ echo ''
 
 
 # rule for create
-${BIN}/%: 
+${BIN}/%:
 	@ ${CC} $< ${OBJ}/*.o -I ${INCLUDE} -o $@ ${FLAGS}
 	@ echo " \033[0;33m  Building binary \033[43;1;37m$@\033[0m\033[0;33m  \033[0m "
 	@ echo ''
