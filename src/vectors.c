@@ -312,6 +312,52 @@ double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(
   return scalarProduct;
 }
 
+TYPE_NAME(vect_t*)  TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  // creating allocated vector
+  TYPE_NAME(vect_t*) sumVector = TYPE_NAME(createVector)(amountElementsVector1, 0);
+
+  // doing calculations
+  for (int i = 0; i < amountElementsVector1; i++) { 
+    // calculate sum
+    DATA_TYPE sum = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i);
+    // assign it into sumVector
+    TYPE_NAME(insertIndexPosValue)(sumVector, sum, i); 
+  }
+
+  return sumVector;
+}
+
+TYPE_NAME(vect_t*)  TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  // creating allocated vector
+  TYPE_NAME(vect_t*) subVector = TYPE_NAME(createVector)(amountElementsVector1, 0);
+
+  // doing calculations
+  for (int i = 0; i < amountElementsVector1; i++) { 
+    // calculate sum
+    DATA_TYPE sub = TYPE_NAME(getElementByIndex)(vector1, i) - TYPE_NAME(getElementByIndex)(vector2, i);
+    // assign it into sumVector
+    TYPE_NAME(insertIndexPosValue)(subVector, sub, i); 
+  }
+
+  return subVector;
+}
+
 #endif
 #endif
 #endif

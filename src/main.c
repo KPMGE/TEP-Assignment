@@ -83,14 +83,14 @@ int main(void) {
 
 
   // create a vector
-  INT_vect_t* vect1 = INT_createVector(4, 0);
+  INT_vect_t* vect1 = INT_createVector(3, 0);
   // assign values
   INT_insertIndexPosValue(vect1, 3, 0);
-  INT_insertIndexPosValue(vect1, 0, 1);
+  INT_insertIndexPosValue(vect1, 8, 1);
   INT_insertIndexPosValue(vect1, 1, 2);
 
   // create another vector
-  INT_vect_t* vect2 = INT_createVector(4, 0);
+  INT_vect_t* vect2 = INT_createVector(3, 0);
   // assign values
   INT_insertIndexPosValue(vect2, 2, 0);
   INT_insertIndexPosValue(vect2, 4, 1);
@@ -101,12 +101,24 @@ int main(void) {
   INT_displayVector(vect1);
   INT_displayVector(vect2);
 
+  // calculate sum of vector1 and vector2
+  INT_vect_t* sum = INT_sumVectors(vect1, vect2);
+  printf("Sum vector:\n");
+  INT_displayVector(sum);
+
+  // calculate subtraction of vector1 and vector2
+  INT_vect_t* sub = INT_subtractVectors(vect1, vect2);
+  printf("Sub vector:\n");
+  INT_displayVector(sub);
+
   // displaying scalar product
   printf("Scalar Product: %.3f\n\n", INT_calculateScalarProduct(vect1, vect2));
 
   // freeing vectors
   INT_freeVector(vect1);
   INT_freeVector(vect2);
+  INT_freeVector(sum);
+  INT_freeVector(sub);
 
 
   return 0;

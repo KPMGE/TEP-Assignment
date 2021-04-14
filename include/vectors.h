@@ -33,5 +33,10 @@
 
   // function to calculate scalar product
   double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+  // function to sum two vectors and return a third
+  TYPE_NAME(vect_t*)  TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
+  // function to subtract two vectors and return a third
+  TYPE_NAME(vect_t*)  TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
+
 
 #endif
