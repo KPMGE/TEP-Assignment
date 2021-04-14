@@ -122,7 +122,7 @@ O índice do elemento atual “i” é “incrementado de 0 até n-1” ao se pe
 - [x] somar dois vetores de mesmo tamanho criando um novo vetor (C = A + B);
 - [x] multiplicar dois vetores (“produto interno”) gerando um valor “produto” (c = A . B)
 - [x] subtrair um vetor de outro vetor, criando um novo vetor; (C = A – B);
-- [ ] multiplicar um vetor por um escalar, alterando os valores do vetor original (A = k * A)
+- [x] multiplicar um vetor por um escalar, alterando os valores do vetor original (A = k * A)
 - [ ] acumular um vetor B sobre um outro vetor A do mesmo tamanho, somando os elementos um-a-um (A = A+ B)
 - [ ] determinar a média aritmética dos valores de um vetor
 - [ ] determinar a variância dos valores de um vetor
