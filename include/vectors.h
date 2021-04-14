@@ -18,10 +18,17 @@
 	DATA_TYPE TYPE_NAME(getNextElement)(TYPE_NAME(vect_t *) vector);
 	DATA_TYPE TYPE_NAME(getPrevElement)(TYPE_NAME(vect_t *) vector);
 	DATA_TYPE TYPE_NAME(getLastElement)(TYPE_NAME(vect_t *) vector);
-	DATA_TYPE TYPE_NAME(getValueByIndex)(TYPE_NAME(vect_t *) vector, int i);
+	DATA_TYPE TYPE_NAME(getElementByIndex)(TYPE_NAME(vect_t *) vector, int i);
 	void TYPE_NAME(insertIndexPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v, int i);
 	void TYPE_NAME(insertLastPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v);
 	DATA_TYPE TYPE_NAME(deletePosition)(TYPE_NAME(vect_t *) vector, int i);
 	void TYPE_NAME(clearAllVector)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getHigherAbs)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(getLowerAbs)(TYPE_NAME(vect_t *) vector);
+	int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
+	TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
+	//
+	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2);
+	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector);
 
 #endif

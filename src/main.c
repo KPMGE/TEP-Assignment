@@ -7,6 +7,7 @@
 #include "../include/rational-numbers.h"
 #include "../include/conversions.h"
 #include "../include/vectors-int.h"
+#include "../include/vectors-double.h"
 
 
 int main(void) {
@@ -54,16 +55,30 @@ int main(void) {
 
   	/* ------------------------------------ VECTOR FUNCTIONS ------------------------------------ */
 	printf("\n\n");
+
 	INT_vect_t *my_vect = INT_createVector(32, 15);
-	INT_insertIndexPosValue(my_vect, 5078269, 5);
-	printf("Element "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
-	INT_insertLastPosValue(my_vect, 555555);
-	printf("Element "); printf(IO_FORMAT, INT_getValueByIndex(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
-	printf("Element "); printf(IO_FORMAT, INT_deletePosition(my_vect, INT_getIndex(my_vect))); printf(" in %d position\n", INT_getIndex(my_vect));
+
+	INT_insertIndexPosValue(my_vect, 555555, 5);
+	INT_insertIndexPosValue(my_vect, -1, 23);
+	printf("Element %ld in %d position\n", INT_getElementByIndex(my_vect, INT_getIndex(my_vect)), INT_getIndex(my_vect));
+	INT_insertLastPosValue(my_vect, 5078269);
+	printf("Element %ld in %d position\n", INT_getElementByIndex(my_vect, INT_getIndex(my_vect)), INT_getIndex(my_vect));
+	printf("Element %ld in %d position\n", INT_deletePosition(my_vect, INT_getIndex(my_vect)), INT_getIndex(my_vect));
+	printf("\nMax: %ld - Min: %ld vector values\n", INT_getHigherAbs(my_vect), INT_getLowerAbs(my_vect));
+
+	INT_insertIndexPosValue(my_vect, 1234, 2); INT_insertIndexPosValue(my_vect, 1234, 4);
+	INT_insertIndexPosValue(my_vect, 1234, 18); INT_insertIndexPosValue(my_vect, 1234, 31);
+	printf("\nFinded '%d' values to '%d' on vector\n", INT_countEquals(my_vect, 1234), 1234);
+
+	INT_vect_t *equalsIndex = INT_indexOfEquals(my_vect, 1234);
+	INT_displayVector(my_vect);
+	INT_displayVector(equalsIndex);
+
 	printf("\nVector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_clearAllVector(my_vect);
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_freeVector(my_vect);
+	INT_freeVector(equalsIndex);
 
   return 0;
 }

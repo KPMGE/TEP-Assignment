@@ -110,10 +110,10 @@ O índice do elemento atual “i” é “incrementado de 0 até n-1” ao se pe
 - [x] atribuir o valor “v” depois da última posição do vetor, incrementando o “número atual de elementos”;
 - [x] eliminar a i-ésima posição do vetor, devolvendo o seu valor atual e decrementando o “número atual de elementos”
 - [x] eliminar todos os elementos do vetor;
-- [ ] obter o valor do elemento de maior módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
-- [ ] obter o valor do elemento de menor módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
-- [ ] determinar quantos dos elementos do vetor têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
-- [ ] devolver um vetor com as posições dos elementos que têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
+- [x] obter o valor do elemento de maior módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
+- [x] obter o valor do elemento de menor módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
+- [x] determinar quantos dos elementos do vetor têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
+- [x] devolver um vetor com as posições dos elementos que têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
 - [ ] ordenar os elementos do vetor de acordo com uma função “critério de comparação”.
     ▪ A função “critério” recebe dois elementos do vetor e os compara:
         se a = b, retorna “0”; se a < b, retorna -1; se a > b, retorna +1.
