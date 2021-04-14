@@ -31,4 +31,7 @@
 	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2);
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector);
 
+  // function to calculate scalar product
+  double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+
 #endif

@@ -56,6 +56,7 @@ int main(void) {
   	/* ------------------------------------ VECTOR FUNCTIONS ------------------------------------ */
 	printf("\n\n");
 
+
 	INT_vect_t *my_vect = INT_createVector(32, 15);
 
 	INT_insertIndexPosValue(my_vect, 555555, 5);
@@ -79,6 +80,34 @@ int main(void) {
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_freeVector(my_vect);
 	INT_freeVector(equalsIndex);
+
+
+  // create a vector
+  INT_vect_t* vect1 = INT_createVector(4, 0);
+  // assign values
+  INT_insertIndexPosValue(vect1, 3, 0);
+  INT_insertIndexPosValue(vect1, 0, 1);
+  INT_insertIndexPosValue(vect1, 1, 2);
+
+  // create another vector
+  INT_vect_t* vect2 = INT_createVector(4, 0);
+  // assign values
+  INT_insertIndexPosValue(vect2, 2, 0);
+  INT_insertIndexPosValue(vect2, 4, 1);
+  INT_insertIndexPosValue(vect2, 1, 2);
+
+  // displaying vectors
+  printf("\n\nNew Vectors:\n");
+  INT_displayVector(vect1);
+  INT_displayVector(vect2);
+
+  // displaying scalar product
+  printf("Scalar Product: %.3f\n\n", INT_calculateScalarProduct(vect1, vect2));
+
+  // freeing vectors
+  INT_freeVector(vect1);
+  INT_freeVector(vect2);
+
 
   return 0;
 }

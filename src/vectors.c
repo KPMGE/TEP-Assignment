@@ -294,6 +294,24 @@ void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector)
 	printf("\n\n");
 }
 
+double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2) {
+  double scalarProduct = 0;
+
+  int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  for (int i = 0; i < amountElementsVector1; i++) {
+    scalarProduct += (TYPE_NAME(getElementByIndex)(vector1, i) * TYPE_NAME(getElementByIndex)(vector2, i));
+  }
+
+  return scalarProduct;
+}
+
 #endif
 #endif
 #endif
