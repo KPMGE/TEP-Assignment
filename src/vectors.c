@@ -358,6 +358,16 @@ TYPE_NAME(vect_t*)  TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE
   return subVector;
 }
 
+TYPE_NAME(vect_t*) TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE value) {
+  // iterate over vector
+  for (int i = 0; i < TYPE_NAME(getAmountElements)(vector); i++) {
+    // calculate multiplication
+    DATA_TYPE multi = value * TYPE_NAME(getElementByIndex)(vector, i);
+    // set this value into vector
+    TYPE_NAME(insertIndexPosValue)(vector, multi, i);
+  }
+}
+
 #endif
 #endif
 #endif

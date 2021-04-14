@@ -36,7 +36,8 @@
   // function to sum two vectors and return a third
   TYPE_NAME(vect_t*)  TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
   // function to subtract two vectors and return a third
-  TYPE_NAME(vect_t*)  TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
-
+  TYPE_NAME(vect_t*) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
+  // function to multiply a vector by a value and modify original vector
+  TYPE_NAME(vect_t*) TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 
 #endif

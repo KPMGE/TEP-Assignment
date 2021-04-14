@@ -83,14 +83,15 @@ int main(void) {
 
 
   // create a vector
-  INT_vect_t* vect1 = INT_createVector(3, 0);
+  INT_vect_t* vect1 = INT_createVector(5, 0);
   // assign values
   INT_insertIndexPosValue(vect1, 3, 0);
   INT_insertIndexPosValue(vect1, 8, 1);
   INT_insertIndexPosValue(vect1, 1, 2);
+  INT_insertIndexPosValue(vect1, 5, 4);
 
   // create another vector
-  INT_vect_t* vect2 = INT_createVector(3, 0);
+  INT_vect_t* vect2 = INT_createVector(5, 0);
   // assign values
   INT_insertIndexPosValue(vect2, 2, 0);
   INT_insertIndexPosValue(vect2, 4, 1);
@@ -110,6 +111,12 @@ int main(void) {
   INT_vect_t* sub = INT_subtractVectors(vect1, vect2);
   printf("Sub vector:\n");
   INT_displayVector(sub);
+
+  // vector1 * 3
+  printf("Vector1 * 3: \n");
+  INT_multiplyVectorByScalar(vect1, 3);
+  INT_displayVector(vect1);
+
 
   // displaying scalar product
   printf("Scalar Product: %.3f\n\n", INT_calculateScalarProduct(vect1, vect2));
