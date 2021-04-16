@@ -1,60 +1,64 @@
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include "../include/vectors-complex.h"
-#include "vectors.c"
-*/
+#ifdef TYPE_NAME_VECTOR
+#ifdef DATA_TYPE_VECTOR
 
-/*
-
-#ifdef TYPED
-#ifdef TYPE
-
-// struct to vector
-struct TYPED(vector) {
-  int amountElements;
-  int maxCapacity;
-  int index;
-  TYPED(Complex_t**) vector;
+struct TYPE_NAME_VECTOR(_vectComplex) {
+	int amountElements;
+	int maxCapacity;
+	int index;
+	DATA_TYPE_VECTOR* array;
 };
 
-// function that creates a vector
-TYPED(Vector_t*) TYPED(createVector)() {
-  // allocate vector structure
-  TYPED(Vector_t*) allocatedVectorStructure =  (TYPED(Vector_t*)) malloc(sizeof(TYPED(Vector_t)));
+void TYPE_NAME_VECTOR(adjustVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+	if (vector->amountElements >= vector->maxCapacity)
+	{
+		vector->maxCapacity *= 2;
+	}
+	if (vector->amountElements < (vector->maxCapacity)/4)
+	{
+		vector->maxCapacity /= 2;
+	}
 
-  // allocate inner vector of complex structure
-  allocatedVectorStructure->vector = (TYPED(Complex_t**)) malloc(10 * sizeof(TYPED(Complex_t*)));
-
-  // assigning some values into  vector of complex numbers
-  for (int i = 0; i < 10; i++) {
-    allocatedVectorStructure->vector[i] = TYPED(createComplexNumber)(i, i+2);
-
-    // update amount of elements
-    allocatedVectorStructure->amountElements++;
-  }
-
-  return allocatedVectorStructure;
+	vector->array = (DATA_TYPE_VECTOR*) realloc(vector->array, vector->maxCapacity * sizeof(DATA_TYPE_VECTOR*));
 }
 
-// free a vector
-void TYPED(freeVector)(TYPED(Vector_t*) vec) {
-  for (int i = 0; i < vec->amountElements; i++) {
-    TYPED(freeComplexNumber)(vec->vector[i]);
-  }
-  free(vec);
+TYPE_NAME_VECTOR(VectComplex_t*) TYPE_NAME_VECTOR(createVector)(int n, int i) {
+	TYPE_NAME_VECTOR(VectComplex_t*) vector = (TYPE_NAME_VECTOR(VectComplex_t*))  malloc(sizeof(TYPE_NAME_VECTOR(VectComplex_t)));
+	vector->amountElements = n;
+	vector->maxCapacity = 100;
+	vector->index = i;
+	vector->array = (DATA_TYPE_VECTOR*) malloc(vector->maxCapacity * sizeof(DATA_TYPE_VECTOR));
+
+	for (int j = 0; j < vector->maxCapacity; j++) {
+    vector->array[j] = NULL;
+	}
+
+	TYPE_NAME_VECTOR(adjustVector)(vector);
+
+	return vector;
 }
 
-// display a vector
-void TYPED(displayVector)(TYPED(Vector_t*) vec) {
-  for (int i = 0; i < vec->amountElements; i++) {
-    TYPED(displayComplexNumber)(vec->vector[i]);
+void TYPE_NAME_VECTOR(freeVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+	if (vector != NULL)
+	{
+
+    for (int i = 0; i < vector->maxCapacity; i++) {
+      if (vector->array[i] != NULL) {
+        TYPE_NAME(freeComplexNumber)(vector->array[i]);
+        vector->array[i] = NULL;
+      }
+    }
+
+    free(vector->array);
+		free(vector);
+		vector = NULL;
+	}
+}
+
+void TYPE_NAME_VECTOR(displayVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+  for (int i = 0; i < vector->amountElements; i++) {
+    TYPE_NAME(displayComplexNumber)(vector->array[i]);
   }
 }
 
+#endif 
 #endif
-#endif
-
-*/
