@@ -50,7 +50,7 @@ libed: \
 	${OBJ}/conversions.o\
 	${OBJ}/vectors-int.o\
 	${OBJ}/vectors-double.o\
-	${OBJ}/vectors-complex.o
+	${OBJ}/vectors-complex-double.o
 
 
 # rule for libed
