@@ -33,5 +33,13 @@
   void TYPE_NAME_VECTOR(insertLastPosValue)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR v);
   // function to delete a given position of the vector
   DATA_TYPE_VECTOR TYPE_NAME_VECTOR(deletePosition)(TYPE_NAME_VECTOR(VectComplex_t*) vector, int i);
+  // function to clear entirely our vector
+  void TYPE_NAME_VECTOR(clearAllVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
+  // function to get the element with higher abs of the vector
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(getHigherAbs)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
+  // function to get the element with the lower abs of the vector
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(getLowerAbs)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
+  // function to count equal values
+  int TYPE_NAME_VECTOR(countEquals)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value);
 
 #endif
