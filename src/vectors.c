@@ -306,9 +306,15 @@ TYPE_NAME(vect_t *) TYPE_NAME(newOrdenatedVector)(TYPE_NAME(vect_t *) vector1, T
 	TYPE_NAME(sortVector)(vector2);
 	int j = 0;
 
+	if (size1 != size2)
+	{
+		printf("Your vectors don't have the same amount of elements!");
+		exit(1);
+	}
+
 	TYPE_NAME(vect_t) *newVec = TYPE_NAME(createVector)(size1+size2, 0);
 
-	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && j < size1 && j < size2; i+=2)
+	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && j < size1 && j < size2; i += 2)
 	{
 		*(newVec->array + i) = TYPE_NAME(getElementByIndex)(vector1, j);
 		*(newVec->array + (i+1)) = TYPE_NAME(getElementByIndex)(vector2, j);
