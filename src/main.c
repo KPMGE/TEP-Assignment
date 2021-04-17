@@ -108,6 +108,7 @@ int main(void)
 	DOUBLE_VECT_freeVector(subSameVect);
 
   	/* ------------------------------------ VECTOR FUNCTIONS ------------------------------------ */
+	// INT test
 	printf("\n\n");
 
 	INT_vect_t *my_vect = INT_createVector(32, 15);
@@ -135,6 +136,35 @@ int main(void)
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_freeVector(my_vect);
 	INT_freeVector(equalsIndex);
+	
+	// DOUBLE test
+	printf("\n\n");
+
+	DOUBLE_vect_t *vect_test = DOUBLE_createVector(32, 15);
+
+	DOUBLE_insertIndexPosValue(vect_test, 555555, 5);
+	DOUBLE_insertIndexPosValue(vect_test, -1, 23);
+	printf("Element %lf in %d position\n", DOUBLE_getElementByIndex(vect_test, DOUBLE_getIndex(vect_test)), DOUBLE_getIndex(vect_test));
+	DOUBLE_insertLastPosValue(vect_test, 5078269);
+	printf("Element %lf in %d position\n", DOUBLE_getElementByIndex(vect_test, DOUBLE_getIndex(vect_test)), DOUBLE_getIndex(vect_test));
+	printf("Element %lf in %d position\n", DOUBLE_deletePosition(vect_test, DOUBLE_getIndex(vect_test)), DOUBLE_getIndex(vect_test));
+	printf("\nMax: %lf - Min: %lf vector values\n", DOUBLE_getHigherAbs(vect_test), DOUBLE_getLowerAbs(vect_test));
+
+	DOUBLE_insertIndexPosValue(vect_test, 1234, 2); DOUBLE_insertIndexPosValue(vect_test, 1234, 4);
+	DOUBLE_insertIndexPosValue(vect_test, 1234, 18); DOUBLE_insertIndexPosValue(vect_test, 1234, 31);
+	printf("\nFinded '%d' values to '%d' on vector\n", DOUBLE_countEquals(vect_test, 1234), 1234);
+
+	DOUBLE_vect_t *indexEquals = DOUBLE_indexOfEquals(vect_test, 1234);
+	DOUBLE_displayVector(vect_test);
+	DOUBLE_displayVector(indexEquals);
+
+	printf("\nMean: %lf, Median: %lf, Variance: %lf, Standard Deviation: %lf\n", DOUBLE_calculateMean(indexEquals), DOUBLE_calculateMedianUsually(indexEquals), DOUBLE_calculateVariance(indexEquals), DOUBLE_calculateDeviation(indexEquals));
+
+	printf("\nVector size: %d and capacity: %d before cleaning.\n", DOUBLE_getAmountElements(vect_test), DOUBLE_getMaxCapacity(vect_test));
+	DOUBLE_clearAllVector(vect_test);
+	printf("Vector size: %d and capacity: %d after cleaning.\n", DOUBLE_getAmountElements(vect_test), DOUBLE_getMaxCapacity(vect_test));
+	DOUBLE_freeVector(vect_test);
+	DOUBLE_freeVector(indexEquals);
 
 	return 0;
 }
