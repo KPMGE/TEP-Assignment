@@ -299,7 +299,26 @@ void TYPE_NAME(SortVector)(TYPE_NAME(vect_t *) vector)
 	}
 }
 
-//
+TYPE_NAME(vect_t *) TYPE_NAME(newOrdenatedVector)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+{
+	int size1 = TYPE_NAME(getAmountElements)(vector1), size2 = TYPE_NAME(getAmountElements)(vector2);
+	TYPE_NAME(SortVector)(vector1);
+	TYPE_NAME(SortVector)(vector2);
+	int j = 0;
+
+	TYPE_NAME(vect_t) *newVec = TYPE_NAME(createVector)(size1+size2, 0);
+
+	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && j < size1 && j < size2; i+=2)
+	{
+		*(newVec->array + i) = TYPE_NAME(getElementByIndex)(vector1, j);
+		*(newVec->array + (i+1)) = TYPE_NAME(getElementByIndex)(vector1, j);
+		j++;
+	}
+	TYPE_NAME(adjustVector)(newVec);
+
+	return newVec;
+}
+
 
 TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
 {
@@ -436,6 +455,28 @@ double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
 }
 
 double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
+{
+	double median = 0;
+	int size = TYPE_NAME(getAmountElements)(vector);
+	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index);
+
+	TYPE_NAME(accumulateVectors)(newVector, vector);
+	TYPE_NAME(SortVector)(newVector);
+
+	if (TYPE_NAME(getAmountElements)(newVector) % 2 == 0)
+	{
+		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2) + TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
+		median = median / 2.0;
+	}
+	else
+	{
+		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
+	}
+
+	return median;
+}
+
+double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
 {
 	double median = 0;
 	int size = TYPE_NAME(getAmountElements)(vector);
