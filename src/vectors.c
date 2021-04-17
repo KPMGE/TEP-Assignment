@@ -456,24 +456,56 @@ double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
 
 double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
 {
-	double median = 0;
+	DATA_TYPE min = 0, max = 0, guess, maxltguess, mingtguess;
+	int i, less, greater, equal;;
 	int size = TYPE_NAME(getAmountElements)(vector);
-	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index);
 
-	TYPE_NAME(accumulateVectors)(newVector, vector);
-	TYPE_NAME(SortVector)(newVector);
+	min = max = TYPE_NAME(getElementByIndex)(vector, 0);
 
-	if (TYPE_NAME(getAmountElements)(newVector) % 2 == 0)
+	for (i = 0; i < size; i++)
 	{
-		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2) + TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
-		median = median / 2.0;
+		if (TYPE_NAME(getElementByIndex)(vector, i) < min)
+			min = (double) *(vector->array + i);
+		if (TYPE_NAME(getElementByIndex)(vector, i) > max)
+			max = (double) *(vector->array + i);
 	}
+
+	while (1)
+	{
+		guess = (min+max)/2;
+		less = 0; greater = 0; equal = 0;
+		maxltguess = min;
+		mingtguess = max;
+		for (i = 0; i < size; i++)
+		{
+			if (TYPE_NAME(getElementByIndex)(vector, i) < guess)
+			{
+				less++;
+				if (TYPE_NAME(getElementByIndex)(vector, i) > maxltguess)
+					maxltguess = TYPE_NAME(getElementByIndex)(vector, i);
+			}
+			else if (TYPE_NAME(getElementByIndex)(vector, i) > guess)
+			{
+				greater++;
+				if (TYPE_NAME(getElementByIndex)(vector, i) < mingtguess)
+					mingtguess = TYPE_NAME(getElementByIndex)(vector, i);
+			}
+			else
+				equal++;
+		}
+		if (less <= (size+1)/2 && greater <= (size+1)/2)
+			break;
+		else if (less>greater)
+			max = maxltguess;
+		else
+			min = mingtguess;
+	}
+	if (less >= (size+1)/2)
+		return (double) maxltguess;
+	else if (less+equal >= (size+1)/2)
+		return (double) guess;
 	else
-	{
-		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
-	}
-
-	return median;
+		return (double) mingtguess;
 }
 
 double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
