@@ -1,6 +1,7 @@
 #ifndef VECTORS_COMPLEX_INCLUDED
 #define VECTORS_COMPLEX_INCLUDED
 
+  // structure for a complex vector
   typedef struct TYPE_NAME_VECTOR(_vectComplex) TYPE_NAME_VECTOR(VectComplex_t);
 
   // function to adjust size of vector
@@ -41,5 +42,13 @@
   DATA_TYPE_VECTOR TYPE_NAME_VECTOR(getLowerAbs)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
   // function to count equal values
   int TYPE_NAME_VECTOR(countEquals)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value);
+  // function to calculate scalar product
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateScalarProduct)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
+  // function to sum two complex vectors
+  TYPE_NAME_VECTOR(VectComplex_t*) TYPE_NAME_VECTOR(sumVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
+  // function to subtract two complex vectors
+  TYPE_NAME_VECTOR(VectComplex_t*)  TYPE_NAME_VECTOR(subtractVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
+  // function to multiply a given vector by a complex number
+  void TYPE_NAME_VECTOR(multiplyVectorByScalar)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value);
 
 #endif

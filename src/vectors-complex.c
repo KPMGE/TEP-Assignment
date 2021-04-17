@@ -221,5 +221,129 @@ int TYPE_NAME_VECTOR(countEquals)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_
 	return count;
 }
 
+DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateScalarProduct)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME_VECTOR(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME_VECTOR(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  // create variable to hold scalar product
+  DATA_TYPE_VECTOR scalarProduct = TYPE_NAME(createComplexNumber)(0.0, 0.0);
+  for (int i = 0; i < amountElementsVector1; i++) {
+    // if the position of vector is valid
+    if (vector1->array[i] != NULL && vector2->array[i] != NULL) {
+      // calculate the conjugate of array's first element
+      DATA_TYPE_VECTOR conjugate = TYPE_NAME(calculateConjugateComplex)(vector1->array[i]);
+      // multiply conjugate times vector2's element
+      DATA_TYPE_VECTOR multi = TYPE_NAME(multiplyComplexNumbers)(conjugate, vector2->array[i]);
+      // accumulate that num into scalar product variable
+      TYPE_NAME(accumulateComplexSum)(scalarProduct, multi);
+
+      // free allocated memory
+      TYPE_NAME(freeComplexNumber)(conjugate);
+      TYPE_NAME(freeComplexNumber)(multi);
+    }
+  }
+
+  return scalarProduct;
+}
+
+TYPE_NAME_VECTOR(VectComplex_t*)  TYPE_NAME_VECTOR(sumVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME_VECTOR(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME_VECTOR(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  // creating allocated vector
+  TYPE_NAME_VECTOR(VectComplex_t*) sumVector = TYPE_NAME_VECTOR(createVector)(amountElementsVector1, 0);
+
+  // doing calculations
+  for (int i = 0; i < amountElementsVector1; i++) { 
+    // get elements of each vector
+    DATA_TYPE_VECTOR elementVect1 = TYPE_NAME_VECTOR(getElementByIndex)(vector1, i);
+    DATA_TYPE_VECTOR elementVect2 = TYPE_NAME_VECTOR(getElementByIndex)(vector2, i);
+
+    // if element is not valid, skip it
+    if (elementVect1 == NULL || elementVect2 == NULL) {
+      continue;
+    }
+
+    // calculate sum
+    DATA_TYPE_VECTOR sum =  TYPE_NAME(sumComplexNumbers)(elementVect1, elementVect2);
+
+    // assign it into sumVector
+    TYPE_NAME_VECTOR(insertIndexPosValue)(sumVector, sum, i); 
+
+    // free allocated memory
+    TYPE_NAME(freeComplexNumber)(sum);
+  }
+
+  return sumVector;
+}
+
+TYPE_NAME_VECTOR(VectComplex_t*)  TYPE_NAME_VECTOR(subtractVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME_VECTOR(getAmountElements)(vector1); 
+  int amountElementsVector2 = TYPE_NAME_VECTOR(getAmountElements)(vector2); 
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  // creating allocated vector
+  TYPE_NAME_VECTOR(VectComplex_t*) subVector = TYPE_NAME_VECTOR(createVector)(amountElementsVector1, 0);
+
+  // doing calculations
+  for (int i = 0; i < amountElementsVector1; i++) { 
+    // get elements of each vector
+    DATA_TYPE_VECTOR elementVect1 = TYPE_NAME_VECTOR(getElementByIndex)(vector1, i);
+    DATA_TYPE_VECTOR elementVect2 = TYPE_NAME_VECTOR(getElementByIndex)(vector2, i);
+
+    // if element is not valid, skip it
+    if (elementVect1 == NULL || elementVect2 == NULL) {
+      continue;
+    }
+
+    // calculate subtraction
+    DATA_TYPE_VECTOR sub =  TYPE_NAME(subtractComplexNumbers)(elementVect1, elementVect2);
+
+    // assign it into sumVector
+    TYPE_NAME_VECTOR(insertIndexPosValue)(subVector, sub, i); 
+
+    // free allocated memory
+    TYPE_NAME(freeComplexNumber)(sub);
+  }
+
+  return subVector;
+}
+
+void TYPE_NAME_VECTOR(multiplyVectorByScalar)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value) {
+  // iterate over vector
+  for (int i = 0; i < TYPE_NAME_VECTOR(getAmountElements)(vector); i++) {
+    // get current element from vector
+    DATA_TYPE_VECTOR currentElement = TYPE_NAME_VECTOR(getElementByIndex)(vector, i);
+
+    if (currentElement == NULL) {
+      continue;
+    }
+
+    // calculate multiplication
+    DATA_TYPE_VECTOR multi = TYPE_NAME(multiplyComplexNumbers)(currentElement, value);
+
+    // set this value into vector
+    TYPE_NAME_VECTOR(insertIndexPosValue)(vector, multi, i);
+
+    // free allocated memory
+    TYPE_NAME(freeComplexNumber)(multi);
+    TYPE_NAME(freeComplexNumber)(currentElement);
+  }
+}
+
 #endif 
 #endif
