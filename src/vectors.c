@@ -273,7 +273,31 @@ TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TY
 	return indexVector;
 }
 
-//
+void TYPE_NAME(SortVector)(TYPE_NAME(vect_t *) vector)
+{
+	int shift = TRUE, i, j;
+	DATA_TYPE memory;
+	int size = TYPE_NAME(getAmountElements)(vector);
+
+	for (j = (size - 1); (j >= 1) && (shift); j--)
+	{
+		shift = FALSE;
+
+		for (i = 0; i < j; i++)
+		{
+			DATA_TYPE value1 = TYPE_NAME(getElementByIndex)(vector, i);
+			DATA_TYPE value2 = TYPE_NAME(getElementByIndex)(vector, i+1);
+
+			if (TYPE_NAME(sortingCriter)(value1, value2) == 1)
+			{
+				memory = *(vector->array + i);
+				*(vector->array + i) = *(vector->array + (i+1));
+				*(vector->array + (i+1)) = memory;
+				shift = TRUE;
+			}
+		}
+	}
+}
 
 //
 
@@ -411,38 +435,36 @@ double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
 	return sqrt(TYPE_NAME(calculateVariance)(vector));
 }
 
-DATA_TYPE TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
+double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
 {
-	DATA_TYPE median = 0;
-	int limit = 0;
+	double median = 0;
 	int size = TYPE_NAME(getAmountElements)(vector);
+	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index);
 
-	for (int i = 0; i < size; i++)
+	TYPE_NAME(accumulateVectors)(newVector, vector);
+	TYPE_NAME(SortVector)(newVector);
+
+	if (TYPE_NAME(getAmountElements)(newVector) % 2 == 0)
 	{
-		DATA_TYPE fixedElement = TYPE_NAME(getElementByIndex)(vector, i);
-
-		for (int j = 0; j < size; j++)
-		{
-			DATA_TYPE dynamicElement = TYPE_NAME(getElementByIndex)(vector, j);
-
-			if (dynamicElement <= fixedElement)
-				limit++;
-
-			if (limit == (size / 2))
-			{
-				if (size % 2 == 0)
-				{
-					median = (fixedElement + TYPE_NAME(solveMedianPair)(vector, i)) / 2.0;
-				}
-				else
-				{
-					median = fixedElement;
-				}
-			}
-		}
+		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2) + TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
+		median = median / 2.0;
+	}
+	else
+	{
+		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
 	}
 
 	return median;
+}
+
+int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b)
+{
+	if (a == b)
+		return 0;
+	if (a > b)
+		return 1;
+	if (a < b)
+		return -1;
 }
 
 float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2)

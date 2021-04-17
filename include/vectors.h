@@ -27,7 +27,7 @@
 	DATA_TYPE TYPE_NAME(getLowerAbs)(TYPE_NAME(vect_t *) vector);
 	int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 	TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
-	//
+	void TYPE_NAME(SortVector)(TYPE_NAME(vect_t *) vector);
 	//
 	TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
 	TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
@@ -37,7 +37,8 @@
 	double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector);
 	double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector);
 	double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector);
-	DATA_TYPE TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector);
+	int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b);
 	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2);
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector);
 

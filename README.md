@@ -114,7 +114,7 @@ O índice do elemento atual “i” é “incrementado de 0 até n-1” ao se pe
 - [x] obter o valor do elemento de menor módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
 - [x] determinar quantos dos elementos do vetor têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
 - [x] devolver um vetor com as posições dos elementos que têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
-- [ ] ordenar os elementos do vetor de acordo com uma função “critério de comparação”.
+- [x] ordenar os elementos do vetor de acordo com uma função “critério de comparação”.
     ▪ A função “critério” recebe dois elementos do vetor e os compara:
         se a = b, retorna “0”; se a < b, retorna -1; se a > b, retorna +1.
         A função “critério” é um dos argumentos deste método de ordenação;
