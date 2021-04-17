@@ -28,6 +28,16 @@
 	int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 	TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 	//
+	//
+	TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE scalar);
+	double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector);
+	DATA_TYPE TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector);
 	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2);
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector);
 

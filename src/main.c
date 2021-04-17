@@ -74,6 +74,8 @@ int main(void) {
 	INT_displayVector(my_vect);
 	INT_displayVector(equalsIndex);
 
+	printf("Mean: %lf, Variance: %lf, Standard Deviation: %lf\n", INT_calculateMean(equalsIndex), INT_calculateVariance(equalsIndex), INT_calculateDeviation(equalsIndex));
+
 	printf("\nVector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_clearAllVector(my_vect);
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));

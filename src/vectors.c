@@ -275,6 +275,176 @@ TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TY
 
 //
 
+//
+
+TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+{
+	DATA_TYPE sum = 0;
+	int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1);
+	int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2);
+
+	if (amountElementsVector1 != amountElementsVector2)
+	{
+		printf("Your vectors don't have the same amount of elements!");
+		exit(1);
+	}
+
+	TYPE_NAME(vect_t *) sumVector = TYPE_NAME(createVector)(amountElementsVector1, 0);
+
+	for (int i = 0; i < amountElementsVector1; i++)
+	{
+		sum = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i);
+		TYPE_NAME(insertIndexPosValue)(sumVector, sum, i);
+	}
+
+	TYPE_NAME(adjustVector)(sumVector);
+
+	return sumVector;
+}
+
+TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+{
+	DATA_TYPE sub = 0;
+	int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1);
+	int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2);
+
+	if (amountElementsVector1 != amountElementsVector2)
+	{
+		printf("Your vectors don't have the same amount of elements!");
+		exit(1);
+	}
+
+	TYPE_NAME(vect_t *) subVector = TYPE_NAME(createVector)(amountElementsVector1, 0);
+
+	for (int i = 0; i < amountElementsVector1; i++)
+	{
+		sub = TYPE_NAME(getElementByIndex)(vector1, i) - TYPE_NAME(getElementByIndex)(vector2, i);
+		TYPE_NAME(insertIndexPosValue)(subVector, sub, i);
+	}
+
+	TYPE_NAME(adjustVector)(subVector);
+
+	return subVector;
+}
+
+void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE scalar)
+{
+	DATA_TYPE multi = 0;
+
+	for (int i = 0; i < TYPE_NAME(getAmountElements)(vector); i++)
+	{
+		multi = scalar * TYPE_NAME(getElementByIndex)(vector, i);
+		TYPE_NAME(insertIndexPosValue)(vector, multi, i);
+	}
+}
+
+double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+{
+	double scalarProduct = 0;
+	int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1);
+	int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2);
+
+	if (amountElementsVector1 != amountElementsVector2)
+	{
+		printf("Your vectors don't have the same amount of elements!");
+		exit(1);
+	}
+
+	for (int i = 0; i < amountElementsVector1; i++)
+	{
+		scalarProduct += (TYPE_NAME(getElementByIndex)(vector1, i) * TYPE_NAME(getElementByIndex)(vector2, i));
+	}
+
+	return scalarProduct;
+}
+
+void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+{
+	DATA_TYPE acc = 0;
+	int amountElementsVector1 = TYPE_NAME(getAmountElements)(vector1);
+	int amountElementsVector2 = TYPE_NAME(getAmountElements)(vector2);
+
+	if (amountElementsVector1 != amountElementsVector2)
+	{
+		printf("Your vectors don't have the same amount of elements!");
+		exit(1);
+	}
+
+	for (int i = 0; i < amountElementsVector1; i++)
+	{
+		acc = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i);
+		TYPE_NAME(insertIndexPosValue)(vector1, acc, i);
+	}
+
+	TYPE_NAME(adjustVector)(vector1);
+}
+
+double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector)
+{
+	double mean = 0;
+
+	for (int i = 0; i < (TYPE_NAME(getAmountElements)(vector)); i++)
+	{
+		mean += TYPE_NAME(getElementByIndex)(vector, i);
+	}
+	mean = mean / (TYPE_NAME(getAmountElements)(vector));
+
+	return mean;
+}
+
+double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector)
+{
+	double mean = TYPE_NAME(calculateMean)(vector);
+	double var = 0;
+
+	for (int i = 0; i < (TYPE_NAME(getAmountElements)(vector)); i++)
+	{
+		var += pow((TYPE_NAME(getElementByIndex)(vector, i) - mean), 2);
+	}
+	var = var / (TYPE_NAME(getAmountElements)(vector)) - 1;
+
+	return var;
+}
+
+double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
+{
+	return sqrt(TYPE_NAME(calculateVariance)(vector));
+}
+
+DATA_TYPE TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
+{
+	DATA_TYPE median = 0;
+	int limit = 0;
+	int size = TYPE_NAME(getAmountElements)(vector);
+
+	for (int i = 0; i < size; i++)
+	{
+		DATA_TYPE fixedElement = TYPE_NAME(getElementByIndex)(vector, i);
+
+		for (int j = 0; j < size; j++)
+		{
+			DATA_TYPE dynamicElement = TYPE_NAME(getElementByIndex)(vector, j);
+
+			if (dynamicElement <= fixedElement)
+				limit++;
+
+			if (limit == (size / 2))
+			{
+				if (size % 2 == 0)
+				{
+					median = (fixedElement + TYPE_NAME(solveMedianPair)(vector, i)) / 2.0;
+				}
+				else
+				{
+					median = fixedElement;
+				}
+			}
+		}
+	}
+
+	return median;
+}
+
 float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2)
 {
 	if (v1 >= v2)
