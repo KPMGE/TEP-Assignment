@@ -26,7 +26,15 @@ int main(void) {
 	printf("--------- ORIGINAL VECTOR INT ---------\n\n");
 	INT_VECT_displayVector(vectInt);
 
-  printf("--------- ACCUMULATE VECTOR IN ITSELF ---------\n\n");
+	printf("---------  ORDERED VECTOR ---------\n\n");
+  INT_VECT_sortVector(vectInt, INT_compareComplexModule);
+	INT_VECT_displayVector(vectInt);
+
+	printf("--------- MEAN ---------\n\n");
+  INT_Complex_t* mean = INT_VECT_calculateMean(vectInt);
+  INT_displayComplexNumber(mean);
+
+  printf("\n\n--------- ACCUMULATE VECTOR IN ITSELF ---------\n\n");
   INT_VECT_accumulateVectors(vectInt, vectInt); 
 	INT_VECT_displayVector(vectInt);
 
@@ -47,6 +55,7 @@ int main(void) {
 	INT_freeComplexNumber(numInt2);
 	INT_freeComplexNumber(numInt3);
 	INT_freeComplexNumber(complexScalarInt);
+  INT_freeComplexNumber(mean);
 	INT_VECT_freeVector(vectInt);
 
 
