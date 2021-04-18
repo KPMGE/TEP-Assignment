@@ -50,5 +50,7 @@
   TYPE_NAME_VECTOR(VectComplex_t*)  TYPE_NAME_VECTOR(subtractVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
   // function to multiply a given vector by a complex number
   void TYPE_NAME_VECTOR(multiplyVectorByScalar)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value);
+  // function to accumulate a complex vector to another
+  void TYPE_NAME_VECTOR(accumulateVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
 
 #endif

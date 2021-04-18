@@ -345,5 +345,24 @@ void TYPE_NAME_VECTOR(multiplyVectorByScalar)(TYPE_NAME_VECTOR(VectComplex_t*) v
   }
 }
 
+void TYPE_NAME_VECTOR(accumulateVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2) {
+  int amountElementsVector1 = TYPE_NAME_VECTOR(getAmountElements)(vector1);
+  int amountElementsVector2 = TYPE_NAME_VECTOR(getAmountElements)(vector2);
+
+  if (amountElementsVector1 != amountElementsVector2) {
+    printf("Your vectors don't have the same amount of elements!");
+    exit(1);
+  }
+
+  for (int i = 0; i < amountElementsVector1; i++) {
+    // if element is not valid, skip it
+    if (vector1->array[i] == NULL || vector2->array[i] == NULL) {
+      continue;
+    }
+
+    TYPE_NAME(accumulateComplexSum)(vector1->array[i], vector2->array[i]);
+  }
+}
+
 #endif 
 #endif
