@@ -12,8 +12,7 @@
 #include "../include/vectors-complex-int.h"
 
 
-int main(void)
-{
+int main(void) {
 	// testing int
 	INT_Complex_t* numInt = INT_createComplexNumber(2, 3);
 	INT_Complex_t* numInt2 = INT_createComplexNumber(4, 7);
@@ -25,6 +24,10 @@ int main(void)
 	INT_VECT_insertIndexPosValue(vectInt, numInt3, 2);
 
 	printf("--------- ORIGINAL VECTOR INT ---------\n\n");
+	INT_VECT_displayVector(vectInt);
+
+  printf("--------- ACCUMULATE VECTOR IN ITSELF ---------\n\n");
+  INT_VECT_accumulateVectors(vectInt, vectInt); 
 	INT_VECT_displayVector(vectInt);
 
 	printf("\n\n--------- MULTPLY BY 3 + 2i ---------\n");
@@ -58,6 +61,7 @@ int main(void)
 	DOUBLE_VECT_insertLastPosValue(vectTest, num3);
 	DOUBLE_VECT_insertLastPosValue(vectTest, num);
 
+  printf("\n\n\n================ IMPLEMENTATION WITH DOUBLE ==================");
 	printf("\n\n\n--------- ORIGINAL VECTOR DOUBLE ---------\n");
 	DOUBLE_VECT_displayVector(vectTest);
 
@@ -107,7 +111,7 @@ int main(void)
 	DOUBLE_VECT_freeVector(sumSameVect);
 	DOUBLE_VECT_freeVector(subSameVect);
 
-  	/* ------------------------------------ VECTOR FUNCTIONS ------------------------------------ */
+  // ------------------------------------ VECTOR FUNCTIONS ------------------------------------ 
 	// INT test
 	printf("\n\n");
 
