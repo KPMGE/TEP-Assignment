@@ -123,7 +123,7 @@ int main(void) {
 	INT_insertLastPosValue(my_vect, 5078269);
 	printf("Element %ld in %d position\n", INT_getElementByIndex(my_vect, INT_getIndex(my_vect)), INT_getIndex(my_vect));
 	printf("Element %ld in %d position\n", INT_deletePosition(my_vect, INT_getIndex(my_vect)), INT_getIndex(my_vect));
-	printf("\nMax: %ld - Min: %ld vector values\n", INT_getHigherAbs(my_vect), INT_getLowerAbs(my_vect));
+	printf("\nMax: %ld - Min: %ld vector values\n", INT_getBiggestAbs(my_vect), INT_getSmallestAbs(my_vect));
 
 	INT_insertIndexPosValue(my_vect, 1234, 2); INT_insertIndexPosValue(my_vect, 1234, 4);
 	INT_insertIndexPosValue(my_vect, 1234, 18); INT_insertIndexPosValue(my_vect, 1234, 31);
@@ -132,6 +132,8 @@ int main(void) {
 	INT_vect_t *equalsIndex = INT_indexOfEquals(my_vect, 1234);
 	INT_displayVector(my_vect);
 	INT_displayVector(equalsIndex);
+	INT_sortVector(my_vect, &INT_sortingCriter);
+	INT_displayVector(my_vect);
 
 	printf("\nMean: %lf, Median: %lf, Variance: %lf, Standard Deviation: %lf\n", INT_calculateMean(equalsIndex), INT_calculateMedianUsually(equalsIndex), INT_calculateVariance(equalsIndex), INT_calculateDeviation(equalsIndex));
 
@@ -140,7 +142,8 @@ int main(void) {
 	printf("Vector size: %d and capacity: %d after cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_freeVector(my_vect);
 	INT_freeVector(equalsIndex);
-	
+
+
 	// DOUBLE test
 	printf("\n\n");
 
@@ -152,7 +155,7 @@ int main(void) {
 	DOUBLE_insertLastPosValue(vect_test, 5078269);
 	printf("Element %lf in %d position\n", DOUBLE_getElementByIndex(vect_test, DOUBLE_getIndex(vect_test)), DOUBLE_getIndex(vect_test));
 	printf("Element %lf in %d position\n", DOUBLE_deletePosition(vect_test, DOUBLE_getIndex(vect_test)), DOUBLE_getIndex(vect_test));
-	printf("\nMax: %lf - Min: %lf vector values\n", DOUBLE_getHigherAbs(vect_test), DOUBLE_getLowerAbs(vect_test));
+	printf("\nMax: %lf - Min: %lf vector values\n", DOUBLE_getBiggestAbs(vect_test), DOUBLE_getSmallestAbs(vect_test));
 
 	DOUBLE_insertIndexPosValue(vect_test, 1234, 2); DOUBLE_insertIndexPosValue(vect_test, 1234, 4);
 	DOUBLE_insertIndexPosValue(vect_test, 1234, 18); DOUBLE_insertIndexPosValue(vect_test, 1234, 31);
