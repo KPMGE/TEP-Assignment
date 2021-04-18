@@ -27,17 +27,20 @@
 	DATA_TYPE TYPE_NAME(getLowerAbs)(TYPE_NAME(vect_t *) vector);
 	int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 	TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
-	//
+	void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector);
+	TYPE_NAME(vect_t *) TYPE_NAME(newOrdenatedVector)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE scalar);
+	double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
+	double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector);
+	double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector);
+	int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b);
 	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2);
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector);
-
-  // function to calculate scalar product
-  double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2);
-  // function to sum two vectors and return a third
-  TYPE_NAME(vect_t*)  TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
-  // function to subtract two vectors and return a third
-  TYPE_NAME(vect_t*) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t*) vector2);
-  // function to multiply a vector by a value and modify original vector
-  TYPE_NAME(vect_t*) TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE value);
 
 #endif

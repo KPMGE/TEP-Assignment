@@ -114,20 +114,20 @@ O índice do elemento atual “i” é “incrementado de 0 até n-1” ao se pe
 - [x] obter o valor do elemento de menor módulo existente no vetor (e posicionar o índice atual naquela posição). Em caso de empate, qualquer uma das posições serve;
 - [x] determinar quantos dos elementos do vetor têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
 - [x] devolver um vetor com as posições dos elementos que têm valor igual a “v” (considerar uma tolerância eps = 0.0001)
-- [ ] ordenar os elementos do vetor de acordo com uma função “critério de comparação”.
+- [x] ordenar os elementos do vetor de acordo com uma função “critério de comparação”.
     ▪ A função “critério” recebe dois elementos do vetor e os compara:
         se a = b, retorna “0”; se a < b, retorna -1; se a > b, retorna +1.
         A função “critério” é um dos argumentos deste método de ordenação;
-- [ ] intercalar dois vetores ordenados, criando um novo vetor igualmente ordenado, usando uma função “critério” que igualmente um argumento deste método de intercalação;
+- [x] intercalar dois vetores ordenados, criando um novo vetor igualmente ordenado, usando uma função “critério” que igualmente um argumento deste método de intercalação;
 - [x] somar dois vetores de mesmo tamanho criando um novo vetor (C = A + B);
-- [x] multiplicar dois vetores (“produto interno”) gerando um valor “produto” (c = A . B)
 - [x] subtrair um vetor de outro vetor, criando um novo vetor; (C = A – B);
 - [x] multiplicar um vetor por um escalar, alterando os valores do vetor original (A = k * A)
-- [ ] acumular um vetor B sobre um outro vetor A do mesmo tamanho, somando os elementos um-a-um (A = A+ B)
-- [ ] determinar a média aritmética dos valores de um vetor
-- [ ] determinar a variância dos valores de um vetor
-- [ ] determinar o desvio padrão dos valores de um vetor (raiz quadrada da variância)
-- [ ] determinar a mediana dos valores de um vetor (o valor que separa os 50% maiores dos 50%
+- [x] multiplicar dois vetores (“produto interno”) gerando um valor “produto” (c = A . B)
+- [x] acumular um vetor B sobre um outro vetor A do mesmo tamanho, somando os elementos um-a-um (A = A + B)
+- [x] determinar a média aritmética dos valores de um vetor
+- [x] determinar a variância dos valores de um vetor
+- [x] determinar o desvio padrão dos valores de um vetor (raiz quadrada da variância)
+- [x] determinar a mediana dos valores de um vetor (o valor que separa os 50% maiores dos 50%
 menores. (referência https://pt.wikipedia.org/wiki/M%C3%A9dia) . Este algoritmo aparenta ser, enganosamente, fácil. (OBS: para números complexos há outros algoritmos e medidas mais importantes, principalmente na área de processamento de sinais)
     ◦ Uma implementação “burra”: ordena o vetor e pega o elemento central ou a média dos dois elementos centrais;
     ◦ uma implementação mais esperta é oferecida por Niklaus Wirth e uma implementação está disponível em http://ndevilla.free.fr/median/median/index.html . Lá há outras implementações igualmente disponíveis.
