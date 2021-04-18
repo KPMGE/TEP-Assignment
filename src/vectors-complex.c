@@ -364,5 +364,65 @@ void TYPE_NAME_VECTOR(accumulateVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector
   }
 }
 
+/* without typedef it would be necessary to insert all function pointer notation */
+void TYPE_NAME_VECTOR(sortVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector, TYPE_NAME_VECTOR(fptrI_DD) criteria) {
+	int shift = TRUE, i, j;
+	DATA_TYPE_VECTOR memory;
+	int size = TYPE_NAME_VECTOR(getAmountElements)(vector);
+
+	for (j = (size - 1); (j >= 1) && (shift); j--) {
+		shift = FALSE;
+
+		for (i = 0; i < j; i++) {
+			DATA_TYPE_VECTOR value1 = TYPE_NAME_VECTOR(getElementByIndex)(vector, i);
+			DATA_TYPE_VECTOR value2 = TYPE_NAME_VECTOR(getElementByIndex)(vector, i+1);
+
+      // if some value is not valid, skip it
+      if (value1 == NULL || value2 == NULL) {
+        continue;
+      }
+
+			if (criteria(value1, value2) == 1) {
+        memory = vector->array[i];
+        vector->array[i] = vector->array[i + 1];
+        vector->array[i + 1] = memory;
+
+				shift = TRUE;
+			}
+		}
+	}
+}
+
+DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+  int qtd = 0;
+	DATA_TYPE_VECTOR sum = TYPE_NAME(createComplexNumber)(0, 0);
+
+	for (int i = 0; i < (TYPE_NAME_VECTOR(getAmountElements)(vector)); i++) {
+    DATA_TYPE_VECTOR element = vector->array[i];
+
+    // if is not valid, skip it
+    if (element == NULL) {
+      continue;
+    }
+
+    TYPE_NAME(accumulateComplexSum)(sum, element);
+    qtd++;
+	}
+
+  if (qtd == 0) {
+    printf("You don't actually have a vector!");
+    exit(0);
+  }
+
+  // calculate real and imaginary parts for mean complex number
+  double real = TYPE_NAME(getRealPart)(sum) / qtd;
+  double imag = TYPE_NAME(getImaginaryPart)(sum) / qtd;
+
+  // free allocated memory
+  TYPE_NAME(freeComplexNumber)(sum);
+
+  return TYPE_NAME(createComplexNumber)(real, imag);
+}
+
 #endif 
 #endif

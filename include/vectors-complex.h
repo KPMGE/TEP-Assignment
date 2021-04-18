@@ -1,6 +1,8 @@
 #ifndef VECTORS_COMPLEX_INCLUDED
 #define VECTORS_COMPLEX_INCLUDED
 
+
+	typedef int (*TYPE_NAME_VECTOR(fptrI_DD))(DATA_TYPE_VECTOR, DATA_TYPE_VECTOR); // function pointer
   // structure for a complex vector
   typedef struct TYPE_NAME_VECTOR(_vectComplex) TYPE_NAME_VECTOR(VectComplex_t);
 
@@ -52,5 +54,9 @@
   void TYPE_NAME_VECTOR(multiplyVectorByScalar)(TYPE_NAME_VECTOR(VectComplex_t*) vector, DATA_TYPE_VECTOR value);
   // function to accumulate a complex vector to another
   void TYPE_NAME_VECTOR(accumulateVectors)(TYPE_NAME_VECTOR(VectComplex_t*) vector1, TYPE_NAME_VECTOR(VectComplex_t*) vector2);
+  // function to sort a vector
+  void TYPE_NAME_VECTOR(sortVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector, TYPE_NAME_VECTOR(fptrI_DD) criteria);
+  // function to calculate mean
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
 
 #endif
