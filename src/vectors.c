@@ -199,7 +199,7 @@ void TYPE_NAME(clearAllVector)(TYPE_NAME(vect_t *) vector)
 	TYPE_NAME(adjustVector)(vector);
 }
 
-DATA_TYPE TYPE_NAME(getHigherAbs)(TYPE_NAME(vect_t *) vector)
+DATA_TYPE TYPE_NAME(getBiggestAbs)(TYPE_NAME(vect_t *) vector)
 {
 	DATA_TYPE higherValue = 0;
 
@@ -215,7 +215,7 @@ DATA_TYPE TYPE_NAME(getHigherAbs)(TYPE_NAME(vect_t *) vector)
 	return higherValue;
 }
 
-DATA_TYPE TYPE_NAME(getLowerAbs)(TYPE_NAME(vect_t *) vector)
+DATA_TYPE TYPE_NAME(getSmallestAbs)(TYPE_NAME(vect_t *) vector)
 {
 	DATA_TYPE lowerValue = 0;
 
@@ -273,7 +273,7 @@ TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TY
 	return indexVector;
 }
 
-void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector)
+void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector, TYPE_NAME(fptrI_DD) criteria) /* without typedef it would be necessary to insert all function pointer notation */
 {
 	int shift = TRUE, i, j;
 	DATA_TYPE memory;
@@ -288,7 +288,7 @@ void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector)
 			DATA_TYPE value1 = TYPE_NAME(getElementByIndex)(vector, i);
 			DATA_TYPE value2 = TYPE_NAME(getElementByIndex)(vector, i+1);
 
-			if (TYPE_NAME(sortingCriter)(value1, value2) == 1)
+			if (criteria(value1, value2) == 1)
 			{
 				memory = *(vector->array + i);
 				*(vector->array + i) = *(vector->array + (i+1));
@@ -299,11 +299,11 @@ void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector)
 	}
 }
 
-TYPE_NAME(vect_t *) TYPE_NAME(newOrdenatedVector)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
+TYPE_NAME(vect_t *) TYPE_NAME(regularlyInsert)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2, TYPE_NAME(fptrI_DD) criteria)
 {
 	int size1 = TYPE_NAME(getAmountElements)(vector1), size2 = TYPE_NAME(getAmountElements)(vector2);
-	TYPE_NAME(sortVector)(vector1);
-	TYPE_NAME(sortVector)(vector2);
+	TYPE_NAME(sortVector)(vector1, TYPE_NAME(sortingCriter));
+	TYPE_NAME(sortVector)(vector2, &TYPE_NAME(sortingCriter)); // reference operator '&' unnecessary
 	int j = 0;
 
 	if (size1 != size2)
@@ -314,7 +314,7 @@ TYPE_NAME(vect_t *) TYPE_NAME(newOrdenatedVector)(TYPE_NAME(vect_t *) vector1, T
 
 	TYPE_NAME(vect_t) *newVec = TYPE_NAME(createVector)(size1+size2, 0);
 
-	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && j < size1 && j < size2; i += 2)
+	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && (j < size1) && (j < size2); i += 2) /*  for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && (criteria(j, size1) == -1) && (criteria(j, size2) == -1); i += 2)  */
 	{
 		*(newVec->array + i) = TYPE_NAME(getElementByIndex)(vector1, j);
 		*(newVec->array + (i+1)) = TYPE_NAME(getElementByIndex)(vector2, j);
@@ -521,7 +521,7 @@ double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
 	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index);
 
 	TYPE_NAME(accumulateVectors)(newVector, vector);
-	TYPE_NAME(sortVector)(newVector);
+	TYPE_NAME(sortVector)(newVector, TYPE_NAME(sortingCriter));
 
 	if (TYPE_NAME(getAmountElements)(newVector) % 2 == 0)
 	{
