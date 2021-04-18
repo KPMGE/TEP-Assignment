@@ -30,11 +30,11 @@
 	TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value); // list index of equals values
 	void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector, TYPE_NAME(fptrI_DD) criteria); // sort the vector using bubbleSort
 	TYPE_NAME(vect_t *) TYPE_NAME(regularlyInsert)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2, TYPE_NAME(fptrI_DD) criteria); // regularly insert two vectors values in another vector
-	TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // 
-	TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // 
-	void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE scalar); // 
-	double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // 
-	void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // 
+	TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // sum between vectors
+	TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // subtract between vectors
+	void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE scalar); // multiply vector by scalar
+	double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // calculate vectorial scalar product
+	void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2); // accuumutale vector inside another vector
 	double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector); // calculate arithmetic mean
 	double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector); // calculate variance
 	double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector); // calculate standart deviation
