@@ -424,5 +424,86 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*
   return TYPE_NAME(createComplexNumber)(real, imag);
 }
 
+DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+	DATA_TYPE_VECTOR  mean = TYPE_NAME_VECTOR(calculateMean)(vector);
+  double realMean = TYPE_NAME(getRealPart)(mean);
+  double imagMean = TYPE_NAME(getImaginaryPart)(mean);
+	double varReal = 0;
+  double varImag = 0;
+
+  int amountElements = TYPE_NAME_VECTOR(getAmountElements)(vector);
+
+
+	for (int i = 0; i < amountElements; i++) {
+    DATA_TYPE_VECTOR currentNum = TYPE_NAME_VECTOR(getElementByIndex)(vector, i);
+
+    if (currentNum == NULL) {
+      continue;
+    }
+
+    varReal += pow((TYPE_NAME(getRealPart)(currentNum) - realMean), 2);
+    varImag += pow((TYPE_NAME(getImaginaryPart)(currentNum) - imagMean), 2);
+	}
+
+  varReal = varReal / amountElements - 1;
+  varImag = varImag / amountElements - 1;
+
+  // free allocated memory
+  TYPE_NAME(freeComplexNumber)(mean);
+
+  return TYPE_NAME(createComplexNumber)(varReal, varImag);
+}
+
+
+DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateDeviation)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+  DATA_TYPE_VECTOR variance = TYPE_NAME_VECTOR(calculateVariance)(vector);
+  DATA_TYPE real = TYPE_NAME(getRealPart)(variance);
+  DATA_TYPE imag = TYPE_NAME(getImaginaryPart)(variance);
+
+  // free allocated memory
+  TYPE_NAME(freeComplexNumber)(variance);
+
+  return TYPE_NAME(createComplexNumber)(sqrt(real), sqrt(imag));
+}
+
+DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMedianUsually)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
+	DATA_TYPE_VECTOR median;
+
+	int size = TYPE_NAME_VECTOR(getAmountElements)(vector);
+	TYPE_NAME_VECTOR(VectComplex_t*) newVector = TYPE_NAME_VECTOR(createVector)(size, 0);
+
+  // copy vector to new vector
+  int realSize = 0;
+  for (int i = 0; i < size; i++) {
+    if (vector->array[i] == NULL) {
+      continue;
+    }
+
+    newVector->array[i] = TYPE_NAME(copyComplexNumberTo)(vector->array[i]);
+    realSize++;
+  }
+
+  // sorting vector
+	TYPE_NAME_VECTOR(sortVector)(newVector, TYPE_NAME(compareComplexModule));
+
+  // if amount of elements is even
+	if (realSize % 2 == 0) {
+    DATA_TYPE_VECTOR element1 = TYPE_NAME_VECTOR(getElementByIndex)(newVector, (realSize-1)/2); 
+    DATA_TYPE_VECTOR element2 = TYPE_NAME_VECTOR(getElementByIndex)(newVector, (realSize-1)/2 + 1); 
+
+		median = TYPE_NAME(sumComplexNumbers)(element1, element2);
+    TYPE_NAME(setValueToRealPart)(median, TYPE_NAME(getRealPart)(median) / 2.0);
+    TYPE_NAME(setValueToImaginaryPart)(median, TYPE_NAME(getImaginaryPart)(median) / 2.0);
+	} else {
+    DATA_TYPE_VECTOR med = TYPE_NAME_VECTOR(getElementByIndex)(newVector, (realSize-2)/2 + 1);
+		median = TYPE_NAME(copyComplexNumberTo)(med);
+	}
+
+  // free allocated memory
+  TYPE_NAME_VECTOR(freeVector)(newVector);
+
+	return median;
+}
+
 #endif 
 #endif

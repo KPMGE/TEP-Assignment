@@ -19,14 +19,23 @@ int main(void) {
 	INT_Complex_t* numInt3 = INT_createComplexNumber(1, 9);
 
 	INT_VECT_VectComplex_t* vectInt = INT_VECT_createVector(5, 0);
-	INT_VECT_insertIndexPosValue(vectInt, numInt, 0);
-	INT_VECT_insertIndexPosValue(vectInt, numInt2, 1);
+	INT_VECT_insertIndexPosValue(vectInt, numInt2, 0);
+	INT_VECT_insertIndexPosValue(vectInt, numInt, 1);
 	INT_VECT_insertIndexPosValue(vectInt, numInt3, 2);
 
 	printf("--------- ORIGINAL VECTOR INT ---------\n\n");
 	INT_VECT_displayVector(vectInt);
 
-	printf("---------  ORDERED VECTOR ---------\n\n");
+  INT_Complex_t* variance = INT_VECT_calculateVariance(vectInt);
+  printf("Variance: ");
+  INT_displayComplexNumber(variance);
+  INT_freeComplexNumber(variance);
+
+  INT_Complex_t* median = INT_VECT_calculateMedianUsually(vectInt);
+  printf("Median: ");
+  INT_displayComplexNumber(median);
+
+	printf("\n\n---------  ORDERED VECTOR ---------\n\n");
   INT_VECT_sortVector(vectInt, INT_compareComplexModule);
 	INT_VECT_displayVector(vectInt);
 
@@ -54,10 +63,12 @@ int main(void) {
 	INT_freeComplexNumber(numInt);
 	INT_freeComplexNumber(numInt2);
 	INT_freeComplexNumber(numInt3);
+  INT_freeComplexNumber(median);
 	INT_freeComplexNumber(complexScalarInt);
   INT_freeComplexNumber(mean);
 	INT_VECT_freeVector(vectInt);
 
+  /*
 
 	// create types for double
 	DOUBLE_Complex_t* num = DOUBLE_createComplexNumber(2.2, 3.1);
@@ -181,6 +192,8 @@ int main(void) {
 	printf("Vector size: %d and capacity: %d after cleaning.\n", DOUBLE_getAmountElements(vect_test), DOUBLE_getMaxCapacity(vect_test));
 	DOUBLE_freeVector(vect_test);
 	DOUBLE_freeVector(indexEquals);
+
+  */
 
 	return 0;
 }

@@ -58,5 +58,10 @@
   void TYPE_NAME_VECTOR(sortVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector, TYPE_NAME_VECTOR(fptrI_DD) criteria);
   // function to calculate mean
   DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
-
+  // function to calculate variance
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
+  // function to calculate deviationo
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateDeviation)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
+  // function to calculate median usually
+  DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMedianUsually)(TYPE_NAME_VECTOR(VectComplex_t*) vector);
 #endif
