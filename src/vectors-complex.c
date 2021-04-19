@@ -395,7 +395,8 @@ void TYPE_NAME_VECTOR(sortVector)(TYPE_NAME_VECTOR(VectComplex_t*) vector, TYPE_
 
 DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
   int qtd = 0;
-	DATA_TYPE_VECTOR sum = TYPE_NAME(createComplexNumber)(0, 0);
+  double sumReal = 0;
+  double sumImag = 0;
 
 	for (int i = 0; i < (TYPE_NAME_VECTOR(getAmountElements)(vector)); i++) {
     DATA_TYPE_VECTOR element = vector->array[i];
@@ -405,7 +406,8 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*
       continue;
     }
 
-    TYPE_NAME(accumulateComplexSum)(sum, element);
+    sumReal += TYPE_NAME(getRealPart)(element);
+    sumImag += TYPE_NAME(getImaginaryPart)(element);
     qtd++;
 	}
 
@@ -415,17 +417,21 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMean)(TYPE_NAME_VECTOR(VectComplex_t*
   }
 
   // calculate real and imaginary parts for mean complex number
-  double real = TYPE_NAME(getRealPart)(sum) / qtd;
-  double imag = TYPE_NAME(getImaginaryPart)(sum) / qtd;
+  sumReal /= qtd;
+  sumImag /= qtd;
 
-  // free allocated memory
-  TYPE_NAME(freeComplexNumber)(sum);
 
-  return TYPE_NAME(createComplexNumber)(real, imag);
+  // if using int complex type
+  #ifdef VECTORS_COMPLEX_INT_INCLUDED
+    sumReal = round(sumReal);
+    sumImag = round(sumImag);
+  #endif
+
+  return TYPE_NAME(createComplexNumber)(sumReal, sumImag);
 }
 
 DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
-	DATA_TYPE_VECTOR  mean = TYPE_NAME_VECTOR(calculateMean)(vector);
+	DATA_TYPE_VECTOR mean = TYPE_NAME_VECTOR(calculateMean)(vector);
   double realMean = TYPE_NAME(getRealPart)(mean);
   double imagMean = TYPE_NAME(getImaginaryPart)(mean);
 	double varReal = 0;
@@ -433,10 +439,10 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComple
 
   int amountElements = TYPE_NAME_VECTOR(getAmountElements)(vector);
 
-
 	for (int i = 0; i < amountElements; i++) {
     DATA_TYPE_VECTOR currentNum = TYPE_NAME_VECTOR(getElementByIndex)(vector, i);
 
+    // if some element is not valid, just skip it
     if (currentNum == NULL) {
       continue;
     }
@@ -445,8 +451,8 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComple
     varImag += pow((TYPE_NAME(getImaginaryPart)(currentNum) - imagMean), 2);
 	}
 
-  varReal = varReal / amountElements - 1;
-  varImag = varImag / amountElements - 1;
+  varReal = varReal / (amountElements - 1);
+  varImag = varImag / (amountElements - 1);
 
   // free allocated memory
   TYPE_NAME(freeComplexNumber)(mean);
@@ -457,18 +463,26 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateVariance)(TYPE_NAME_VECTOR(VectComple
 
 DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateDeviation)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
   DATA_TYPE_VECTOR variance = TYPE_NAME_VECTOR(calculateVariance)(vector);
-  DATA_TYPE real = TYPE_NAME(getRealPart)(variance);
-  DATA_TYPE imag = TYPE_NAME(getImaginaryPart)(variance);
+  double real = TYPE_NAME(getRealPart)(variance);
+  double imag = TYPE_NAME(getImaginaryPart)(variance);
 
   // free allocated memory
   TYPE_NAME(freeComplexNumber)(variance);
 
-  return TYPE_NAME(createComplexNumber)(sqrt(real), sqrt(imag));
+  // calculate square root
+  real = sqrt(real);
+  imag = sqrt(imag);
+
+  // if using int complex type
+  #ifdef VECTORS_COMPLEX_INT_INCLUDED
+    real = round(real);
+    imag = round(imag);
+  #endif
+
+  return TYPE_NAME(createComplexNumber)(real, imag);
 }
 
 DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMedianUsually)(TYPE_NAME_VECTOR(VectComplex_t*) vector) {
-	DATA_TYPE_VECTOR median;
-
 	int size = TYPE_NAME_VECTOR(getAmountElements)(vector);
 	TYPE_NAME_VECTOR(VectComplex_t*) newVector = TYPE_NAME_VECTOR(createVector)(size, 0);
 
@@ -487,6 +501,7 @@ DATA_TYPE_VECTOR TYPE_NAME_VECTOR(calculateMedianUsually)(TYPE_NAME_VECTOR(VectC
 	TYPE_NAME_VECTOR(sortVector)(newVector, TYPE_NAME(compareComplexModule));
 
   // if amount of elements is even
+	DATA_TYPE_VECTOR median;
 	if (realSize % 2 == 0) {
     DATA_TYPE_VECTOR element1 = TYPE_NAME_VECTOR(getElementByIndex)(newVector, (realSize-1)/2); 
     DATA_TYPE_VECTOR element2 = TYPE_NAME_VECTOR(getElementByIndex)(newVector, (realSize-1)/2 + 1); 
