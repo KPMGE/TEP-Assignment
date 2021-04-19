@@ -450,7 +450,7 @@ double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector)
 	{
 		var += pow((TYPE_NAME(getElementByIndex)(vector, i) - mean), 2);
 	}
-	var = var / (TYPE_NAME(getAmountElements)(vector)) - 1;
+	var = var / ((TYPE_NAME(getAmountElements)(vector)) - 1);
 
 	return var;
 }
