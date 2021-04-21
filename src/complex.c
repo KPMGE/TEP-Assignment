@@ -1,7 +1,6 @@
-#ifdef TYPED
-#ifdef TYPE
-#ifdef FORMAT
-
+#ifdef TYPE_NAME
+#ifdef DATA_TYPE
+#ifdef IO_FORMAT
 // define tolerance
 #define EPSILON 0.00001
 #define EPSILON2 0.0001
@@ -11,105 +10,116 @@
 #define FALSE 0
 
 // main struct
-struct TYPED(complex) {
-	TYPE *real;
-	TYPE *imag;
+struct TYPE_NAME(complex) {
+  DATA_TYPE *real;
+  DATA_TYPE *imag;
 };
 
 // function that allocates a complex number and returs it
-TYPED(Complex_t*) TYPED(createComplexNumber)(TYPE real, TYPE imag) {
-	TYPED(Complex_t) *allocatedComplex = (TYPED(Complex_t*)) malloc(sizeof(TYPED(Complex_t)));
+TYPE_NAME(Complex_t*) TYPE_NAME(createComplexNumber)(DATA_TYPE real, DATA_TYPE imag) {
+  TYPE_NAME(Complex_t) *allocatedComplex = (TYPE_NAME(Complex_t*)) malloc(sizeof(TYPE_NAME(Complex_t)));
 
-	if (allocatedComplex == NULL) {
-		printf("Insuficient Space!");
-		exit(1);
-	}
+  if (allocatedComplex == NULL) {
+    printf("Insuficient Space!");
+    exit(1);
+  }
 
-	allocatedComplex->real = (TYPE *) malloc(sizeof(TYPE));
-	allocatedComplex->imag = (TYPE *) malloc(sizeof(TYPE));
+  allocatedComplex->real = (DATA_TYPE *) malloc(sizeof(DATA_TYPE));
+  allocatedComplex->imag = (DATA_TYPE *) malloc(sizeof(DATA_TYPE));
 
-	*(allocatedComplex)->real = real;
-	*(allocatedComplex)->imag = imag;
+  *(allocatedComplex)->real = real;
+  *(allocatedComplex)->imag = imag;
 
-	return allocatedComplex;
+  return allocatedComplex;
 }
 
 
 // get real part of a complex number
-TYPE TYPED(getRealPart)(TYPED(Complex_t*) num) {
-	return *(num)->real;
+DATA_TYPE TYPE_NAME(getRealPart)(TYPE_NAME(Complex_t*) num) {
+  return *(num)->real;
 }
 
 // get imaginary part of a complex number
-TYPE TYPED(getImaginaryPart)(TYPED(Complex_t*) num) {
-	return *(num)->imag;
+DATA_TYPE TYPE_NAME(getImaginaryPart)(TYPE_NAME(Complex_t*) num) {
+  return *(num)->imag;
 }
 
 // get module of a complex number
-double TYPED(getModuleComplexNumber)(TYPED(Complex_t*) num) {
-	return sqrt(pow(TYPED(getRealPart)(num), 2) + pow(TYPED(getImaginaryPart)(num), 2));
+double TYPE_NAME(getModuleComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  return sqrt(pow(TYPE_NAME(getRealPart)(num), 2) + pow(TYPE_NAME(getImaginaryPart)(num), 2));
 }
 
 // get angle of a complex number
-double TYPED(getAngleComplexNumber)(TYPED(Complex_t*) num) {
-	double module = TYPED(getModuleComplexNumber)(num);
+double TYPE_NAME(getAngleComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  double module = TYPE_NAME(getModuleComplexNumber)(num);
 
-	return acos(TYPED(getRealPart)(num) / module);
+  return acos(TYPE_NAME(getRealPart)(num) / module);
 }
 
 // set new value to real part of a complex number
-void TYPED(setValueToRealPart)(TYPED(Complex_t*) num, double value) {
-	*(num)->real = value;
+void TYPE_NAME(setValueToRealPart)(TYPE_NAME(Complex_t*) num, double value) {
+  *(num)->real = value;
 }
 
 // set new value to imaginary part of a complex number
-void TYPED(setValueToImaginaryPart)(TYPED(Complex_t*) num, double value) {
-	*(num)->imag = value;
+void TYPE_NAME(setValueToImaginaryPart)(TYPE_NAME(Complex_t*) num, double value) {
+  *(num)->imag = value;
 }
 
 // set new value to module of a complex number without modify its angle
-void TYPED(setModuleComplex)(TYPED(Complex_t*) num) {
-	// we need to adjust angle!
-	// we need to implement it
+void TYPE_NAME(setModuleComplexNumber)(TYPE_NAME(Complex_t*) num, double module) {
+  double angle = TYPE_NAME(getAngleComplexNumber)(num); // get angle of num
+
+  double a2 = module * cos(angle); // calculate real part
+  double b2 = module * sin(angle); // calculate imaginary part
+
+  // set new values to old number
+  TYPE_NAME(setValueToRealPart)(num, a2);
+  TYPE_NAME(setValueToImaginaryPart)(num, b2);
 } 
 
 // set new value to angle of a complex number without modify its module
-void TYPED(setAngleComplex)(TYPED(Complex_t*) num) {
-	// we need to adjust module!
-	// we need to implement it
+void TYPE_NAME(setAngleComplexNumber)(TYPE_NAME(Complex_t*) num, double angle) {
+  double module = TYPE_NAME(getModuleComplexNumber)(num);
+  double a2 = module * cos(angle); // calculate real part
+  double b2 = module * sin(angle); // calculate imaginary part
+
+  // set new values to complex number
+  TYPE_NAME(setValueToRealPart)(num, a2);
+  TYPE_NAME(setValueToImaginaryPart)(num, b2);
 }
 
 // assign number2 into number 1
-void TYPED(assignComplexNumberTo)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(num2));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(num2));
+void TYPE_NAME(assignComplexNumberTo)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(num2));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(num2));
 }
 
 // returns an allocated copied complex number
-TYPED(Complex_t*) TYPED(copyComplexNumberTo)(TYPED(Complex_t*) num) {
-  TYPED(Complex_t*) copy = TYPED(createComplexNumber)(TYPED(getRealPart)(num), TYPED(getImaginaryPart)(num));
+TYPE_NAME(Complex_t*) TYPE_NAME(copyComplexNumberTo)(TYPE_NAME(Complex_t*) num) {
+  TYPE_NAME(Complex_t*) copy = TYPE_NAME(createComplexNumber)(TYPE_NAME(getRealPart)(num), TYPE_NAME(getImaginaryPart)(num));
   return copy;
 }
 
 // is module 0?
-int TYPED(isModuleZero)(TYPED(Complex_t*) num) {
-  if (TYPED(getModuleComplexNumber)(num) <= EPSILON) {
+int TYPE_NAME(isModuleZero)(TYPE_NAME(Complex_t*) num) {
+  if (TYPE_NAME(getModuleComplexNumber)(num) <= EPSILON) {
     return TRUE;
   } 
   return FALSE;
 }
 
 // is only real number?
-int TYPED(isOnlyRealNumber)(TYPED(Complex_t*) num) {
-  if (TYPED(getImaginaryPart)(num) <= EPSILON) {
+int TYPE_NAME(isOnlyRealNumber)(TYPE_NAME(Complex_t*) num) {
+  if (TYPE_NAME(getImaginaryPart)(num) <= EPSILON) {
     return TRUE;
   } 
   return FALSE;
 }
 
 // is only imaginary number?
-int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
-  if (TYPED(getRealPart)(num) <= EPSILON) {
+int TYPE_NAME(isOnlyImaginaryNumber)(TYPE_NAME(Complex_t*) num) {
+  if (TYPE_NAME(getRealPart)(num) <= EPSILON) {
     return TRUE;
   }
   return FALSE;
@@ -118,151 +128,164 @@ int TYPED(isOnlyImaginaryNumber)(TYPED(Complex_t*) num) {
 // 1 - number1 > number2
 // 0 - number1 == number2
 // -1 - number1 < number2
-int TYPED(compareComplex)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
-	if (abs(TYPED(getModuleComplexNumber)(num1) - TYPED(getModuleComplexNumber)(num2)) < EPSILON2) {
-		return 0;
-	}
-	else if (TYPED(getModuleComplexNumber)(num1) > TYPED(getModuleComplexNumber)(num2)) {
-		return 1;
-	}
-	else {
-		return -1;
-	}
+int TYPE_NAME(compareComplexModule)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  if (fabs(TYPE_NAME(getModuleComplexNumber)(num1) - TYPE_NAME(getModuleComplexNumber)(num2)) < EPSILON2) {
+    return 0;
+  }
+  else if (TYPE_NAME(getModuleComplexNumber)(num1) > TYPE_NAME(getModuleComplexNumber)(num2)) {
+    return 1;
+  }
+  else {
+    return -1;
+  }
+}
+
+// 1 - number1 > number2
+// 0 - number1 == number2
+// -1 - number1 < number2
+int TYPE_NAME(compareComplexAngle)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
+  if (fabs(TYPE_NAME(getAngleComplexNumber)(num1) - TYPE_NAME(getAngleComplexNumber)(num2)) < EPSILON2) {
+    return 0;
+  }
+  else if (TYPE_NAME(getAngleComplexNumber)(num1) > TYPE_NAME(getAngleComplexNumber)(num2)) {
+    return 1;
+  }
+  else {
+    return -1;
+  }
 }
 
 // free a complex number
-void TYPED(freeComplexNumber)(TYPED(Complex_t*) num) {
-	if (num != NULL) {
-		if (num->real != NULL) {
-			free(num->real);
-			num->real = NULL;
-		}
-		if (num->imag != NULL) {
-			free(num->imag);
-			num->imag = NULL;
-		}
-		free(num);
-		num = NULL;
-	}
+void TYPE_NAME(freeComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  if (num != NULL) {
+    if (num->real != NULL) {
+      free(num->real);
+      num->real = NULL;
+    }
+    if (num->imag != NULL) {
+      free(num->imag);
+      num->imag = NULL;
+    }
+    free(num);
+    num = NULL;
+  }
 }
 
 // calculate the conjugate of a complex number
-TYPED(Complex_t*) TYPED(calculateConjugateComplex)(TYPED(Complex_t*) num) {
-  TYPE realPart = TYPED(getRealPart)(num);
-  TYPE imaginaryPart = -(TYPED(getImaginaryPart)(num)); // * -1
-  TYPED(Complex_t*) conjugate = TYPED(createComplexNumber)(realPart, imaginaryPart);
+TYPE_NAME(Complex_t*) TYPE_NAME(calculateConjugateComplex)(TYPE_NAME(Complex_t*) num) {
+  DATA_TYPE realPart = TYPE_NAME(getRealPart)(num);
+  DATA_TYPE imaginaryPart = -(TYPE_NAME(getImaginaryPart)(num)); // * -1
+  TYPE_NAME(Complex_t*) conjugate = TYPE_NAME(createComplexNumber)(realPart, imaginaryPart);
 
   return conjugate;
 }
 
 // sum operation
-TYPED(Complex_t*) TYPED(sumComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(sumComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate real part sum
-  TYPE sumReal = TYPED(getRealPart)(num1) + TYPED(getRealPart)(num2);
+  DATA_TYPE sumReal = TYPE_NAME(getRealPart)(num1) + TYPE_NAME(getRealPart)(num2);
   // calculate imaginary part sum
-  TYPE sumImaginary = TYPED(getImaginaryPart)(num1) + TYPED(getImaginaryPart)(num2);
+  DATA_TYPE sumImaginary = TYPE_NAME(getImaginaryPart)(num1) + TYPE_NAME(getImaginaryPart)(num2);
   // create allocated sum num
-  TYPED(Complex_t*) sum = TYPED(createComplexNumber)(sumReal, sumImaginary);
+  TYPE_NAME(Complex_t*) sum = TYPE_NAME(createComplexNumber)(sumReal, sumImaginary);
   // return it
   return sum;
 }
 
 // subtraction operation
-TYPED(Complex_t*) TYPED(subtractComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(subtractComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate real part sum
-  TYPE subReal = TYPED(getRealPart)(num1) - TYPED(getRealPart)(num2);
+  DATA_TYPE subReal = TYPE_NAME(getRealPart)(num1) - TYPE_NAME(getRealPart)(num2);
   // calculate imaginary part sum
-  TYPE subImaginary = TYPED(getImaginaryPart)(num1) - TYPED(getImaginaryPart)(num2);
+  DATA_TYPE subImaginary = TYPE_NAME(getImaginaryPart)(num1) - TYPE_NAME(getImaginaryPart)(num2);
   // create allocated subtract num
-  TYPED(Complex_t*) sub = TYPED(createComplexNumber)(subReal, subImaginary);
+  TYPE_NAME(Complex_t*) sub = TYPE_NAME(createComplexNumber)(subReal, subImaginary);
   // return it
   return sub;
 }
 
 // multiplication operation
-TYPED(Complex_t*) TYPED(multiplyComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(multiplyComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate real part sum
-  TYPE multiReal = TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) - TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2);
+  DATA_TYPE multiReal = TYPE_NAME(getRealPart)(num1) * TYPE_NAME(getRealPart)(num2) - TYPE_NAME(getImaginaryPart)(num1) * TYPE_NAME(getImaginaryPart)(num2);
   // calculate imaginary part sum
-  TYPE multiImaginary = TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getRealPart)(num2);
+  DATA_TYPE multiImaginary = TYPE_NAME(getRealPart)(num1) * TYPE_NAME(getImaginaryPart)(num2) + TYPE_NAME(getImaginaryPart)(num1) * TYPE_NAME(getRealPart)(num2);
   
   // create allocated multi num
-  TYPED(Complex_t*) multi = TYPED(createComplexNumber)(multiReal, multiImaginary);
+  TYPE_NAME(Complex_t*) multi = TYPE_NAME(createComplexNumber)(multiReal, multiImaginary);
   // return it
   return multi;
 }
 
 // division operation
-TYPED(Complex_t*) TYPED(divideComplexNumbers)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+TYPE_NAME(Complex_t*) TYPE_NAME(divideComplexNumbers)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate denominator
-  TYPE denominator = pow(TYPED(getRealPart)(num2), 2) + pow(TYPED(getImaginaryPart)(num2), 2);
+  DATA_TYPE denominator = pow(TYPE_NAME(getRealPart)(num2), 2) + pow(TYPE_NAME(getImaginaryPart)(num2), 2);
   // calculate real part
-  TYPE divRealPart = (TYPED(getRealPart)(num1) * TYPED(getRealPart)(num2) + TYPED(getImaginaryPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+  DATA_TYPE divRealPart = (TYPE_NAME(getRealPart)(num1) * TYPE_NAME(getRealPart)(num2) + TYPE_NAME(getImaginaryPart)(num1) * TYPE_NAME(getImaginaryPart)(num2)) / denominator;
   // calculate imaginary part
-  TYPE divImaginaryPart = (TYPED(getRealPart)(num2) * TYPED(getImaginaryPart)(num1) - TYPED(getRealPart)(num1) * TYPED(getImaginaryPart)(num2)) / denominator;
+  DATA_TYPE divImaginaryPart = (TYPE_NAME(getRealPart)(num2) * TYPE_NAME(getImaginaryPart)(num1) - TYPE_NAME(getRealPart)(num1) * TYPE_NAME(getImaginaryPart)(num2)) / denominator;
 
   // create allocated div num
-  TYPED(Complex_t*) div = TYPED(createComplexNumber)(divRealPart, divImaginaryPart);
+  TYPE_NAME(Complex_t*) div = TYPE_NAME(createComplexNumber)(divRealPart, divImaginaryPart);
   // return it
   return div;
 }
 
 // accumulate num2 into num1 with a sum operation
-TYPED(Complex_t*) TYPED(accumulateComplexSum)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+void TYPE_NAME(accumulateComplexSum)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate sum
-  TYPED(Complex_t*) sumNum = TYPED(sumComplexNumbers)(num1, num2);
+  TYPE_NAME(Complex_t*) sumNum = TYPE_NAME(sumComplexNumbers)(num1, num2);
 
   // set values to number 1
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(sumNum));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(sumNum));
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(sumNum));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(sumNum));
 
   // free allocated num
-  TYPED(freeComplexNumber)(sumNum);
+  TYPE_NAME(freeComplexNumber)(sumNum);
 }
 
 // accumulate num2 into num1 with a multiplication operation
-TYPED(Complex_t*) TYPED(accumulateComplexMulti)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2) {
+void TYPE_NAME(accumulateComplexMulti)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2) {
   // calculate sum
-  TYPED(Complex_t*) multiNum = TYPED(multiplyComplexNumbers)(num1, num2);
+  TYPE_NAME(Complex_t*) multiNum = TYPE_NAME(multiplyComplexNumbers)(num1, num2);
 
   // set values to number 1
-  TYPED(setValueToRealPart)(num1, TYPED(getRealPart)(multiNum));
-  TYPED(setValueToImaginaryPart)(num1, TYPED(getImaginaryPart)(multiNum));
+  TYPE_NAME(setValueToRealPart)(num1, TYPE_NAME(getRealPart)(multiNum));
+  TYPE_NAME(setValueToImaginaryPart)(num1, TYPE_NAME(getImaginaryPart)(multiNum));
 
   // free allocated num
-  TYPED(freeComplexNumber)(multiNum);
+  TYPE_NAME(freeComplexNumber)(multiNum);
 }
 
 // function to evaluate operation
-TYPED(Complex_t*) TYPED(evaluateComplexOperation)(TYPED(Complex_t*) num1, TYPED(Complex_t*) num2, char *op) {
+TYPE_NAME(Complex_t*) TYPE_NAME(evaluateComplexOperation)(TYPE_NAME(Complex_t*) num1, TYPE_NAME(Complex_t*) num2, char *op) {
   if (!strcmp(op, "+")) {
-    return TYPED(sumComplexNumbers)(num1, num2);
+    return TYPE_NAME(sumComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "-")) {
-    return TYPED(subtractComplexNumbers)(num1, num2);
+    return TYPE_NAME(subtractComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "*")) {
-    return TYPED(multiplyComplexNumbers)(num1, num2);
+    return TYPE_NAME(multiplyComplexNumbers)(num1, num2);
   } else if(!strcmp(op, "/")) {
-    return TYPED(divideComplexNumbers)(num1, num2);
+    return TYPE_NAME(divideComplexNumbers)(num1, num2);
   } else if (!strcmp(op, "+=")) {
-    TYPED(accumulateComplexSum)(num1, num2);
+    TYPE_NAME(accumulateComplexSum)(num1, num2);
   } else if (!strcmp(op, "*=")) {
-    TYPED(accumulateComplexMulti)(num1, num2);
+    TYPE_NAME(accumulateComplexMulti)(num1, num2);
   }
 }
 
-
 // display complex number
-void TYPED(displayComplexNumber)(TYPED(Complex_t*) num) {
-  TYPE imaginary = TYPED(getImaginaryPart)(num); 
-  printf(FORMAT, TYPED(getRealPart)(num));
+void TYPE_NAME(displayComplexNumber)(TYPE_NAME(Complex_t*) num) {
+  DATA_TYPE imaginary = TYPE_NAME(getImaginaryPart)(num); 
+  printf(IO_FORMAT, TYPE_NAME(getRealPart)(num));
 
   if (imaginary >= 0) {
     printf("+ ");
   }
 
-  printf(FORMAT, imaginary);
+  printf(IO_FORMAT, imaginary);
   printf("i");
-  printf("\n");
 }
 
 #endif
