@@ -254,6 +254,7 @@ TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TY
 	int count = 0;
 	DATA_TYPE vecValue = 0;
 	TYPE_NAME(vect_t) *indexVector = TYPE_NAME(createVector)(1, 0);
+	indexVector->index = 0;
 
 	for (int i = 0; i < vector->amountElements; i++)
 	{
@@ -460,60 +461,6 @@ double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
 	return sqrt(TYPE_NAME(calculateVariance)(vector));
 }
 
-double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector)
-{
-	DATA_TYPE min = 0, max = 0, guess, maxltguess, mingtguess;
-	int i, less, greater, equal;;
-	int size = TYPE_NAME(getAmountElements)(vector);
-
-	min = max = TYPE_NAME(getElementByIndex)(vector, 0);
-
-	for (i = 0; i < size; i++)
-	{
-		if (TYPE_NAME(getElementByIndex)(vector, i) < min)
-			min = (double) *(vector->array + i);
-		if (TYPE_NAME(getElementByIndex)(vector, i) > max)
-			max = (double) *(vector->array + i);
-	}
-
-	while (1)
-	{
-		guess = (min+max)/2;
-		less = 0; greater = 0; equal = 0;
-		maxltguess = min;
-		mingtguess = max;
-		for (i = 0; i < size; i++)
-		{
-			if (TYPE_NAME(getElementByIndex)(vector, i) < guess)
-			{
-				less++;
-				if (TYPE_NAME(getElementByIndex)(vector, i) > maxltguess)
-					maxltguess = TYPE_NAME(getElementByIndex)(vector, i);
-			}
-			else if (TYPE_NAME(getElementByIndex)(vector, i) > guess)
-			{
-				greater++;
-				if (TYPE_NAME(getElementByIndex)(vector, i) < mingtguess)
-					mingtguess = TYPE_NAME(getElementByIndex)(vector, i);
-			}
-			else
-				equal++;
-		}
-		if (less <= (size+1)/2 && greater <= (size+1)/2)
-			break;
-		else if (less>greater)
-			max = maxltguess;
-		else
-			min = mingtguess;
-	}
-	if (less >= (size+1)/2)
-		return (double) maxltguess;
-	else if (less+equal >= (size+1)/2)
-		return (double) guess;
-	else
-		return (double) mingtguess;
-}
-
 double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
 {
 	double median = 0;
@@ -536,6 +483,128 @@ double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
 
 	return median;
 }
+
+/*
+*	The following code is public domain.
+*	Algorithm by Torben Mogensen, implementation by N. Devillard.
+*	This code in public domain.
+*/
+double TYPE_NAME(calculateMedianTorben)(TYPE_NAME(vect_t *) vector)
+{
+	DATA_TYPE min = 0, max = 0, guess, maxltguess, mingtguess;
+	int i, less, greater, equal;
+	int size = TYPE_NAME(getAmountElements)(vector);
+
+	min = max = TYPE_NAME(getElementByIndex)(vector, 0);
+
+	for (i = 1; i < size; i++)
+	{
+		if (*(vector->array + i) < min)
+			min = *(vector->array + i);
+		if (*(vector->array + i) > max)
+			max = *(vector->array + i);
+	}
+
+	while (1)
+	{
+		guess = (min+max)/2;
+		less = 0; greater = 0; equal = 0;
+		maxltguess = min;
+		mingtguess = max;
+		for (i = 0; i < size; i++)
+		{
+			if (*(vector->array + i) < guess)
+			{
+				less++;
+				if (*(vector->array + i) > maxltguess)
+					maxltguess = *(vector->array + i);
+			}
+			else if (*(vector->array + i) > guess)
+			{
+				greater++;
+				if (*(vector->array + i) < mingtguess)
+					mingtguess = *(vector->array + i);
+			}
+			else
+				equal++;
+		}
+		if (less <= (size+1)/2 && greater <= (size+1)/2)
+			break;
+		else if (less > greater)
+			max = maxltguess;
+		else
+			min = mingtguess;
+	}
+	if (less >= (size+1)/2)
+		return (double) maxltguess;
+	else if (less+equal >= (size+1)/2)
+		return (double) guess;
+	else
+		return (double) mingtguess;
+}
+
+/*
+*	This Quickselect routine is based on the algorithm described in
+*	"Numerical recipes in C", Second Edition,
+*	Cambridge University Press, 1992, Section 8.5, ISBN 0-521-43108-5
+*	This code by Nicolas Devillard - 1998. Public domain.
+*/
+#define ELEM_SWAP(a, b) { register DATA_TYPE t=(a); (a)=(b); (b)=t; }
+double TYPE_NAME(calculateMedianQuickSelect)(TYPE_NAME(vect_t *) vector)
+{
+	int low = 0, high = TYPE_NAME(getAmountElements)(vector)-1;
+	int median = (low + high) / 2;
+	int middle, ll, hh;
+
+	for (0; TRUE; 0)
+	{
+		if (high <= low) /* One element only */
+			return *(vector->array + median);
+
+		if (high == low + 1)
+		{  /* Two elements only */
+			if (*(vector->array + low) > *(vector->array + high))
+				ELEM_SWAP(*(vector->array + low), *(vector->array + high));
+			return *(vector->array + median);
+		}
+
+		/* Find median of low, middle and high items; swap into position low */
+		middle = (low + high) / 2;
+		if (*(vector->array + middle) > *(vector->array + high))
+			ELEM_SWAP(*(vector->array + middle), *(vector->array + high));
+		if (*(vector->array + low) > *(vector->array + high))
+			ELEM_SWAP(*(vector->array + low), *(vector->array + high));
+		if (*(vector->array + middle) > *(vector->array + low))
+			ELEM_SWAP(*(vector->array + middle), *(vector->array + low));
+
+		/* Swap low item (now in position middle) into position (low+1) */
+		ELEM_SWAP(*(vector->array + middle), *(vector->array + low+1));
+
+		/* Nibble from each end towards middle, swapping items when stuck */
+		ll = low + 1;
+		hh = high;
+		for (0; TRUE; 0)
+		{
+			do ll++; while (*(vector->array + low) > *(vector->array + ll));
+			do hh--; while (*(vector->array + hh)  > *(vector->array + low));
+
+			if (hh < ll)
+			break;
+
+			ELEM_SWAP(*(vector->array + ll), *(vector->array + hh));
+		}
+
+		/* Swap middle item (in position low) back into correct position */
+		ELEM_SWAP(*(vector->array + low), *(vector->array + hh));
+
+		/* Re-set active partition */
+		if (hh <= median)
+			low = ll;
+		if (hh >= median)
+			high = hh - 1;
+	}
+}
+#undef ELEM_SWAP
 
 int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b)
 {

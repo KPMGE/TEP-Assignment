@@ -38,8 +38,9 @@
 	double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector); // calculate arithmetic mean
 	double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector); // calculate variance
 	double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector); // calculate standart deviation
-	double TYPE_NAME(calculateMedian)(TYPE_NAME(vect_t *) vector); // calculate median (form 1)
 	double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector); // calculate median (usually form)
+	double TYPE_NAME(calculateMedianTorben)(TYPE_NAME(vect_t *) vector); // calculate median (Torben source)
+	double TYPE_NAME(calculateMedianQuickSelect)(TYPE_NAME(vect_t *) vector); // calculate median (QuickSelect source)
 	int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b); // sorting criteria with comparison return
 	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2); // return difference of values
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector); // display vector in stdout

@@ -160,6 +160,7 @@ int main(void) {
 	INT_displayVector(my_vect);
 
 	printf("\nMean: %lf, Median: %lf, Variance: %lf, Standard Deviation: %lf\n", INT_calculateMean(equalsIndex), INT_calculateMedianUsually(equalsIndex), INT_calculateVariance(equalsIndex), INT_calculateDeviation(equalsIndex));
+	printf("Usually Median: %lf, Torben Median: %lf, QuickSelect Median: %lf\n", INT_calculateMedianUsually(equalsIndex), INT_calculateMedianTorben(equalsIndex), INT_calculateMedianQuickSelect(equalsIndex));
 
 	printf("\nVector size: %d and capacity: %d before cleaning.\n", INT_getAmountElements(my_vect), INT_getMaxCapacity(my_vect));
 	INT_clearAllVector(my_vect);
