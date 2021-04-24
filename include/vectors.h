@@ -1,10 +1,10 @@
 #ifndef VECTOR_TAD_H
 
-	#define VECTOR_TAD_H // pre-compilation program
+	#define VECTOR_TAD_H // pre-compilation program header, to verify that this header has already been included
 
 	/* type definitions */
-	typedef struct TYPE_NAME(vect_s) TYPE_NAME(vect_t); // struct pointer
-	typedef int (*TYPE_NAME(fptrI_DD))(DATA_TYPE, DATA_TYPE); // function pointer
+	typedef struct TYPE_NAME(vect_s) TYPE_NAME(vect_t); // struct type definition
+	typedef int (* TYPE_NAME(fptrI_DD))(DATA_TYPE, DATA_TYPE); // function pointer
 
 	/* functions prototypes */
 	void TYPE_NAME(adjustVector)(TYPE_NAME(vect_t *) vector); // adjust max array size and elements amount
@@ -42,7 +42,7 @@
 	double TYPE_NAME(calculateMedianTorben)(TYPE_NAME(vect_t *) vector); // calculate median (Torben source)
 	double TYPE_NAME(calculateMedianQuickSelect)(TYPE_NAME(vect_t *) vector); // calculate median (QuickSelect source)
 	int TYPE_NAME(sortingCriter)(DATA_TYPE a, DATA_TYPE b); // sorting criteria with comparison return
-	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2); // return difference of values
+	float TYPE_NAME(diffValues)(DATA_TYPE v1, DATA_TYPE v2); // return difference between values
 	void TYPE_NAME(displayVector)(TYPE_NAME(vect_t *) vector); // display vector in stdout
 
 #endif

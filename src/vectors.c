@@ -2,11 +2,12 @@
 #ifdef TYPE_NAME
 #ifdef IO_FORMAT
 
+// pre-compilation macros
 #define TRUE 1
 #define FALSE 0
 #define EPSILON 0.0001
 
-struct TYPE_NAME(vect_s)
+struct TYPE_NAME(vect_s) // structure for ATD
 {
 	int amountElements;
 	int maxCapacity;
@@ -16,29 +17,29 @@ struct TYPE_NAME(vect_s)
 
 void TYPE_NAME(adjustVector)(TYPE_NAME(vect_t *) vector)
 {
-	if (vector->amountElements >= vector->maxCapacity)
+	if (vector->amountElements >= vector->maxCapacity) // if the amount exceeds the capacity...
 	{
-		vector->maxCapacity *= 2;
+		vector->maxCapacity *= 2; // double the capacity
 	}
-	if (vector->amountElements < (vector->maxCapacity)/4)
+	if (vector->amountElements < (vector->maxCapacity)/4) // if the amount is less than a quarter of the capacity...
 	{
-		vector->maxCapacity /= 2;
+		vector->maxCapacity /= 2; // cut capacity in half
 	}
 
-	vector->array = (DATA_TYPE *) realloc(vector->array, vector->maxCapacity * sizeof(DATA_TYPE));
+	vector->array = (DATA_TYPE *) realloc(vector->array, vector->maxCapacity * sizeof(DATA_TYPE)); // reallocate memory space to array max capacity
 }
 
 TYPE_NAME(vect_t *) TYPE_NAME(createVector)(int n, int i)
 {
-	TYPE_NAME(vect_t) *vector = (TYPE_NAME(vect_t *)) malloc(sizeof(TYPE_NAME(vect_t)));
+	TYPE_NAME(vect_t) *vector = (TYPE_NAME(vect_t *)) malloc(sizeof(TYPE_NAME(vect_t))); // allocate memory space for the vector
 	vector->amountElements = n;
-	vector->maxCapacity = 100;
+	vector->maxCapacity = 100; // define max capacity, elements amount and vector index
 	vector->index = i;
-	vector->array = (DATA_TYPE *) malloc(vector->maxCapacity * sizeof(DATA_TYPE));
+	vector->array = (DATA_TYPE *) malloc(vector->maxCapacity * sizeof(DATA_TYPE)); // allocate memory space for the array
 
 	for (int j = 0; j < vector->maxCapacity; j++)
 	{
-		*(vector->array + j) = 0;
+		*(vector->array + j) = 0; // initialize elements values with zero
 	}
 
 	TYPE_NAME(adjustVector)(vector);
@@ -52,25 +53,25 @@ void TYPE_NAME(freeVector)(TYPE_NAME(vect_t *) vector)
 	{
 		if (vector->array != NULL)
 		{
-			free(vector->array);
+			free(vector->array); // free array allocated memory space and clear the address of pointer
 			vector->array = NULL;
 		}
 
-		free(vector);
+		free(vector); // free vector allocated memory space and clear the address of pointer
 		vector = NULL;
 	}
 }
 
 void TYPE_NAME(copyToExistingVector)(TYPE_NAME(vect_t *) v1, TYPE_NAME(vect_t *) v2)
 {
-	v2->amountElements = v1->amountElements;
+	v2->amountElements = v1->amountElements; // attribute vector1 properties to vector2
 	v2->maxCapacity = v1->maxCapacity;
 	v2->index = v1->index;
 	v2->array = (DATA_TYPE *) realloc(v2->array, v2->maxCapacity * sizeof(DATA_TYPE));
 
 	for (int i = 0; i < v1->maxCapacity; i++)
 	{
-		*(v2->array + i) = *(v1->array + i);
+		*(v2->array + i) = *(v1->array + i); // attribute vector1 elements to vector2
 	}
 
 	TYPE_NAME(adjustVector)(v1);
@@ -79,16 +80,16 @@ void TYPE_NAME(copyToExistingVector)(TYPE_NAME(vect_t *) v1, TYPE_NAME(vect_t *)
 
 TYPE_NAME(vect_t *) TYPE_NAME(copyToNewVector)(TYPE_NAME(vect_t *) v1)
 {
-	TYPE_NAME(vect_t) *v2 = TYPE_NAME(createVector)(50, 0);
+	TYPE_NAME(vect_t) *v2 = TYPE_NAME(createVector)(50, 0); // create vector2
 
-	v2->amountElements = v1->amountElements;
+	v2->amountElements = v1->amountElements; // attribute vector1 properties to vector2
 	v2->maxCapacity = v1->maxCapacity;
 	v2->index = v1->index;
 	v2->array = (DATA_TYPE *) realloc(v2->array, v2->maxCapacity * sizeof(DATA_TYPE));
 
 	for (int i = 0; i < v1->maxCapacity; i++)
 	{
-		*(v2->array + i) = *(v1->array + i);
+		*(v2->array + i) = *(v1->array + i); // attribute vector1 elements to vector2
 	}
 
 	TYPE_NAME(adjustVector)(v1);
@@ -99,59 +100,59 @@ TYPE_NAME(vect_t *) TYPE_NAME(copyToNewVector)(TYPE_NAME(vect_t *) v1)
 
 int TYPE_NAME(getAmountElements)(TYPE_NAME(vect_t *) vector)
 {
-	return vector->amountElements;
+	return vector->amountElements; // returns vector elements amount
 }
 
 int TYPE_NAME(getMaxCapacity)(TYPE_NAME(vect_t *) vector)
 {
-	return vector->maxCapacity;
+	return vector->maxCapacity; // returns vector max capacity
 }
 
 int TYPE_NAME(getIndex)(TYPE_NAME(vect_t *) vector)
 {
-	return vector->index;
+	return vector->index; // returns vector actual index
 }
 
 DATA_TYPE TYPE_NAME(getFirstElement)(TYPE_NAME(vect_t *) vector)
 {
-	vector->index = 0;
+	vector->index = 0; // fixes vector index in the first position
 
-	return *(vector->array + vector->index);
+	return *(vector->array + vector->index); // returns vector first element
 }
 
 DATA_TYPE TYPE_NAME(getNextElement)(TYPE_NAME(vect_t *) vector)
 {
-	vector->index += 1;
+	vector->index += 1; // fixes vector index in the next position of index
 
-	return *(vector->array + vector->index);
+	return *(vector->array + vector->index); // returns vector next element
 }
 
 DATA_TYPE TYPE_NAME(getPrevElement)(TYPE_NAME(vect_t *) vector)
 {
-	vector->index -= 1;
+	vector->index -= 1; // fixes vector index in the previous position of index
 
-	return *(vector->array + vector->index);
+	return *(vector->array + vector->index); // returns vector previous element
 }
 
 DATA_TYPE TYPE_NAME(getLastElement)(TYPE_NAME(vect_t *) vector)
 {
-	vector->index = vector->amountElements;
+	vector->index = vector->amountElements - 1; // fixes vector index in the last position
 
-	return *(vector->array + vector->index);
+	return *(vector->array + vector->index); // returns vector last element
 }
 
 DATA_TYPE TYPE_NAME(getElementByIndex)(TYPE_NAME(vect_t *) vector, int i)
 {
-	if (i > vector->amountElements)
+	if (i > vector->amountElements-1)
 	{
 		vector->index = vector->amountElements - 1;
 	}
 	else
 	{
-		vector->index = i;
+		vector->index = i; // fixes vector in the indexed position
 	}
 
-	return *(vector->array + vector->index);
+	return *(vector->array + vector->index); // returns vector indexed element
 }
 
 void TYPE_NAME(insertIndexPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v, int i)
@@ -159,7 +160,7 @@ void TYPE_NAME(insertIndexPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v, int
 	if (i >= 0 && i <= vector->amountElements)
 	{
 		vector->index = i;
-		*(vector->array + vector->index) = v;
+		*(vector->array + vector->index) = v; // insert in indexed element position a value
 	}
 
 	TYPE_NAME(adjustVector)(vector);
@@ -170,7 +171,7 @@ void TYPE_NAME(insertLastPosValue)(TYPE_NAME(vect_t *) vector, DATA_TYPE v)
 	vector->amountElements++;
 	vector->index = vector->amountElements - 1;
 
-	*(vector->array + vector->index) = v;
+	*(vector->array + vector->index) = v; // insert in last element position a value (append)
 
 	TYPE_NAME(adjustVector)(vector);
 }
@@ -179,7 +180,7 @@ DATA_TYPE TYPE_NAME(deletePosition)(TYPE_NAME(vect_t *) vector, int i)
 {
 	for (int j = i; j < vector->amountElements; j++)
 	{
-		*(vector->array + j) = *(vector->array + (j+1));
+		*(vector->array + j) = *(vector->array + (j+1)); // delete a indexed element position and adjust vector size
 	}
 	vector->amountElements--;
 
@@ -190,9 +191,9 @@ DATA_TYPE TYPE_NAME(deletePosition)(TYPE_NAME(vect_t *) vector, int i)
 
 void TYPE_NAME(clearAllVector)(TYPE_NAME(vect_t *) vector)
 {
-	for (int i = 0; i <= vector->amountElements; i++)
+	for (int i = 0; i <= vector->amountElements; i++) // travels across the vector
 	{
-		*(vector->array + i) = 0;
+		*(vector->array + i) = 0; // clear all vector data and adjust vector size
 	}
 	vector->amountElements = 2;
 
@@ -203,7 +204,7 @@ DATA_TYPE TYPE_NAME(getBiggestAbs)(TYPE_NAME(vect_t *) vector)
 {
 	DATA_TYPE higherValue = 0;
 
-	for (int i = 0; i < vector->amountElements; i++)
+	for (int i = 0; i < vector->amountElements; i++) // travels across the vector
 	{
 		if (abs(*(vector->array + i)) > higherValue)
 		{
@@ -212,14 +213,14 @@ DATA_TYPE TYPE_NAME(getBiggestAbs)(TYPE_NAME(vect_t *) vector)
 		}
 	}
 
-	return higherValue;
+	return higherValue; // returns the value of the biggerst absolute value
 }
 
 DATA_TYPE TYPE_NAME(getSmallestAbs)(TYPE_NAME(vect_t *) vector)
 {
 	DATA_TYPE lowerValue = 0;
 
-	for (int i = 0; i < vector->amountElements; i++)
+	for (int i = 0; i < vector->amountElements; i++) // travels across the vector
 	{
 		if (abs(*(vector->array + i)) < lowerValue)
 		{
@@ -228,7 +229,7 @@ DATA_TYPE TYPE_NAME(getSmallestAbs)(TYPE_NAME(vect_t *) vector)
 		}
 	}
 
-	return lowerValue;
+	return lowerValue; // returns the value of the smallest absolute value
 }
 
 int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value)
@@ -240,20 +241,20 @@ int TYPE_NAME(countEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value)
 	{
 		vecValue = *(vector->array + i);
 
-		if (TYPE_NAME(diffValues)(vecValue, value) <= EPSILON)
+		if (TYPE_NAME(diffValues)(vecValue, value) <= EPSILON) // epsilon its a diff tolerance value
 		{
 			count++;
 		}
 	}
 
-	return count;
+	return count; // returns quantity of equal numbers in array
 }
 
 TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TYPE value)
 {
 	int count = 0;
 	DATA_TYPE vecValue = 0;
-	TYPE_NAME(vect_t) *indexVector = TYPE_NAME(createVector)(1, 0);
+	TYPE_NAME(vect_t) *indexVector = TYPE_NAME(createVector)(1, 0); // create a index values vector
 	indexVector->index = 0;
 
 	for (int i = 0; i < vector->amountElements; i++)
@@ -271,32 +272,24 @@ TYPE_NAME(vect_t *) TYPE_NAME(indexOfEquals)(TYPE_NAME(vect_t *) vector, DATA_TY
 	indexVector->amountElements = count;
 	TYPE_NAME(adjustVector)(indexVector);
 
-	return indexVector;
+	return indexVector; // returns a vector with index of equals numbers in array
 }
 
+// IsertionSort
 void TYPE_NAME(sortVector)(TYPE_NAME(vect_t *) vector, TYPE_NAME(fptrI_DD) criteria) /* without typedef it would be necessary to insert all function pointer notation */
 {
-	int shift = TRUE, i, j;
+	int i, j, size = TYPE_NAME(getAmountElements)(vector);
 	DATA_TYPE memory;
-	int size = TYPE_NAME(getAmountElements)(vector);
 
-	for (j = (size - 1); (j >= 1) && (shift); j--)
+	for (i = 1; i < size; i++) // traverses the entire vector from the second position
 	{
-		shift = FALSE;
+		memory = *(vector->array + i); // fixed to position 'i' in variable 'memory'
 
-		for (i = 0; i < j; i++)
+		for (j = i; (j > 0) && (criteria(memory, *(vector->array + (j-1))) == -1); j--) // while the current position of the 'memory' is less than the positions before it ...
 		{
-			DATA_TYPE value1 = TYPE_NAME(getElementByIndex)(vector, i);
-			DATA_TYPE value2 = TYPE_NAME(getElementByIndex)(vector, i+1);
-
-			if (criteria(value1, value2) == 1)
-			{
-				memory = *(vector->array + i);
-				*(vector->array + i) = *(vector->array + (i+1));
-				*(vector->array + (i+1)) = memory;
-				shift = TRUE;
-			}
+			*(vector->array + j) = *(vector->array + (j-1)); // sorts from position 'j' to previous positions
 		}
+		*(vector->array + j) = memory; // inserts the position fixed at the last order point from 'j', fixing the next position 'i' and repeating the process
 	}
 }
 
@@ -313,19 +306,18 @@ TYPE_NAME(vect_t *) TYPE_NAME(regularlyInsert)(TYPE_NAME(vect_t *) vector1, TYPE
 		exit(1);
 	}
 
-	TYPE_NAME(vect_t) *newVec = TYPE_NAME(createVector)(size1+size2, 0);
+	TYPE_NAME(vect_t) *newVec = TYPE_NAME(createVector)(size1+size2, 0); // create 'newVec'
 
-	for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && (j < size1) && (j < size2); i += 2) /*  for (int i = 0; (i < TYPE_NAME(getAmountElements)(newVec)) && (criteria(j, size1) == -1) && (criteria(j, size2) == -1); i += 2)  */
+	for (int i = 0; (criteria(i, TYPE_NAME(getAmountElements)(newVec)) == -1) && (criteria(j, size1) == -1) && (criteria(j, size2) == -1); i += 2) // while amount elements of vectors is higher than 'i' and 'j'...
 	{
 		*(newVec->array + i) = TYPE_NAME(getElementByIndex)(vector1, j);
-		*(newVec->array + (i+1)) = TYPE_NAME(getElementByIndex)(vector2, j);
+		*(newVec->array + (i+1)) = TYPE_NAME(getElementByIndex)(vector2, j); // anternate to insert vector1 and vector2 elements in 'newVec'
 		j++;
 	}
 	TYPE_NAME(adjustVector)(newVec);
 
 	return newVec;
 }
-
 
 TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t *) vector2)
 {
@@ -343,7 +335,7 @@ TYPE_NAME(vect_t *) TYPE_NAME(sumVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME
 
 	for (int i = 0; i < amountElementsVector1; i++)
 	{
-		sum = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i);
+		sum = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i); // sum element by element
 		TYPE_NAME(insertIndexPosValue)(sumVector, sum, i);
 	}
 
@@ -368,7 +360,7 @@ TYPE_NAME(vect_t *) TYPE_NAME(subtractVectors)(TYPE_NAME(vect_t *) vector1, TYPE
 
 	for (int i = 0; i < amountElementsVector1; i++)
 	{
-		sub = TYPE_NAME(getElementByIndex)(vector1, i) - TYPE_NAME(getElementByIndex)(vector2, i);
+		sub = TYPE_NAME(getElementByIndex)(vector1, i) - TYPE_NAME(getElementByIndex)(vector2, i); // subtract element by element
 		TYPE_NAME(insertIndexPosValue)(subVector, sub, i);
 	}
 
@@ -383,7 +375,7 @@ void TYPE_NAME(multiplyVectorByScalar)(TYPE_NAME(vect_t *) vector, DATA_TYPE sca
 
 	for (int i = 0; i < TYPE_NAME(getAmountElements)(vector); i++)
 	{
-		multi = scalar * TYPE_NAME(getElementByIndex)(vector, i);
+		multi = scalar * TYPE_NAME(getElementByIndex)(vector, i); // multiply each element by a scalar
 		TYPE_NAME(insertIndexPosValue)(vector, multi, i);
 	}
 }
@@ -402,7 +394,7 @@ double TYPE_NAME(calculateScalarProduct)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(
 
 	for (int i = 0; i < amountElementsVector1; i++)
 	{
-		scalarProduct += (TYPE_NAME(getElementByIndex)(vector1, i) * TYPE_NAME(getElementByIndex)(vector2, i));
+		scalarProduct += (TYPE_NAME(getElementByIndex)(vector1, i) * TYPE_NAME(getElementByIndex)(vector2, i)); // multiply element by element and sum them
 	}
 
 	return scalarProduct;
@@ -422,7 +414,7 @@ void TYPE_NAME(accumulateVectors)(TYPE_NAME(vect_t *) vector1, TYPE_NAME(vect_t 
 
 	for (int i = 0; i < amountElementsVector1; i++)
 	{
-		acc = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i);
+		acc = TYPE_NAME(getElementByIndex)(vector1, i) + TYPE_NAME(getElementByIndex)(vector2, i); // accumulate a vector in another vector
 		TYPE_NAME(insertIndexPosValue)(vector1, acc, i);
 	}
 
@@ -435,9 +427,9 @@ double TYPE_NAME(calculateMean)(TYPE_NAME(vect_t *) vector)
 
 	for (int i = 0; i < (TYPE_NAME(getAmountElements)(vector)); i++)
 	{
-		mean += TYPE_NAME(getElementByIndex)(vector, i);
+		mean += TYPE_NAME(getElementByIndex)(vector, i); // sum all elements...
 	}
-	mean = mean / (TYPE_NAME(getAmountElements)(vector));
+	mean = mean / (TYPE_NAME(getAmountElements)(vector)); // and divide by the elements amount
 
 	return mean;
 }
@@ -449,37 +441,37 @@ double TYPE_NAME(calculateVariance)(TYPE_NAME(vect_t *) vector)
 
 	for (int i = 0; i < (TYPE_NAME(getAmountElements)(vector)); i++)
 	{
-		var += pow((TYPE_NAME(getElementByIndex)(vector, i) - mean), 2);
+		var += pow((TYPE_NAME(getElementByIndex)(vector, i) - mean), 2); // sum all square of difference between element and vector mean...
 	}
-	var = var / ((TYPE_NAME(getAmountElements)(vector)) - 1);
+	var = var / ((TYPE_NAME(getAmountElements)(vector)) - 1); // and divide by the elements amount except one
 
 	return var;
 }
 
 double TYPE_NAME(calculateDeviation)(TYPE_NAME(vect_t *) vector)
 {
-	return sqrt(TYPE_NAME(calculateVariance)(vector));
+	return sqrt(TYPE_NAME(calculateVariance)(vector)); // returns squareoot of variance
 }
 
 double TYPE_NAME(calculateMedianUsually)(TYPE_NAME(vect_t *) vector)
 {
 	double median = 0;
 	int size = TYPE_NAME(getAmountElements)(vector);
-	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index);
+	TYPE_NAME(vect_t) *newVector = TYPE_NAME(createVector)(vector->amountElements, vector->index); // create a new vector...
 
-	TYPE_NAME(accumulateVectors)(newVector, vector);
-	TYPE_NAME(sortVector)(newVector, TYPE_NAME(sortingCriter));
+	TYPE_NAME(accumulateVectors)(newVector, vector); // and insert the vector content in the new vector
+	TYPE_NAME(sortVector)(newVector, TYPE_NAME(sortingCriter)); // sort all new vector elements
 
 	if (TYPE_NAME(getAmountElements)(newVector) % 2 == 0)
 	{
 		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2) + TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
-		median = median / 2.0;
+		median = median / 2.0; // get the mean of middle elements
 	}
 	else
 	{
-		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1);
+		median = TYPE_NAME(getElementByIndex)(newVector, (size-1)/2 + 1); // get the element
 	}
-	TYPE_NAME(freeVector)(newVector);
+	TYPE_NAME(freeVector)(newVector); // delete new vector
 
 	return median;
 }
